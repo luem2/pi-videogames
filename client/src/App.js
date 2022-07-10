@@ -1,10 +1,19 @@
+import Navbar from './components/Navbar/Navbar.jsx';
+import Landing from './components/Landing/Landing.jsx';
+import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Videogames</h1>
-    </div>
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Landing />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
