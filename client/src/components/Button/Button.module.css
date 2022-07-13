@@ -1,0 +1,16 @@
+button {
+  margin-top: 20px;
+  height: 30px;
+  width: 200px;
+  border: 1ch;
+  border-radius: 5%;
+  background-color: rgb(60, 60, 207);
+}
+
+button:hover {
+  background-color: aqua;
+  color: black;
+  font-weight: bold;
+  transition: 500ms;
+  cursor: pointer;
+}

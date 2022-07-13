@@ -1,7 +1,15 @@
-body {
+* {
   margin: 0;
-  background-color: #222222;
-  color: #D3DAE3;
+  padding: 0;
+  color: #d3dae3;
+  box-sizing: border-box;
+}
+
+body {
+  background: #41295a;
+  background: -webkit-linear-gradient(to right, #2f0743, #41295a);
+  background: linear-gradient(to right, #2f0743, #41295a);
+  font-weight: bolder;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

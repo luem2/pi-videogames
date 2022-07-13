@@ -1,10 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import style from './Navbar.module.css';
 
 function Navbar() {
   return (
-    <nav className={style.__header}>
-      <h1>Soy el madafakin Navbar breeeo</h1>
+    <nav className={style.header}>
+      <NavLink>
+        <h1>Soy el madafakin Navbar breeeo</h1>
+      </NavLink>
     </nav>
   );
 }
