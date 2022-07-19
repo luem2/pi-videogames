@@ -1,27 +1,28 @@
-import { React, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllVideogames } from '../../redux/actions';
+import React from 'react';
 import Videogame from '../Videogame/Videogame';
+import Loader from '../Loader/Loader';
+import style from './Videogames.module.css';
 
-const Videogames = () => {
-  const videogames = useSelector(state => state.videogames);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllVideogames());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+const Videogames = ({ currentVideogames }) => {
   return (
-    <div>
-      {videogames?.map(g => (
-        <Videogame
-          key={g.id}
-          name={g.name}
-          image={g.background_image}
-          genres={g.genres?.map(o => o.genre_name)}
-          rating={g.rating}
-        />
-      ))}
+    <div className={style.container}>
+      {currentVideogames.length ? (
+        <React.Fragment>
+          {currentVideogames.map(g => (
+            <Videogame
+              key={g.id}
+              id={g.id}
+              name={g.name}
+              image={g.background_image}
+              genres={g.genres?.map(o => o + ' ')}
+              rating={g.rating}
+            />
+          ))}
+        </React.Fragment>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };
-
 export default Videogames;

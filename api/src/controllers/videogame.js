@@ -6,7 +6,6 @@ const getIdGame = async (req, res, next) => {
   const { idVideogame } = req.params;
 
   try {
-    //? typeof idVideogame === 'string' <- Probable implementación
     if (idVideogame.length === 36) {
       const gameId = await Videogame.findByPk(idVideogame);
       res.send(gameId);
@@ -36,13 +35,9 @@ const getIdGame = async (req, res, next) => {
           id: p.platform.id,
           name: p.platform.name,
         })),
-        genres: genres?.map(g => ({
-          id: g.id,
-          genre_name: g.name,
-        })),
         background_image,
+        genres: genres?.map(g => g.name),
       };
-
       res.send(gameId);
     }
   } catch (error) {

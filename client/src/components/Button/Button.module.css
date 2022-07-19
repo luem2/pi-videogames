@@ -1,16 +1,16 @@
 button {
   margin-top: 20px;
   height: 30px;
+  border: none;
+  font-weight: bold;
   width: 200px;
-  border: 1ch;
-  border-radius: 5%;
-  background-color: rgb(60, 60, 207);
+  border-radius: 20px;
+  background-color: #6f0aaa;
 }
 
 button:hover {
-  background-color: aqua;
-  color: black;
+  background-color: #3f085f;
   font-weight: bold;
-  transition: 500ms;
+  transition: 300ms;
   cursor: pointer;
 }

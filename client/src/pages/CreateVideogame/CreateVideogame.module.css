@@ -1,0 +1,87 @@
+.createVideogameSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerForm input {
+  height: 40px;
+  width: 600px;
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0, 0.3);
+}
+
+.containerForm select {
+  background-color: rgb(0, 0, 0, 0.3);
+}
+.containerForm label {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.containerForm textarea {
+  margin-top: 20px;
+  background-color: rgb(0, 0, 0, 0.3);
+}
+
+.nameInput p {
+  color: red;
+}
+
+.descriptionInput p {
+  color: red;
+}
+
+.ratingInput p {
+  color: red;
+}
+
+.platformsInput select {
+  width: 600px;
+  height: 100px;
+}
+
+.platformsInput p {
+  color: red;
+}
+
+.genresInput select {
+  height: 40px;
+  width: 600px;
+  border-radius: 10px;
+}
+
+.genresInput p {
+  color: red;
+}
+
+.image {
+  height: 40px;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  margin-top: 20px;
+}
+
+.danger {
+  color: red;
+  border: 2px solid red;
+}

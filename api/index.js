@@ -20,6 +20,7 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { SV_PORT } = require('./src/utility/');
+const getGenres = require('./src/controllers/genres');
 // Syncing all the models at once.
 
 const connectionOK = async () => {
@@ -34,7 +35,8 @@ const connectionOK = async () => {
 connectionOK();
 
 conn.sync({ force: false }).then(() => {
+  getGenres();
   server.listen(SV_PORT, () => {
-    console.log(`%s listening at ${SV_PORT}`); // eslint-disable-line no-console
+    console.log(`%s Listening on ${SV_PORT}`); // eslint-disable-line no-console
   });
 });

@@ -32,11 +32,12 @@ module.exports = sequelize => {
       },
 
       released: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING,
       },
 
       rating: {
         type: DataTypes.FLOAT,
+        // type: DataTypes.INTEGER,
         validate: {
           isNumeric: true,
           is: {
@@ -47,7 +48,7 @@ module.exports = sequelize => {
       },
 
       platforms: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
     },

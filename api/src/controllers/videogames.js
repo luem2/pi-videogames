@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Videogame } = require('../db');
+const { Videogame, Genre } = require('../db');
 const { API_KEY, API_GAMES_EP, API_GAMES_QUERY_EP } = require('../utility/');
 
 const getGames = async (req, res, next) => {
@@ -7,53 +7,63 @@ const getGames = async (req, res, next) => {
 
   try {
     if (!name) {
-      const result = await axios.get(`${API_GAMES_EP}?key=${API_KEY}`);
+      const allGamesApi = [];
 
-      const games = result.data.results.map(g => ({
-        id: g.id,
-        name: g.name,
-        genres: g.genres?.map(g => ({
+      for (let i = 1; i < 6; i++) {
+        const resultAPI = await axios.get(
+          `${API_GAMES_EP}?key=${API_KEY}&page=${i}`
+        );
+
+        const gamesAPI = resultAPI.data.results.map(g => ({
           id: g.id,
-          genre_name: g.name,
-        })),
-        background_image: g.background_image,
-        rating: g.rating,
-        platforms: g.platforms?.map(p => ({
-          id: p.platform.id,
-          platform_name: p.platform.name,
-        })),
-      }));
+          name: g.name,
+          genres: g.genres?.map(g => g.name),
+          background_image: g.background_image,
+          rating: g.rating,
+          platforms: g.platforms?.map(p => ({
+            id: p.platform.id,
+            platform_name: p.platform.name,
+          })),
+        }));
 
-      games.length
-        ? res.send(games)
-        : res.status(401).send({ msg: 'Error en la petición' });
-    } else {
-      const result = await axios.get(
-        `${API_GAMES_QUERY_EP}${name}&key=${API_KEY}`
-      );
-
-      const firstGames = result.data.results.slice(0, 15);
-      const filteredGames = firstGames.map(g => ({
-        id: g.id,
-        name: g.name,
-        genres: g.genres?.map(g => ({
-          id: g.id,
-          genre_name: g.name,
-        })),
-        background_image: g.background_image,
-        rating: g.rating,
-        platforms: g.platforms?.map(p => ({
-          id: p.platform.id,
-          platform_name: p.platform.name,
-        })),
-      }));
-
-      if (filteredGames.length) res.send(filteredGames);
-      else {
-        res
-          .status(401)
-          .send({ msg: 'No se ha encontrado el juego solicitado' });
+        allGamesApi.push(...gamesAPI);
       }
+
+      const dbGames = await Videogame.findAll();
+
+      const allGames = [...allGamesApi, ...dbGames];
+      allGames.sort((a, b) => a.name.length < b.name.length);
+
+      allGames.length
+        ? res.send(allGames)
+        : res.status(401).send({ msg: 'No games Found' });
+    } else {
+      const allQueryApiGames = [];
+
+      for (let i = 1; i < 6; i++) {
+        const apiResult = await axios.get(
+          `${API_GAMES_QUERY_EP}${name}&key=${API_KEY}&page=${i}`
+        );
+
+        if (apiResult.data.next) {
+          const queryApiGames = apiResult.data.results.map(g => ({
+            id: g.id,
+            name: g.name,
+            genres: g.genres?.map(g => g.name),
+            background_image: g.background_image,
+            rating: g.rating,
+            platforms: g.platforms?.map(p => ({
+              id: p.platform.id,
+              platform_name: p.platform.name,
+            })),
+          }));
+          allQueryApiGames.push(...queryApiGames);
+        } else break;
+      }
+
+      allQueryApiGames.length
+        ? res.send(allQueryApiGames)
+        : res.status(404).send({ msg: 'The requested game was not found' });
     }
   } catch (error) {
     next(error);
@@ -61,23 +71,40 @@ const getGames = async (req, res, next) => {
 };
 
 const postGame = async (req, res, next) => {
-  const { name, description, background_image, released, rating, platforms } =
-    req.body;
+  const {
+    name,
+    description,
+    genres,
+    background_image,
+    released,
+    rating,
+    platforms,
+  } = req.body;
+
+  if (!name || !description || !platforms) {
+    res.status(401).send({ msg: 'Required data is missing' });
+  }
+
+  const gameCreated = await Videogame.create({
+    name,
+    description,
+    background_image,
+    released,
+    rating,
+    platforms,
+  });
+
+  const genreMatched = await Genre.findAll({
+    where: {
+      name: genres,
+    },
+  });
 
   try {
-    if (!name || !description || !platforms)
-      res.status(401).send({ msg: 'Faltan datos requeridos' });
-    else {
-      const gameCreated = await Videogame.create({
-        name,
-        description,
-        background_image,
-        released,
-        rating,
-        platforms,
-      });
-      res.send(gameCreated);
-    }
+    gameCreated.addGenre(genreMatched);
+    res.send({
+      msg: 'The Videogame was created successfully!',
+    });
   } catch (error) {
     next(error);
   }

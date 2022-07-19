@@ -1,7 +1,23 @@
-import { GET_ALL_GAMES } from './actions';
+import {
+  GET_ALL_GAMES,
+  GET_QUERY_GAMES,
+  ALPHA_SORT,
+  RATING_SORT,
+  GENRES_SORT,
+  GAMES_SORT,
+  GET_DETAILS,
+  POST_GAME,
+  GET_GENRES,
+  CLEAR_DETAILS,
+} from './actions';
+
+import { ASCENDENTE, EXTERNAL_API } from '../utility';
 
 const initialState = {
   videogames: [],
+  filteredVideogames: [],
+  videogameDetail: [],
+  genres: [],
 };
 
 function reducer(state = initialState, action) {
@@ -10,6 +26,87 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         videogames: action.payload,
+        filteredVideogames: action.payload,
+      };
+
+    case GET_QUERY_GAMES:
+      return {
+        ...state,
+        filteredVideogames: action.payload,
+      };
+
+    case ALPHA_SORT:
+      const alphabeticVideogames = [...state.videogames];
+      alphabeticVideogames.sort((a, b) => {
+        if (a.name.toLowerCase() < b.name.toLowerCase())
+          return action.payload === ASCENDENTE ? -1 : 1;
+        else if (a.name.toLowerCase() > b.name.toLowerCase())
+          return action.payload === ASCENDENTE ? 1 : -1;
+        else return 0;
+      });
+
+      return {
+        ...state,
+        filteredVideogames: alphabeticVideogames,
+      };
+
+    case RATING_SORT:
+      const ratingVideogames = [...state.videogames];
+      ratingVideogames.sort((a, b) => {
+        if (a.rating < b.rating) return action.payload === ASCENDENTE ? -1 : 1;
+        else if (a.rating > b.rating)
+          return action.payload === ASCENDENTE ? 1 : -1;
+        else return 0;
+      });
+
+      return {
+        ...state,
+        filteredVideogames: ratingVideogames,
+      };
+
+    case GENRES_SORT:
+      const genresVideogames = [...state.videogames];
+      const filteredVideogames = genresVideogames.filter(g =>
+        g.genres?.includes(action.payload)
+      );
+      return {
+        ...state,
+        filteredVideogames: filteredVideogames,
+      };
+
+    case GAMES_SORT:
+      let gamesVideogames = [...state.videogames].filter(g => {
+        if (action.payload === EXTERNAL_API) {
+          return g.id.length !== 36;
+        } else {
+          return g.id.length === 36;
+        }
+      });
+
+      return {
+        ...state,
+        filteredVideogames: gamesVideogames,
+      };
+
+    case GET_DETAILS:
+      return {
+        ...state,
+        videogameDetail: action.payload,
+      };
+
+    case CLEAR_DETAILS:
+      return {
+        ...state,
+        videogameDetail: [],
+      };
+    case POST_GAME:
+      return {
+        ...state,
+      };
+    case GET_GENRES:
+      return {
+        ...state,
+        genres: action.payload,
       };
     default:
       return { ...state };

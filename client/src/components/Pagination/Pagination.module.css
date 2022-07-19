@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
+}
+
+.page {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 20px;
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px;
+  border-radius: 2px;
+  color: white;
+  padding: 2px;
+  padding-bottom: 5px;
+  height: 30px;
+  width: 50px;
+  background-color: #460b68;
+}
+
+.number:hover {
+  cursor: pointer;
+  background-color: #6115b8;
+  transition: 200ms;
+}

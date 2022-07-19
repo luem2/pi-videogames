@@ -1,12 +1,8 @@
 .container {
   display: flex;
-  font-size: 12px;
-  gap: 10px;
   align-items: center;
   justify-content: center;
   background-color: rgb(0, 0, 0, 0.3);
-}
-
-.image {
-  width: 30px;
+  gap: 50px;
+  margin-bottom: 50px;
 }

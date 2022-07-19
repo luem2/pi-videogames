@@ -1,12 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import style from './Videogame.module.css';
 
-const Videogame = props => {
+const Videogame = ({ id, name, image, rating, genres }) => {
   return (
-    <div>
-      <img src={props.image} alt={`${props.name}`} />
-      <h3>{props.name}</h3>
-      <p>{props.rating}★</p>
-      <p>{props.genres}</p>
+    <div className={style.container}>
+      <Link to={`/details/${id}`}>
+        <img className={style.images} src={image} alt={name} />
+        <h3 className={style.h3}>{name}</h3>
+        <p className={style.p}>{rating}★</p>
+        <p className={style.p}>{genres}</p>
+      </Link>
     </div>
   );
 };
