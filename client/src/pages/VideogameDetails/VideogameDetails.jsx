@@ -29,9 +29,21 @@ const VideogameDetails = () => {
           />
           <div className={style.infoContainer}>
             <h3 className={style.title}>{videogame.name}</h3>
-            <p>Genres: {videogame.genres?.map(g => g) + ''}</p>
+
+            <p>
+              Genres:{' '}
+              {videogame.id.length !== 36
+                ? videogame.genres?.map(g => g + ' ')
+                : videogame.Genres?.map(o => o.name + ' ')}
+            </p>
+
             <p>Released: {videogame.released}</p>
-            <p>Platforms: {videogame.platforms?.map(p => p.name) + ''}</p>
+            <p>
+              Platforms:{' '}
+              {videogame.id.length === 36
+                ? videogame.platforms?.map(p => p + ' ')
+                : videogame.platforms?.map(p => p.name) + ''}
+            </p>
             <p>Rating: {videogame.rating}★</p>
           </div>
 

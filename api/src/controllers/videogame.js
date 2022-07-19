@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Videogame } = require('../db');
+const { Videogame, Genre } = require('../db');
 const { API_KEY, API_GAMES_ID_EP } = require('../utility/');
 
 const getIdGame = async (req, res, next) => {
@@ -7,7 +7,10 @@ const getIdGame = async (req, res, next) => {
 
   try {
     if (idVideogame.length === 36) {
-      const gameId = await Videogame.findByPk(idVideogame);
+      const gameId = await Videogame.findByPk(idVideogame, {
+        include: Genre,
+      });
+
       res.send(gameId);
     } else {
       const result = await axios.get(

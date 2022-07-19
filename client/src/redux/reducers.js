@@ -36,7 +36,7 @@ function reducer(state = initialState, action) {
       };
 
     case ALPHA_SORT:
-      const alphabeticVideogames = [...state.videogames];
+      const alphabeticVideogames = [...state.filteredVideogames];
       alphabeticVideogames.sort((a, b) => {
         if (a.name.toLowerCase() < b.name.toLowerCase())
           return action.payload === ASCENDENTE ? -1 : 1;
@@ -51,7 +51,7 @@ function reducer(state = initialState, action) {
       };
 
     case RATING_SORT:
-      const ratingVideogames = [...state.videogames];
+      const ratingVideogames = [...state.filteredVideogames];
       ratingVideogames.sort((a, b) => {
         if (a.rating < b.rating) return action.payload === ASCENDENTE ? -1 : 1;
         else if (a.rating > b.rating)
@@ -65,7 +65,7 @@ function reducer(state = initialState, action) {
       };
 
     case GENRES_SORT:
-      const genresVideogames = [...state.videogames];
+      const genresVideogames = [...state.filteredVideogames];
       const filteredVideogames = genresVideogames.filter(g =>
         g.genres?.includes(action.payload)
       );

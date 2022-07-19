@@ -25,6 +25,10 @@
   background-color: #460b68;
 }
 
+/* .page span {
+  background-color: black;
+} */
+
 .number:hover {
   cursor: pointer;
   background-color: #6115b8;

@@ -57,7 +57,6 @@ const CreateVideogame = () => {
       ...videogame,
       [e.target.name]: e.target.value,
     });
-
     setErrors(
       validate({
         ...videogame,

@@ -37,7 +37,6 @@ module.exports = sequelize => {
 
       rating: {
         type: DataTypes.FLOAT,
-        // type: DataTypes.INTEGER,
         validate: {
           isNumeric: true,
           is: {

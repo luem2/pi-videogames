@@ -29,7 +29,9 @@ const getGames = async (req, res, next) => {
         allGamesApi.push(...gamesAPI);
       }
 
-      const dbGames = await Videogame.findAll();
+      const dbGames = await Videogame.findAll({
+        include: Genre,
+      });
 
       const allGames = [...allGamesApi, ...dbGames];
       allGames.sort((a, b) => a.name.length < b.name.length);

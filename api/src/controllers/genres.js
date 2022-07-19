@@ -8,7 +8,6 @@ const getGenres = async () => {
   result.data.results.forEach(g =>
     Genre.findOrCreate({
       where: {
-        id: g.id,
         name: g.name,
       },
     })
