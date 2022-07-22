@@ -7,10 +7,13 @@ import { platforms } from '../../utility/platforms';
 import style from './CreateVideogame.module.css';
 import { img1, img2 } from './utils';
 import Button from '../../components/Button/Button';
-import Footer from '../../components/Footer/Footer';
+import ButtonDisabled from '../../components/ButtonDisabled/ButtonDisabled';
 
 const validate = videogame => {
   const errors = {};
+  const year = Number(videogame.released.split('-')[0]);
+  const month = Number(videogame.released.split('-')[1]);
+  const day = Number(videogame.released.split('-')[2]);
 
   if (!videogame.name) {
     errors.name = 'Enter a name';
@@ -20,8 +23,16 @@ const validate = videogame => {
     errors.description = 'Enter a description';
   }
 
-  if (Number(videogame.rating) < 1 || Number(videogame.rating) > 5) {
+  if (
+    Number(videogame.rating) < 1 ||
+    Number(videogame.rating) > 5 ||
+    isNaN(Number(videogame.rating))
+  ) {
     errors.rating = 'Enter a score from 1 to 5';
+  }
+
+  if (year > 2022 || !month || !day) {
+    errors.released = 'Enter a correct date released';
   }
 
   if (videogame.platforms.length === 0) {
@@ -35,6 +46,7 @@ const validate = videogame => {
 };
 
 const CreateVideogame = () => {
+  const videogames = useSelector(state => state.videogames);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const genres = useSelector(state => state.genres.data);
@@ -82,25 +94,35 @@ const CreateVideogame = () => {
     });
   };
 
+  /*
   const regexRating = /[+-]?([0-9]*[.])?\b[0-5]{1,1}\b/; //regex 1-5 decimal inclusive
-  const expReg = /^\b[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s0-9]+$/;
+  const expReg = /^\b[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s0-9]+$/; // no permite simbolos, caracteres especiales
+  */
 
   const onSubmit = e => {
     e.preventDefault();
-    if (!videogame.name) {
-      return alert('Enter a game name');
-    } else if (!videogame.description) {
-      return alert('Enter a game description');
-    } else if (!expReg.test(videogame.name)) {
-      return alert('The name must only have letters or numbers');
-    } else if (!videogame.released) {
-      return alert('Enter a released date');
-    } else if (!regexRating.test(videogame.rating)) {
-      return alert('Enter a rating from 0 to 5');
-    } else if (!videogame.genres.length) {
-      return alert('Enter at least 1 genre ');
-    } else if (!videogame.platforms.length) {
-      return alert('Enter at least 1 platform');
+    // if (!videogame.name) {
+    //   return alert('Enter a game name');
+    // } else if (!videogame.description) {
+    //   return alert('Enter a game description');
+    // } else if (!expReg.test(videogame.name)) {
+    //   return alert('The name must only have letters or numbers');
+    // } else if (!videogame.released) {
+    //   return alert('Enter a released date');
+    // } else if (!regexRating.test(videogame.rating)) {
+    //   return alert('Enter a rating from 0 to 5');
+    // } else if (!videogame.genres.length) {
+    //   return alert('Enter at least 1 genre ');
+    // } else if (!videogame.platforms.length) {
+    //   return alert('Enter at least 1 platform');
+    // }
+
+    const videogameExists = videogames.filter(
+      g => g.name.toLowerCase() === videogame.name.toLowerCase()
+    );
+
+    if (videogameExists.length) {
+      return alert('Error: The game exists');
     }
 
     dispatch(createVideogame(videogame));
@@ -130,7 +152,7 @@ const CreateVideogame = () => {
       </div>
       <div className={style.containerForm}>
         <div className={style.button}>
-          <Link to='/home'>
+          <Link to='/home' style={{ textDecoration: 'none' }}>
             <Button content='Volver a Home' />
           </Link>
         </div>
@@ -165,11 +187,6 @@ const CreateVideogame = () => {
           {errors.description && <p>{errors.description}</p>}
         </div>
 
-        <label>Release date:</label>
-        <div>
-          <input name='released' onChange={onInputChange} type='date' />
-        </div>
-
         <label>Rating</label>
         <div className={style.ratingInput}>
           <input
@@ -180,6 +197,17 @@ const CreateVideogame = () => {
             placeholder='Example: 5'
           />
           {errors.rating && <p>{errors.rating}</p>}
+        </div>
+
+        <label>Release date:</label>
+        <div className={style.releasedInput}>
+          <input
+            name='released'
+            onChange={onInputChange}
+            type='date'
+            className={errors.released && style.danger}
+          />
+          {errors.released && <p>{errors.released}</p>}
         </div>
 
         <label>Plataformas:</label>
@@ -211,9 +239,10 @@ const CreateVideogame = () => {
         <label>Genres</label>
         <div className={style.genresInput}>
           <select
+            className={errors.genres && style.danger}
+            multiple
             name='genres'
             onChange={onSelectGenreChange}
-            className={errors.genres && style.danger}
           >
             {genres?.map(g => (
               <option key={g.id} value={g.name}>
@@ -239,14 +268,20 @@ const CreateVideogame = () => {
           onChange={onInputChange}
           className={style.image}
           value={videogame.background_image}
-          placeholder='Example: http://henry-game.net'
+          placeholder='Example: http://henry-game.com/image.png'
         />
       </div>
-      <div className={style.button}>
-        <Button content='Create Videogame' type='submit' />
-      </div>
-      <div className={style.footer}>
-        <Footer />
+      <div className={style.submitButton}>
+        {Object.keys(errors).length ? (
+          <div>
+            <ButtonDisabled
+              content='There are mistakes ⚠️'
+              className={style.errorDisabled}
+            />
+          </div>
+        ) : (
+          <Button content='Create Videogame' />
+        )}
       </div>
     </form>
   );

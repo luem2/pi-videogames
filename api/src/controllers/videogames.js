@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Videogame, Genre } = require('../db');
+const { Videogame, Genre, Op } = require('../db');
 const { API_KEY, API_GAMES_EP, API_GAMES_QUERY_EP } = require('../utility/');
 
 const getGames = async (req, res, next) => {
@@ -63,8 +63,18 @@ const getGames = async (req, res, next) => {
         } else break;
       }
 
-      allQueryApiGames.length
-        ? res.send(allQueryApiGames)
+      const dbResult = await Videogame.findAll({
+        where: {
+          name: {
+            [Op.substring]: name,
+          },
+        },
+      });
+
+      const allGamesQuery = [...dbResult, ...allQueryApiGames];
+
+      allGamesQuery.length
+        ? res.send(allGamesQuery)
         : res.status(404).send({ msg: 'The requested game was not found' });
     }
   } catch (error) {

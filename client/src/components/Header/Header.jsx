@@ -7,9 +7,11 @@ import style from './Header.module.css';
 const Header = () => {
   return (
     <div className={style.container}>
-      <Link to='/'>
-        <img className={style.image} src={logo} alt='logo-henry' />
-      </Link>
+      <div className={style.logo}>
+        <Link to='/'>
+          <img className={style.image} src={logo} alt='logo-henry' />
+        </Link>
+      </div>
       <Searchbar />
     </div>
   );

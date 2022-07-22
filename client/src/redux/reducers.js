@@ -99,15 +99,18 @@ function reducer(state = initialState, action) {
         ...state,
         videogameDetail: [],
       };
+
     case POST_GAME:
       return {
         ...state,
       };
+
     case GET_GENRES:
       return {
         ...state,
         genres: action.payload,
       };
+
     default:
       return { ...state };
   }

@@ -52,6 +52,7 @@ const { Videogame, Genre } = sequelize.models;
 Videogame.belongsToMany(Genre, {
   through: 'Videogame_Genres',
 });
+
 Genre.belongsToMany(Videogame, {
   through: 'Videogame_Genres',
 });

@@ -12,6 +12,7 @@ export const GET_DETAILS = 'GET_DETAILS';
 export const POST_GAME = 'POST_GAME';
 export const GET_GENRES = 'GET_GENRES';
 export const CLEAR_DETAILS = 'CLEAR_DETAILS';
+export const CLEAR_ALL_GAMES = 'CLEAR_ALL_GAMES';
 
 //actions:
 export function getAllVideogames() {
@@ -36,12 +37,13 @@ export function searchVideogames(search) {
         `${DOMAIN}${SV_PORT}/api/videogames?name=${search}`
       );
       const videogames = await result.data;
+
       dispatch({
         type: GET_QUERY_GAMES,
         payload: videogames,
       });
     } catch (error) {
-      console.error(error);
+      alert('Game not found');
     }
   };
 }
@@ -67,6 +69,7 @@ export function clearDetail() {
     type: CLEAR_DETAILS,
   };
 }
+
 export function alphaSort(order) {
   return {
     type: ALPHA_SORT,

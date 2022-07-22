@@ -3,10 +3,14 @@
   align-content: center;
   justify-content: center;
   flex-wrap: wrap;
-  border: solid 0.5px;
   border-radius: 25px;
-  box-shadow: 2px 4px 10px 4px black;
+  box-shadow: 2px 4px 10px 8px rgb(0, 0, 0, 0.4);
   background-color: rgb(0, 0, 0, 0.5);
+}
+
+.container:hover {
+  transform: scale(1.1);
+  transition: 500ms;
 }
 
 .images {
@@ -23,7 +27,8 @@
   justify-content: center;
   align-items: center;
   min-width: max-content;
-  text-decoration: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .p {
@@ -31,6 +36,5 @@
   justify-content: center;
   align-items: center;
   min-width: max-content;
-  text-decoration: none;
   margin-bottom: 10px;
 }

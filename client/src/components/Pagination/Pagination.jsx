@@ -15,13 +15,14 @@ const Pagination = ({ videogamesPerPage, allVideogames, paginate }) => {
         {pageNumbers ? (
           pageNumbers.map(number => (
             <li className={style.number} key={number}>
-              <span
+              <button
+                className={style.botoncito}
                 onClick={() => {
                   paginate(number);
                 }}
               >
                 {number}
-              </span>
+              </button>
             </li>
           ))
         ) : (

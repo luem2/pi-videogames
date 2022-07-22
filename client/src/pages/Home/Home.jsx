@@ -28,12 +28,12 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllVideogames());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     dispatch(getGenres());
     dispatch(clearDetail());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

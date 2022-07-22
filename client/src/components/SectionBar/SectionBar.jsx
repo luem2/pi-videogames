@@ -17,11 +17,11 @@ const Sidebar = () => {
 
   return (
     <div className={style.container}>
-      <Link to='/create'>
-        <Button content='Create Videogame' />
+      <Link to='/create' style={{ textDecoration: 'none' }}>
+        <Button content='🎮 Create Videogame' />
       </Link>
-      <div onClick={handleReset}>
-        <Button content='Reset Videogames' />
+      <div className={style.botoncito} onClick={handleReset}>
+        <Button content='🏈 Reset Videogames' />
       </div>
       <Order />
     </div>

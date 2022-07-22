@@ -8,13 +8,14 @@ const Searchbar = () => {
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
     if (!search.length) {
-      alert('You must enter a name');
+      alert('Enter a name please');
     } else {
       dispatch(searchVideogames(search));
     }
+    setSearch('');
   };
 
   useEffect(() => {});
@@ -22,18 +23,18 @@ const Searchbar = () => {
     setSearch(e.target.value);
   };
 
-  //! Agregar un spinner cuando se busca algo
   return (
     <div className={style.container}>
       <form onSubmit={onSubmit}>
-        <input
-          className={style.search}
-          type='text'
-          onChange={onInputChange}
-          value={search}
-          placeholder='Search game...'
-        />
-        <input className={style.submit} type='submit' value='Search' />
+        <div>
+          <input
+            className={style.search}
+            type='text'
+            onChange={onInputChange}
+            value={search}
+            placeholder='Search game                                                         🔍'
+          />
+        </div>
       </form>
     </div>
   );

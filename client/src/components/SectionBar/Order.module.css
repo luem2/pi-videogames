@@ -3,7 +3,7 @@
   transition: 300ms;
   cursor: pointer;
   height: 30px;
-  border: none;
+  border: solid 1px rgb(255, 255, 255, 0.2);
   font-weight: bold;
   width: 150px;
   border-radius: 20px;

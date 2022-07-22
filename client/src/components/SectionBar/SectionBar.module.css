@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(0, 0, 0, 0.3);
+  background: url('https://img.freepik.com/vector-premium/fondo-lluvia-pixeles-violeta-abstracto_23-2148362568.jpg?w=2000')
+    no-repeat center center fixed;
   gap: 50px;
   margin-bottom: 50px;
 }

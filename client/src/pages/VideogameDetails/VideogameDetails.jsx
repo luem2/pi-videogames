@@ -48,12 +48,14 @@ const VideogameDetails = () => {
           </div>
 
           <div className={style.text}>
-            <h3>Description:</h3>
+            <h3>Sinopsis</h3>
             {videogame.description?.replace(/<[^>]*>/g, '')}
           </div>
-          <Link to='/home'>
-            <Button content='Go Home' />
-          </Link>
+          <div className={style.goHome}>
+            <Link to='/home' style={{ textDecoration: 'none' }}>
+              <Button content='Go Home' />
+            </Link>
+          </div>
         </Fragment>
       ) : (
         <Loader />

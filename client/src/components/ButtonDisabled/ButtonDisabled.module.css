@@ -5,12 +5,9 @@
   font-weight: bold;
   width: 200px;
   border-radius: 20px;
-  background-color: #6f0aaa;
+  background-color: grey;
 }
 
 .botoncito:hover {
-  background-color: #3f085f;
-  font-weight: bold;
-  transition: 300ms;
-  cursor: pointer;
+  color: red;
 }
