@@ -88,10 +88,17 @@ const CreateVideogame = () => {
 
   const onSelectGenreChange = e => {
     e.preventDefault();
-    setVideogame({
-      ...videogame,
-      genres: [...videogame.genres, e.target.value],
-    });
+
+    if (!videogame.genres.includes(e.target.value)) {
+      setVideogame({
+        ...videogame,
+        genres: [...videogame.genres, e.target.value],
+      });
+    } else {
+      setVideogame({
+        ...videogame,
+      });
+    }
   };
 
   /*
