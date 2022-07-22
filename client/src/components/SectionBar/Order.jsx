@@ -12,6 +12,7 @@ import {
   EXTERNAL_API,
   DATABASE_GAMES,
 } from '../../utility';
+import { genres } from '../../utility/genres';
 import style from './Order.module.css';
 
 const Order = () => {
@@ -49,25 +50,11 @@ const Order = () => {
 
       <select className={style.order} name='select' onChange={orderByGenres}>
         <option>Order by Genre</option>
-        <option value='Action'>Action</option>
-        <option value='Indie'>Indie</option>
-        <option value='Adventure'>Adventure</option>
-        <option value='RPG'>RPG</option>
-        <option value='Strategy'>Strategy</option>
-        <option value='Shooter'>Shooter</option>
-        <option value='Casual'>Casual</option>
-        <option value='Simulation'>Simulation</option>
-        <option value='Puzzle'>Puzzle</option>
-        <option value='Arcade'>Arcade</option>
-        <option value='Platformer'>Platformer</option>
-        <option value='Racing'>Racing</option>
-        <option value='Massively Multiplayer'>Massively Multiplayer</option>
-        <option value='Sports'>Sports</option>
-        <option value='Fighting'>Fighting</option>
-        <option value='Family'>Family</option>
-        <option value='Board Games'>Board Games</option>
-        <option value='Educational'>Educational</option>
-        <option value='Card'>Card</option>
+        {genres.map((p, i) => (
+          <option key={i + p} value={p}>
+            {p}
+          </option>
+        ))}
       </select>
 
       <select className={style.order} name='select' onChange={orderByGames}>

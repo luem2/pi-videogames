@@ -80,10 +80,16 @@ const CreateVideogame = () => {
   const onSelectPlatformChange = e => {
     e.preventDefault();
 
-    setVideogame({
-      ...videogame,
-      platforms: [...videogame.platforms, e.target.value],
-    });
+    if (!videogame.platforms.includes(e.target.value)) {
+      setVideogame({
+        ...videogame,
+        platforms: [...videogame.platforms, e.target.value],
+      });
+    } else {
+      setVideogame({
+        ...videogame,
+      });
+    }
   };
 
   const onSelectGenreChange = e => {
@@ -101,28 +107,8 @@ const CreateVideogame = () => {
     }
   };
 
-  /*
-  const regexRating = /[+-]?([0-9]*[.])?\b[0-5]{1,1}\b/; //regex 1-5 decimal inclusive
-  const expReg = /^\b[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s0-9]+$/; // no permite simbolos, caracteres especiales
-  */
-
   const onSubmit = e => {
     e.preventDefault();
-    // if (!videogame.name) {
-    //   return alert('Enter a game name');
-    // } else if (!videogame.description) {
-    //   return alert('Enter a game description');
-    // } else if (!expReg.test(videogame.name)) {
-    //   return alert('The name must only have letters or numbers');
-    // } else if (!videogame.released) {
-    //   return alert('Enter a released date');
-    // } else if (!regexRating.test(videogame.rating)) {
-    //   return alert('Enter a rating from 0 to 5');
-    // } else if (!videogame.genres.length) {
-    //   return alert('Enter at least 1 genre ');
-    // } else if (!videogame.platforms.length) {
-    //   return alert('Enter at least 1 platform');
-    // }
 
     const videogameExists = videogames.filter(
       g => g.name.toLowerCase() === videogame.name.toLowerCase()
