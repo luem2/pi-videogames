@@ -5,7 +5,6 @@ import Home from './pages/Home/Home';
 import VideogameDetails from './pages/VideogameDetails/VideogameDetails';
 import CreateVideogame from './pages/CreateVideogame/CreateVideogame';
 import NotFound from './pages/NotFound/NotFound';
-import './App.css';
 
 function App() {
   return (

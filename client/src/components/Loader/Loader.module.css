@@ -5,7 +5,35 @@
   align-items: center;
 }
 
+.container h2 {
+  margin-right: 50px;
+  animation: blinkCursor 3s infinite;
+  animation-direction: alternate-reverse;
+  transition: 500ms;
+}
+
 .image {
+  display: flex;
   width: 200px;
   height: 200px;
+}
+
+@keyframes blinkCursor {
+  0% {
+    color: rgb(255, 0, 0);
+  }
+
+  20% {
+    color: rgb(190, 16, 190);
+  }
+
+  40% {
+    color: rgb(220, 255, 62);
+  }
+  60% {
+    color: rgb(116, 73, 197);
+  }
+  100% {
+    color: rgb(158, 9, 151);
+  }
 }

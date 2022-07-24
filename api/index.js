@@ -21,22 +21,20 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { SV_PORT } = require('./src/utility/');
 const getGenres = require('./src/controllers/genres');
-// Syncing all the models at once.
 
-const connectionOK = async () => {
+const connection = async () => {
   try {
     await conn.authenticate();
+    conn.sync({ force: false }).then(() => {
+      getGenres();
+      server.listen(SV_PORT, () => {
+        console.log(`Listening on ${SV_PORT}`); // eslint-disable-line no-console
+      });
+    });
     console.log('Connection has been established successfully.');
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.error(error);
   }
 };
 
-connectionOK();
-
-conn.sync({ force: false }).then(() => {
-  getGenres();
-  server.listen(SV_PORT, () => {
-    console.log(`%s Listening on ${SV_PORT}`); // eslint-disable-line no-console
-  });
-});
+connection();

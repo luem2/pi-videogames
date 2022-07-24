@@ -58,7 +58,9 @@ const VideogameDetails = () => {
           </div>
         </Fragment>
       ) : (
-        <Loader />
+        <div className={style.loader}>
+          <Loader />
+        </div>
       )}
     </div>
   );

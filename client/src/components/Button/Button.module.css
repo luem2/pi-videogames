@@ -1,11 +1,16 @@
 .botoncito {
-  margin-top: 20px;
-  height: 30px;
+  height: 40px;
   border: solid 1px rgb(0, 0, 0, 0.4);
   font-weight: bold;
-  width: 200px;
+  width: 180px;
   border-radius: 20px;
   background-color: #6f0aaa;
+}
+
+.botoncito img {
+  height: 16px;
+  width: 16px;
+  margin-right: 10px;
 }
 
 .botoncito:hover {

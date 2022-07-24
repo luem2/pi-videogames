@@ -18,6 +18,9 @@
 }
 
 .containerForm input {
+  display: flex;
+  align-content: stretch;
+  padding: 5px;
   height: 40px;
   width: 600px;
   border-radius: 10px;
@@ -35,6 +38,7 @@
 .containerForm textarea {
   margin-top: 20px;
   background-color: rgb(0, 0, 0, 0.3);
+  height: 50px;
 }
 
 .nameInput p {
@@ -48,6 +52,10 @@
 
 .descriptionInput p {
   color: red;
+}
+
+.descriptionInput input {
+  height: 50px;
 }
 
 .descriptionInput:hover input {
@@ -116,4 +124,14 @@
 
 .errorDisabled {
   background-color: grey;
+}
+
+.containerButtons {
+  margin-top: 20px;
+  display: flex;
+  gap: 30px;
+}
+
+.clearInput {
+  margin-top: 10px;
 }

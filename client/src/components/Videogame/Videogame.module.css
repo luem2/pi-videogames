@@ -31,7 +31,31 @@
   margin-bottom: 5px;
 }
 
-.p {
+.ratingContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  align-items: center;
+  min-width: max-content;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 50px;
+  padding: 4px;
+}
+
+.genresContainer {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(19, 18, 18, 0.6);
+  border-radius: 10px;
+}
+
+.genres {
   display: flex;
   justify-content: center;
   align-items: center;

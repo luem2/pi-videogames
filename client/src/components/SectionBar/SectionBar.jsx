@@ -21,9 +21,11 @@ const Sidebar = () => {
         <Button content='🎮 Create Videogame' />
       </Link>
       <div className={style.botoncito} onClick={handleReset}>
-        <Button content='🏈 Reset Videogames' />
+        <Button content='👾 Reset Videogames' />
       </div>
-      <Order />
+      <div className={style.order}>
+        <Order />
+      </div>
     </div>
   );
 };

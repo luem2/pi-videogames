@@ -35,13 +35,6 @@ const validate = videogame => {
     errors.released = 'Enter a correct date released';
   }
 
-  if (videogame.platforms.length === 0) {
-    errors.platforms = 'Select at least 1 platform';
-  }
-  if (videogame.genres.length === 0) {
-    errors.genres = 'Select at least 1 genre';
-  }
-
   return errors;
 };
 
@@ -132,6 +125,19 @@ const CreateVideogame = () => {
     navigate('/home');
   };
 
+  const clearInputs = e => {
+    e.preventDefault();
+    setVideogame({
+      name: '',
+      description: '',
+      background_image: '',
+      released: '',
+      rating: '',
+      genres: [],
+      platforms: [],
+    });
+  };
+
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
@@ -146,7 +152,7 @@ const CreateVideogame = () => {
       <div className={style.containerForm}>
         <div className={style.button}>
           <Link to='/home' style={{ textDecoration: 'none' }}>
-            <Button content='Volver a Home' />
+            <Button content='🏠 Go Home' />
           </Link>
         </div>
 
@@ -188,6 +194,7 @@ const CreateVideogame = () => {
             onChange={onInputChange}
             type='text'
             placeholder='Example: 5'
+            value={videogame.rating}
           />
           {errors.rating && <p>{errors.rating}</p>}
         </div>
@@ -199,6 +206,7 @@ const CreateVideogame = () => {
             onChange={onInputChange}
             type='date'
             className={errors.released && style.danger}
+            value={videogame.released}
           />
           {errors.released && <p>{errors.released}</p>}
         </div>
@@ -206,9 +214,8 @@ const CreateVideogame = () => {
         <label>Plataformas:</label>
         <div className={style.platformsInput}>
           <select
-            className={errors.platforms && style.danger}
-            multiple
             name='platforms'
+            multiple
             onChange={onSelectPlatformChange}
             required
           >
@@ -232,10 +239,10 @@ const CreateVideogame = () => {
         <label>Genres</label>
         <div className={style.genresInput}>
           <select
-            className={errors.genres && style.danger}
-            multiple
             name='genres'
+            multiple
             onChange={onSelectGenreChange}
+            required
           >
             {genres?.map(g => (
               <option key={g.id} value={g.name}>
@@ -264,17 +271,26 @@ const CreateVideogame = () => {
           placeholder='Example: http://henry-game.com/image.png'
         />
       </div>
-      <div className={style.submitButton}>
-        {Object.keys(errors).length ? (
-          <div>
-            <ButtonDisabled
-              content='There are mistakes ⚠️'
-              className={style.errorDisabled}
-            />
-          </div>
-        ) : (
-          <Button content='Create Videogame' />
-        )}
+      <div className={style.containerButtons}>
+        <div className={style.submitButton}>
+          {Object.keys(errors).length ? (
+            <div>
+              <ButtonDisabled
+                content='There are mistakes ⚠️'
+                className={style.errorDisabled}
+              />
+            </div>
+          ) : (
+            <Button content='Create Videogame' />
+          )}
+        </div>
+        <div className={style.clearInput}>
+          <Button
+            onClick={clearInputs}
+            content='Clear Inputs'
+            type='reset'
+          ></Button>
+        </div>
       </div>
     </form>
   );
