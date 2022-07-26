@@ -1,13 +1,12 @@
 .botoncito {
-  margin-top: 20px;
-  height: 30px;
+  height: 40px;
   border: solid 1px rgb(0, 0, 0, 0.4);
   font-weight: bold;
-  width: 200px;
+  width: 180px;
   border-radius: 20px;
-  background-color: grey;
+  background-color: rgb(206, 22, 22);
 }
 
 .botoncito:hover {
-  color: red;
+  color: rgb(201, 178, 178);
 }

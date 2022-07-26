@@ -13,6 +13,8 @@ export const POST_GAME = 'POST_GAME';
 export const GET_GENRES = 'GET_GENRES';
 export const CLEAR_DETAILS = 'CLEAR_DETAILS';
 export const CLEAR_ALL_GAMES = 'CLEAR_ALL_GAMES';
+export const CLEAR_FILTERS = 'CLEAR_FILTERS';
+export const CLEAR_FILTEREDVIDEOGAMES = 'CLEAR_FILTEREDVIDEOGAMES';
 
 //actions:
 export function getAllVideogames() {
@@ -36,6 +38,7 @@ export function searchVideogames(search) {
       const result = await axios.get(
         `${DOMAIN}${SV_PORT}/api/videogames?name=${search}`
       );
+
       const videogames = await result.data;
 
       dispatch({
@@ -43,6 +46,9 @@ export function searchVideogames(search) {
         payload: videogames,
       });
     } catch (error) {
+      dispatch({
+        type: CLEAR_FILTERS,
+      });
       alert('Game not found');
     }
   };
@@ -53,7 +59,6 @@ export function getDetails(id) {
     try {
       const result = await axios.get(`${DOMAIN}${SV_PORT}/api/videogame/${id}`);
       const videogame = await result.data;
-
       dispatch({
         type: GET_DETAILS,
         payload: videogame,
@@ -64,11 +69,15 @@ export function getDetails(id) {
   };
 }
 
-export function clearDetail() {
-  return {
-    type: CLEAR_DETAILS,
-  };
-}
+export const clearDetail = () => ({
+  type: CLEAR_DETAILS,
+});
+
+export const clearFilters = () => ({ type: CLEAR_FILTERS });
+
+export const clearFilteredVideogames = () => ({
+  type: CLEAR_FILTEREDVIDEOGAMES,
+});
 
 export function alphaSort(order) {
   return {
@@ -83,12 +92,14 @@ export function ratingSort(order) {
     payload: order,
   };
 }
+
 export function genresSort(order) {
   return {
     type: GENRES_SORT,
     payload: order,
   };
 }
+
 export function gamesSort(order) {
   return {
     type: GAMES_SORT,

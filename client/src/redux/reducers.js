@@ -9,6 +9,8 @@ import {
   POST_GAME,
   GET_GENRES,
   CLEAR_DETAILS,
+  CLEAR_FILTERS,
+  CLEAR_FILTEREDVIDEOGAMES,
 } from './actions';
 
 import { ASCENDENTE, EXTERNAL_API } from '../utility';
@@ -16,7 +18,7 @@ import { ASCENDENTE, EXTERNAL_API } from '../utility';
 const initialState = {
   videogames: [],
   filteredVideogames: [],
-  videogameDetail: [],
+  videogameDetail: {},
   genres: [],
 };
 
@@ -97,7 +99,19 @@ function reducer(state = initialState, action) {
     case CLEAR_DETAILS:
       return {
         ...state,
-        videogameDetail: [],
+        videogameDetail: {},
+      };
+
+    case CLEAR_FILTERS:
+      return {
+        ...state,
+        filteredVideogames: state.videogames,
+      };
+
+    case CLEAR_FILTEREDVIDEOGAMES:
+      return {
+        ...state,
+        filteredVideogames: [],
       };
 
     case POST_GAME:

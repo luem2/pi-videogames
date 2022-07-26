@@ -2,7 +2,7 @@ import { Fragment, React, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetails } from '../../redux/actions';
+import { clearDetail, getDetails } from '../../redux/actions';
 import Button from '../../components/Button/Button';
 import style from './VideogameDetails.module.css';
 
@@ -13,6 +13,10 @@ const VideogameDetails = () => {
 
   useEffect(() => {
     dispatch(getDetails(id));
+
+    return () => {
+      dispatch(clearDetail());
+    };
   }, [dispatch, id]);
 
   return (
@@ -53,7 +57,7 @@ const VideogameDetails = () => {
           </div>
           <div className={style.goHome}>
             <Link to='/home' style={{ textDecoration: 'none' }}>
-              <Button content='Go Home' />
+              <Button content='🏠 Go Home' />
             </Link>
           </div>
         </Fragment>

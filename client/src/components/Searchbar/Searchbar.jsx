@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchVideogames } from '../../redux/actions';
+import { clearFilteredVideogames, searchVideogames } from '../../redux/actions';
 import style from './Searchbar.module.css';
 
 const Searchbar = () => {
@@ -13,6 +13,7 @@ const Searchbar = () => {
     if (!search.length) {
       alert('Enter a name please');
     } else {
+      dispatch(clearFilteredVideogames());
       dispatch(searchVideogames(search));
     }
     setSearch('');

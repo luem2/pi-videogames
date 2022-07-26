@@ -54,10 +54,6 @@
   color: red;
 }
 
-.descriptionInput input {
-  height: 50px;
-}
-
 .descriptionInput:hover input {
   background-color: rgb(90, 34, 143);
   transition: 200ms;
@@ -122,12 +118,8 @@
   border: 2px solid red;
 }
 
-.errorDisabled {
-  background-color: grey;
-}
-
 .containerButtons {
-  margin-top: 20px;
+  margin-top: 30px;
   display: flex;
   gap: 30px;
 }

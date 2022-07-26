@@ -111,8 +111,17 @@ const CreateVideogame = () => {
       return alert('Error: The game exists');
     }
 
+    if (!videogame.genres.length) {
+      return alert('Select at least 1 genre');
+    }
+
+    if (!videogame.platforms.length) {
+      return alert('Select at least 1 platform');
+    }
+
     dispatch(createVideogame(videogame));
     alert('Videogame created Successfully!');
+
     setVideogame({
       name: '',
       description: '',
@@ -275,10 +284,7 @@ const CreateVideogame = () => {
         <div className={style.submitButton}>
           {Object.keys(errors).length ? (
             <div>
-              <ButtonDisabled
-                content='There are mistakes ⚠️'
-                className={style.errorDisabled}
-              />
+              <ButtonDisabled content='There are mistakes ⚠️' />
             </div>
           ) : (
             <Button content='Create Videogame' />

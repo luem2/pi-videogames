@@ -15,7 +15,6 @@
 
 .botoncito:hover {
   background-color: #3f085f;
-  font-weight: bold;
   transition: 300ms;
   cursor: pointer;
 }

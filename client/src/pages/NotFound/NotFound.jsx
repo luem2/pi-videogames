@@ -10,7 +10,7 @@ const NotFound = () => {
       <img src={notfound} alt='not found' />
       <div className={style.button}>
         <Link to='home'>
-          <Button content='Back to Home' />
+          <Button content='🏠 Go Home' />
         </Link>
       </div>
     </div>

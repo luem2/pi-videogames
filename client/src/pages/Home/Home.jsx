@@ -5,7 +5,7 @@ import Pagination from '../../components/Pagination/Pagination';
 import SectionBar from '../../components/SectionBar/SectionBar';
 import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearDetail, getAllVideogames, getGenres } from '../../redux/actions';
+import { getAllVideogames, getGenres } from '../../redux/actions';
 import style from './Home.module.css';
 
 const Home = () => {
@@ -27,13 +27,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllVideogames());
-  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
     dispatch(getGenres());
-    dispatch(clearDetail());
-  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(getAllVideogames());
+  }, [dispatch]);
 
   return (
     <div>
