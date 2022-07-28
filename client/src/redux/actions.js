@@ -15,6 +15,12 @@ export const CLEAR_DETAILS = 'CLEAR_DETAILS';
 export const CLEAR_ALL_GAMES = 'CLEAR_ALL_GAMES';
 export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 export const CLEAR_FILTEREDVIDEOGAMES = 'CLEAR_FILTEREDVIDEOGAMES';
+export const GAME_NOT_FOUND = 'GAME_NOT_FOUND';
+export const CLOSE_MODAL_NOT_FOUND = 'CLOSE_MODAL_NOT_FOUND';
+export const EMPTY_INPUT = 'EMPTY_INPUT';
+export const CLOSE_MODAL_EMPTY_INPUT = 'CLOSE_MODAL_EMPTY_INPUT';
+export const VIDEOGAME_CREATED = 'VIDEOGAME_CREATED';
+export const CLOSE_MODAL_VIDEOGAME_CREATED = 'CLOSE_MODAL_VIDEOGAME_CREATED';
 
 //actions:
 export function getAllVideogames() {
@@ -47,9 +53,11 @@ export function searchVideogames(search) {
       });
     } catch (error) {
       dispatch({
+        type: GAME_NOT_FOUND,
+      });
+      dispatch({
         type: CLEAR_FILTERS,
       });
-      alert('Game not found');
     }
   };
 }
@@ -130,3 +138,23 @@ export const getGenres = () => async dispatch => {
     console.log(error);
   }
 };
+
+export const closeModalNotFound = () => ({
+  type: CLOSE_MODAL_NOT_FOUND,
+});
+
+export const emptyInputFunction = () => ({
+  type: EMPTY_INPUT,
+});
+
+export const closeModalEmptyInput = () => ({
+  type: CLOSE_MODAL_EMPTY_INPUT,
+});
+
+export const videogameCreatedFunction = () => ({
+  type: VIDEOGAME_CREATED,
+});
+
+export const closeModalVideogameCreated = () => ({
+  type: CLOSE_MODAL_VIDEOGAME_CREATED,
+});

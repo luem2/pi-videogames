@@ -21,11 +21,24 @@ const Videogame = ({ id, name, image, rating, genres }) => {
         <div className={style.ratingContainer}>
           <p
             className={style.rating}
-            style={
-              rating > 3.5
-                ? { color: 'green', border: '3px solid green' }
-                : { color: 'yellow', border: '3px solid yellow' }
-            }
+            style={(() => {
+              if (rating > 4) {
+                return {
+                  color: 'green',
+                  border: '3px solid green',
+                };
+              } else if (rating < 3) {
+                return {
+                  color: 'red',
+                  border: '3px solid red',
+                };
+              } else {
+                return {
+                  color: 'yellow',
+                  border: '3px solid yellow',
+                };
+              }
+            })()}
           >
             {rating}★
           </p>

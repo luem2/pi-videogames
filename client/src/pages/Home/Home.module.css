@@ -1,3 +1,39 @@
 .container {
   margin-top: 50px;
 }
+
+.modalContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.modalContainerP {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.button {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonEmpty {
+  display: flex;
+  margin-top: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+}
+
+.image img {
+  width: 200px;
+}

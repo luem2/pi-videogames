@@ -127,3 +127,22 @@
 .clearInput {
   margin-top: 10px;
 }
+
+.modalContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.buttonCreated {
+  display: flex;
+  margin-top: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageCreated {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+}

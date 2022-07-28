@@ -11,6 +11,12 @@ import {
   CLEAR_DETAILS,
   CLEAR_FILTERS,
   CLEAR_FILTEREDVIDEOGAMES,
+  GAME_NOT_FOUND,
+  CLOSE_MODAL_NOT_FOUND,
+  CLOSE_MODAL_EMPTY_INPUT,
+  EMPTY_INPUT,
+  VIDEOGAME_CREATED,
+  CLOSE_MODAL_VIDEOGAME_CREATED,
 } from './actions';
 
 import { ASCENDENTE, EXTERNAL_API } from '../utility';
@@ -20,6 +26,11 @@ const initialState = {
   filteredVideogames: [],
   videogameDetail: {},
   genres: [],
+  modal: {
+    emptyInput: false,
+    gameNotFound: false,
+    gameCreated: false,
+  },
 };
 
 function reducer(state = initialState, action) {
@@ -38,6 +49,12 @@ function reducer(state = initialState, action) {
       };
 
     case ALPHA_SORT:
+      if (action.payload === 'default') {
+        return {
+          ...state,
+          filteredVideogames: state.videogames,
+        };
+      }
       const alphabeticVideogames = [...state.filteredVideogames];
       alphabeticVideogames.sort((a, b) => {
         if (a.name.toLowerCase() < b.name.toLowerCase())
@@ -53,6 +70,12 @@ function reducer(state = initialState, action) {
       };
 
     case RATING_SORT:
+      if (action.payload === 'default') {
+        return {
+          ...state,
+          filteredVideogames: state.videogames,
+        };
+      }
       const ratingVideogames = [...state.filteredVideogames];
       ratingVideogames.sort((a, b) => {
         if (a.rating < b.rating) return action.payload === ASCENDENTE ? -1 : 1;
@@ -67,6 +90,12 @@ function reducer(state = initialState, action) {
       };
 
     case GENRES_SORT:
+      if (action.payload === 'default') {
+        return {
+          ...state,
+          filteredVideogames: state.videogames,
+        };
+      }
       const genresVideogames = [...state.filteredVideogames];
       const filteredVideogames = genresVideogames.filter(g =>
         g.genres?.includes(action.payload)
@@ -77,6 +106,12 @@ function reducer(state = initialState, action) {
       };
 
     case GAMES_SORT:
+      if (action.payload === 'default') {
+        return {
+          ...state,
+          filteredVideogames: state.videogames,
+        };
+      }
       let gamesVideogames = [...state.videogames].filter(g => {
         if (action.payload === EXTERNAL_API) {
           return g.id.length !== 36;
@@ -123,6 +158,60 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         genres: action.payload,
+      };
+
+    case GAME_NOT_FOUND:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          gameNotFound: true,
+        },
+      };
+
+    case CLOSE_MODAL_NOT_FOUND:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          gameNotFound: false,
+        },
+      };
+
+    case EMPTY_INPUT:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          emptyInput: true,
+        },
+      };
+
+    case CLOSE_MODAL_EMPTY_INPUT:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          emptyInput: false,
+        },
+      };
+
+    case VIDEOGAME_CREATED:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          gameCreated: true,
+        },
+      };
+
+    case CLOSE_MODAL_VIDEOGAME_CREATED:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          gameCreated: false,
+        },
       };
 
     default:

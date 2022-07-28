@@ -6,6 +6,7 @@
     fixed;
   gap: 50px;
   margin-bottom: 50px;
+  box-shadow: 2px 4px 10px rgb(0, 0, 0, 0.7);
 }
 
 .order {

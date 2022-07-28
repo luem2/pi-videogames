@@ -2,12 +2,19 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { createVideogame, getGenres } from '../../redux/actions';
+import {
+  videogameCreatedFunction,
+  closeModalVideogameCreated,
+  createVideogame,
+  getGenres,
+} from '../../redux/actions';
 import { platforms } from '../../utility/platforms';
 import style from './CreateVideogame.module.css';
 import { img1, img2 } from './utils';
 import Button from '../../components/Button/Button';
 import ButtonDisabled from '../../components/ButtonDisabled/ButtonDisabled';
+import Modal from '../../components/Modal/Modal';
+import marioFeliz from '../../assets/mariofeliz.png';
 
 const validate = videogame => {
   const errors = {};
@@ -40,6 +47,7 @@ const validate = videogame => {
 
 const CreateVideogame = () => {
   const videogames = useSelector(state => state.videogames);
+  const gameCreatedSuccessfully = useSelector(state => state.modal.gameCreated);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const genres = useSelector(state => state.genres.data);
@@ -55,6 +63,11 @@ const CreateVideogame = () => {
   });
 
   const [errors, setErrors] = useState({});
+
+  const closeModalVideogameCreatedFunction = () => {
+    dispatch(closeModalVideogameCreated());
+    navigate('/home');
+  };
 
   const onInputChange = e => {
     e.preventDefault();
@@ -120,7 +133,7 @@ const CreateVideogame = () => {
     }
 
     dispatch(createVideogame(videogame));
-    alert('Videogame created Successfully!');
+    dispatch(videogameCreatedFunction());
 
     setVideogame({
       name: '',
@@ -131,7 +144,6 @@ const CreateVideogame = () => {
       genres: [],
       platforms: [],
     });
-    navigate('/home');
   };
 
   const clearInputs = e => {
@@ -153,6 +165,22 @@ const CreateVideogame = () => {
 
   return (
     <form className={style.form} onSubmit={onSubmit}>
+      {gameCreatedSuccessfully ? (
+        <Modal functionModal={closeModalVideogameCreated}>
+          <div className={style.modalContainer}>
+            <h2>Game created successfully! ✅</h2>
+          </div>
+          <div className={style.imageCreated}>
+            <img src={marioFeliz} alt='' />
+          </div>
+          <div className={style.buttonCreated}>
+            <Button
+              content='🏠 Go Home'
+              onClick={closeModalVideogameCreatedFunction}
+            />
+          </div>
+        </Modal>
+      ) : null}
       <div className={style.createVideogameSection}>
         <img src={img1} alt='rana-gaming' />
         <h1>Create Videogame!</h1>
