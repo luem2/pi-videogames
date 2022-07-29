@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -7,6 +6,7 @@ import {
   searchVideogames,
 } from '../../redux/actions';
 import style from './Searchbar.module.css';
+import searchIcon from '../../assets/search-icon-white.png';
 
 const Searchbar = () => {
   const [search, setSearch] = useState('');
@@ -23,23 +23,22 @@ const Searchbar = () => {
     setSearch('');
   };
 
-  useEffect(() => {});
   const onInputChange = e => {
     setSearch(e.target.value);
   };
 
   return (
     <div className={style.container}>
-      <form onSubmit={onSubmit}>
-        <div>
-          <input
-            className={style.search}
-            type='text'
-            onChange={onInputChange}
-            value={search}
-            placeholder='Search game                                                         🔍'
-          />
-        </div>
+      <form className={style.formContainer} onSubmit={onSubmit}>
+        <input
+          type='text'
+          onChange={onInputChange}
+          value={search}
+          placeholder='Search'
+        />
+        <button className={style.buttonSubmit} type='submit'>
+          <img src={searchIcon} alt='search-icon' />
+        </button>
       </form>
     </div>
   );
