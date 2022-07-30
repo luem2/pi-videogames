@@ -15,7 +15,7 @@ import Button from '../../components/Button/Button';
 import ButtonDisabled from '../../components/ButtonDisabled/ButtonDisabled';
 import Modal from '../../components/Modal/Modal';
 import marioFeliz from '../../assets/mariofeliz.png';
-
+import marioFace from '../../assets/marioFace.png';
 const validate = videogame => {
   const errors = {};
   const year = Number(videogame.released.split('-')[0]);
@@ -171,10 +171,11 @@ const CreateVideogame = () => {
             <h2>Game created successfully! ✅</h2>
           </div>
           <div className={style.imageCreated}>
-            <img src={marioFeliz} alt='' />
+            <img src={marioFeliz} alt='mario-feliz' />
           </div>
           <div className={style.buttonCreated}>
             <Button
+              type='button'
               content='🏠 Go Home'
               onClick={closeModalVideogameCreatedFunction}
             />
@@ -186,15 +187,13 @@ const CreateVideogame = () => {
         <h1>Create Videogame!</h1>
         <img src={img2} alt='rana-gaming' />
       </div>
+      <div className={style.button}>
+        <Link to='/home' style={{ textDecoration: 'none' }}>
+          <Button type='button' content='🏠 Go Home' />
+        </Link>
+      </div>
       <div className={style.containerForm}>
-        <div className={style.button}>
-          <Link to='/home' style={{ textDecoration: 'none' }}>
-            <Button content='🏠 Go Home' />
-          </Link>
-        </div>
-
         {/* Form Start */}
-
         <label>Name:</label>
         <div className={style.nameInput}>
           <input
@@ -312,17 +311,17 @@ const CreateVideogame = () => {
         <div className={style.submitButton}>
           {Object.keys(errors).length ? (
             <div>
-              <ButtonDisabled content='There are mistakes ⚠️' />
+              <ButtonDisabled type='button' content='There are mistakes ⚠️' />
             </div>
           ) : (
-            <Button content='Create Videogame' />
+            <Button type='submit' image={marioFace} content='Create Game!' />
           )}
         </div>
         <div className={style.clearInput}>
           <Button
             onClick={clearInputs}
-            content='Clear Inputs'
-            type='reset'
+            content='📖 Clear Inputs'
+            type='button'
           ></Button>
         </div>
       </div>

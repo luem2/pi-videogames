@@ -36,32 +36,36 @@ const Order = () => {
 
   return (
     <div className={style.container}>
-      <select className={style.order} name='select' onChange={orderByAlpha}>
-        <option value='default'>Order alphabetically </option>
-        <option value={ASCENDENTE}>Sort: A - Z</option>
-        <option value={DESCENDENTE}>Sort: Z - A</option>
-      </select>
+      <div className={style.firstFilters}>
+        <select className={style.order} name='select' onChange={orderByAlpha}>
+          <option value='default'>Order alphabetically </option>
+          <option value={ASCENDENTE}>Sort: A - Z</option>
+          <option value={DESCENDENTE}>Sort: Z - A</option>
+        </select>
 
-      <select className={style.order} name='select' onChange={orderByRating}>
-        <option value='default'>Order by Rating</option>
-        <option value={DESCENDENTE}>High Rating</option>
-        <option value={ASCENDENTE}>Low Rating</option>
-      </select>
+        <select className={style.order} name='select' onChange={orderByRating}>
+          <option value='default'>Order by Rating</option>
+          <option value={DESCENDENTE}>High Rating</option>
+          <option value={ASCENDENTE}>Low Rating</option>
+        </select>
+      </div>
 
-      <select className={style.order} name='select' onChange={orderByGenres}>
-        <option value='default'>Order by Genre</option>
-        {genres.map((p, i) => (
-          <option key={i + p} value={p}>
-            {p}
-          </option>
-        ))}
-      </select>
+      <div className={style.secondFilters}>
+        <select className={style.order} name='select' onChange={orderByGenres}>
+          <option value='default'>Order by Genre</option>
+          {genres.map((p, i) => (
+            <option key={i + p} value={p}>
+              {p}
+            </option>
+          ))}
+        </select>
 
-      <select className={style.order} name='select' onChange={orderByGames}>
-        <option value='default'>Order Games by:</option>
-        <option value={EXTERNAL_API}>External API</option>
-        <option value={DATABASE_GAMES}>Database Created Games</option>
-      </select>
+        <select className={style.order} name='select' onChange={orderByGames}>
+          <option value='default'>Order Games by:</option>
+          <option value={EXTERNAL_API}>External API</option>
+          <option value={DATABASE_GAMES}>Database Created Games</option>
+        </select>
+      </div>
     </div>
   );
 };

@@ -41,3 +41,9 @@
   background-color: rgb(153, 72, 228);
   cursor: pointer;
 }
+
+@media screen and (max-width: 440px) {
+  .container {
+    min-width: 350px;
+  }
+}

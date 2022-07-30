@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.createVideogameSection img {
+  width: 150px;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -15,6 +19,9 @@
 .containerForm {
   display: flex;
   flex-direction: column;
+  background-color: rgba(45, 18, 54, 0.2);
+  padding: 60px;
+  border-radius: 20px;
 }
 
 .containerForm input {
@@ -39,6 +46,7 @@
   margin-top: 20px;
   background-color: rgb(0, 0, 0, 0.3);
   height: 50px;
+  border-radius: 10px;
 }
 
 .nameInput p {
@@ -130,6 +138,7 @@
 
 .modalContainer {
   display: flex;
+  padding: 20px;
   justify-content: center;
   margin-top: 30px;
 }
@@ -143,6 +152,54 @@
 
 .imageCreated {
   display: flex;
-  margin: 20px;
   justify-content: center;
+  height: 250px;
+  margin: 20px;
+}
+
+@media screen and (max-width: 750px) {
+  .createVideogameSection img {
+    width: 100px;
+  }
+
+  .createVideogameSection h1 {
+    font-size: 16px;
+  }
+  .containerForm {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+  }
+
+  .nameInput input {
+    width: 300px;
+  }
+
+  .descriptionInput input {
+    width: 300px;
+  }
+
+  .ratingInput input {
+    width: 300px;
+  }
+
+  .releasedInput input {
+    width: 300px;
+  }
+
+  .platformsInput select {
+    width: 300px;
+  }
+
+  .genresInput select {
+    width: 300px;
+  }
+
+  .containerForm .image {
+    width: 300px;
+  }
+
+  .containerForm textarea {
+    width: 300px;
+  }
 }

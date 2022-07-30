@@ -1,7 +1,8 @@
 .container {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   background: url('../../assets/fondo-lluvia.webp') no-repeat center center
     fixed;
   background-color: rgb(0, 0, 0, 0.2);
@@ -10,9 +11,29 @@
 
 .image {
   margin-top: 20px;
+  width: 150px;
 }
 
 .logo:hover {
   transform: scale(0.95);
   transition: 700ms;
+}
+
+@media screen and (max-width: 1490px) {
+  .container {
+    gap: 100px;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .container {
+    gap: 0px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import style from './ButtonDisabled.module.css';
 
-const ButtonDisabled = props => {
+const ButtonDisabled = ({ content, type }) => {
   return (
-    <button className={style.botoncito} disabled>
-      {props.content}
+    <button type={type} className={style.botoncito} disabled>
+      {content}
     </button>
   );
 };

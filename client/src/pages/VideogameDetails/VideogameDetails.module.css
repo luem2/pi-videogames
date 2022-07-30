@@ -1,12 +1,12 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-size: cover;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .gameDetails {
@@ -58,10 +58,55 @@
 }
 
 .goHome {
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 
 .loader {
   margin-top: 220px;
   margin-left: 50px;
+}
+
+@media screen and (max-width: 920px) {
+  .infoContainer {
+    width: 500px;
+  }
+
+  .image {
+    height: 300px;
+    width: 500px;
+  }
+
+  .text {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .infoContainer {
+    width: 400px;
+  }
+
+  .text {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .gameDetails h1 {
+    font-size: 24px;
+  }
+
+  .infoContainer {
+    width: 300px;
+  }
+
+  .image {
+    height: 200px;
+    width: 350px;
+  }
+
+  .text {
+    width: 350px;
+  }
 }

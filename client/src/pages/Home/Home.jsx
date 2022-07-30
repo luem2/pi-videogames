@@ -15,6 +15,7 @@ import style from './Home.module.css';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
 import marioBros from '../../assets/mariotriste.png';
+import marioFace from '../../assets/marioFace.png';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -50,11 +51,14 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={style.homeContainer}>
       {emptyInput ? (
         <Modal functionModal={closeModalEmptyInput}>
           <div className={style.modalContainer}>
             <h2>Enter a name please ⚠️</h2>
+          </div>
+          <div className={style.marioFace}>
+            <img src={marioFace} alt='enter-game-name' />
           </div>
           <div className={style.buttonEmpty}>
             <Button content='Return' onClick={closeModalEmptyInputFunction} />

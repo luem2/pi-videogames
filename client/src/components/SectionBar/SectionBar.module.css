@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   background: url('../../assets/fondo-lluvia.webp') no-repeat center center
@@ -9,7 +10,61 @@
   box-shadow: 2px 4px 10px rgb(0, 0, 0, 0.7);
 }
 
+.mainButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 .order {
   margin-left: 50px;
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1140px) {
+  .container {
+    gap: 20px;
+  }
+
+  .order {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainButtons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 50px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    margin-left: -50px;
+  }
+
+  .mainButtons {
+    gap: 50px;
+    margin-top: 20px;
+    margin-left: 50px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .container {
+    gap: 0px;
+  }
+
+  .order {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainButtons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 50px;
+  }
 }

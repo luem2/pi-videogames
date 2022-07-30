@@ -1,3 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .order {
   background-color: #3f085f;
   transition: 300ms;
@@ -21,4 +28,44 @@
 .order:hover {
   font-weight: bold;
   background-color: #6f0aaa;
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    margin-bottom: 20px;
+  }
+
+  .firstFilters {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .secondFilters {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order {
+    margin-bottom: -10px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .container select {
+    width: 120px;
+  }
+
+  .firstFilters select {
+    width: 120px;
+  }
+  .secondFilters select {
+    width: 120px;
+  }
 }

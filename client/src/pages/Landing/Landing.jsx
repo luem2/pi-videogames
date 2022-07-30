@@ -14,10 +14,10 @@ const Landing = () => {
       <video src={videoBg} autoPlay muted loop />
       <div className={style.content}>
         <img src={logo} alt='logo-hernygames' />
-        <h1>Welcome to Henry Games!</h1>
+        <h2>Welcome to Henry Games!</h2>
         <div className={style.buttonContainer}>
           <span className={style.home}>
-            <Link to='home'>
+            <Link to='home' style={{ textDecoration: 'none' }}>
               <Button image={logoAlternative} content='Get Started' />
             </Link>
           </span>
@@ -26,8 +26,9 @@ const Landing = () => {
               href='https://github.com/Luem2/pi-videogames'
               rel='noopener noreferrer'
               target='_blank'
+              style={{ textDecoration: 'none' }}
             >
-              <Button image={github} content='Github Repository' />
+              <Button image={github} content='Repository' />
             </a>
           </span>
         </div>

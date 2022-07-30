@@ -51,3 +51,17 @@
 .botoncito:focus {
   background-color: rgb(0, 0, 0, 0.5);
 }
+
+@media screen and (max-width: 510px) {
+  .page {
+    gap: 5px;
+  }
+
+  .number {
+    width: 40px;
+  }
+
+  .botoncito {
+    font-size: 12px;
+  }
+}

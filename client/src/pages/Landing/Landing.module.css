@@ -21,18 +21,23 @@ video {
 }
 
 .content {
+  justify-content: center;
+  align-items: center;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   color: white;
 }
 
+.content img {
+  width: 150px;
+}
+
 .buttonContainer {
+  display: flex;
   margin-top: 20px;
 }
 
@@ -44,6 +49,37 @@ video {
   margin-left: 10px;
 }
 
-img {
-  width: 150px;
+@media screen and (max-width: 540px) {
+  .content {
+    margin-right: 25px;
+    padding: 50px;
+  }
+
+  .content h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    padding: 10px;
+    margin-left: 50px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .content h2 {
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttonContainer .github {
+    margin-left: -10px;
+  }
 }

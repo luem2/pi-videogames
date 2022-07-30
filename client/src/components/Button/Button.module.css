@@ -1,20 +1,25 @@
-.botoncito {
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40px;
   border: solid 1px rgb(0, 0, 0, 0.4);
+  font-size: 14px;
   font-weight: bold;
-  width: 180px;
+  width: 190px;
   border-radius: 20px;
-  background-color: #6f0aaa;
+  background-color: rgb(111, 10, 170, 0.8);
+  backdrop-filter: blur(4px) saturate(180%);
+  padding: 20px;
+  gap: 10px;
 }
 
-.botoncito img {
-  height: 16px;
-  width: 16px;
-  margin-right: 10px;
+.container img {
+  max-width: 30px;
 }
 
-.botoncito:hover {
-  background-color: #3f085f;
+.container:hover {
+  background-color: rgba(131, 65, 148, 0.8);
   transition: 300ms;
   cursor: pointer;
 }

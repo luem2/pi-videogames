@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearFilters } from '../../redux/actions';
 import style from './SectionBar.module.css';
+import reset from '../../assets/resetButton3.png';
+import create from '../../assets/mando3.png';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -16,11 +18,13 @@ const Sidebar = () => {
 
   return (
     <div className={style.container}>
-      <Link to='/create' style={{ textDecoration: 'none' }}>
-        <Button content='🎮 Create Videogame' />
-      </Link>
-      <div className={style.botoncito} onClick={handleReset}>
-        <Button content='👾 Reset Videogames' />
+      <div className={style.mainButtons}>
+        <Link to='/create' style={{ textDecoration: 'none' }}>
+          <Button image={create} content='Create game!' />
+        </Link>
+        <div onClick={handleReset}>
+          <Button image={reset} content='Reset filters' />
+        </div>
       </div>
       <div className={style.order}>
         <Order />
