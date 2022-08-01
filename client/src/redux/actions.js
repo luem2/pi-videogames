@@ -55,6 +55,7 @@ export function searchVideogames(search) {
       dispatch({
         type: CLEAR_FILTERS,
       });
+      console.log(error);
     }
   };
 }
