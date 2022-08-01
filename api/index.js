@@ -22,19 +22,12 @@ const { conn } = require('./src/db.js');
 const { PORT } = require('./src/utility/');
 const getGenres = require('./src/controllers/genres');
 
-const connection = async () => {
-  try {
-    await conn.authenticate();
-    conn.sync({ force: false }).then(() => {
-      getGenres();
-      server.listen(process.env.PORT || PORT, () => {
-        console.log(`Listening on ${process.env.PORT || PORT}`); // eslint-disable-line no-console
-      });
+conn
+  .sync({ force: true })
+  .then(() => {
+    getGenres();
+    server.listen(process.env.PORT || PORT, () => {
+      console.log(`Listening on ${process.env.PORT || PORT}`); // eslint-disable-line no-console
     });
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-connection();
+  })
+  .catch(error => console.log(error));

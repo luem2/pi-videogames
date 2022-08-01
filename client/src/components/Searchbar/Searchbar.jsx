@@ -18,8 +18,8 @@ const Searchbar = () => {
       if (!search.length) {
         dispatch(emptyInputFunction());
       } else {
-        dispatch(clearFilteredVideogames());
         dispatch(searchVideogames(search));
+        dispatch(clearFilteredVideogames());
       }
       setSearch('');
     } catch (error) {
