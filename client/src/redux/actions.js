@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { DOMAIN, SV_PORT } from '../utility';
 
 //actions types:
 export const GET_ALL_GAMES = 'GET_ALL_GAMES';
@@ -26,7 +25,7 @@ export const CLOSE_MODAL_VIDEOGAME_CREATED = 'CLOSE_MODAL_VIDEOGAME_CREATED';
 export function getAllVideogames() {
   return async dispatch => {
     try {
-      const result = await axios.get(`${DOMAIN}${SV_PORT}/api/videogames`);
+      const result = await axios.get(`/api/videogames`);
       const videogames = await result.data;
       dispatch({
         type: GET_ALL_GAMES,
@@ -41,9 +40,7 @@ export function getAllVideogames() {
 export function searchVideogames(search) {
   return async dispatch => {
     try {
-      const result = await axios.get(
-        `${DOMAIN}${SV_PORT}/api/videogames?name=${search}`
-      );
+      const result = await axios.get(`/api/videogames?name=${search}`);
 
       const videogames = await result.data;
 
@@ -65,7 +62,7 @@ export function searchVideogames(search) {
 export function getDetails(id) {
   return async dispatch => {
     try {
-      const result = await axios.get(`${DOMAIN}${SV_PORT}/api/videogame/${id}`);
+      const result = await axios.get(`/api/videogame/${id}`);
       const videogame = await result.data;
       dispatch({
         type: GET_DETAILS,
@@ -117,10 +114,7 @@ export function gamesSort(order) {
 
 export const createVideogame = videogame => async () => {
   try {
-    const response = await axios.post(
-      `${DOMAIN}${SV_PORT}/api/videogames`,
-      videogame
-    );
+    const response = await axios.post(`/api/videogames`, videogame);
     return response;
   } catch (error) {
     console.log(error);
@@ -129,7 +123,7 @@ export const createVideogame = videogame => async () => {
 
 export const getGenres = () => async dispatch => {
   try {
-    const response = await axios.get(`${DOMAIN}${SV_PORT}/api/genres`);
+    const response = await axios.get(`/api/genres`);
     dispatch({
       type: GET_GENRES,
       payload: response,

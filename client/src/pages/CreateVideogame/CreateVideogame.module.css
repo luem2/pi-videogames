@@ -171,27 +171,11 @@
     width: 400px;
   }
 
-  .nameInput input {
+  .containerForm input {
     width: 300px;
   }
 
-  .descriptionInput input {
-    width: 300px;
-  }
-
-  .ratingInput input {
-    width: 300px;
-  }
-
-  .releasedInput input {
-    width: 300px;
-  }
-
-  .platformsInput select {
-    width: 300px;
-  }
-
-  .genresInput select {
+  .containerForm select {
     width: 300px;
   }
 
@@ -201,5 +185,37 @@
 
   .containerForm textarea {
     width: 300px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .containerForm {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+  }
+
+  .buttonCreated Button {
+    width: 152px;
+  }
+
+  .containerForm input {
+    width: 250px;
+  }
+
+  .containerForm select {
+    width: 250px;
+  }
+
+  .containerForm .image {
+    width: 250px;
+  }
+
+  .containerForm textarea {
+    width: 250px;
+  }
+
+  .containerButtons Button {
+    width: 152px;
   }
 }

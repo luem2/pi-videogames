@@ -8,11 +8,9 @@ const NotFound = () => {
   return (
     <div className={style.container}>
       <img src={notfound} alt='not found' />
-      <div className={style.button}>
-        <Link to='home'>
-          <Button content='🏠 Go Home' />
-        </Link>
-      </div>
+      <Link to='home' style={{ textDecoration: 'none' }}>
+        <Button content='🏠 Go Home' />
+      </Link>
     </div>
   );
 };

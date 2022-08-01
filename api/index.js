@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const { SV_PORT } = require('./src/utility/');
+const { PORT } = require('./src/utility/');
 const getGenres = require('./src/controllers/genres');
 
 const connection = async () => {
@@ -27,8 +27,8 @@ const connection = async () => {
     await conn.authenticate();
     conn.sync({ force: false }).then(() => {
       getGenres();
-      server.listen(SV_PORT, () => {
-        console.log(`Listening on ${SV_PORT}`); // eslint-disable-line no-console
+      server.listen(PORT, () => {
+        console.log(`Listening on ${PORT}`); // eslint-disable-line no-console
       });
     });
     console.log('Connection has been established successfully.');

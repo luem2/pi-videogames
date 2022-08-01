@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9888f882.css",
+    "main.js": "/static/js/main.9644ff24.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/bg.mkv": "/static/media/bg.45b28fc53b9dddf262e1.mkv",
+    "static/media/fondo-lluvia.webp": "/static/media/fondo-lluvia.ed3d236d5bb7f86f0be6.webp",
+    "static/media/mariotriste.png": "/static/media/mariotriste.d654a6e0cf21801fe0d2.png",
+    "static/media/mariofeliz.png": "/static/media/mariofeliz.6c04023fe576ed7bc2e9.png",
+    "static/media/marioFace.png": "/static/media/marioFace.a95db3b0da7d119061ca.png",
+    "static/media/logo.png": "/static/media/logo.a1bd81716ec4823a883f.png",
+    "static/media/logo2.png": "/static/media/logo2.8990ff227aad2551a125.png",
+    "static/media/mando3.png": "/static/media/mando3.2011fc5166b50dfc1c99.png",
+    "static/media/404notfound.png": "/static/media/404notfound.3293598cbdb245216a4d.png",
+    "static/media/CircleLogo.png": "/static/media/CircleLogo.5c7c85f2d5ceda117e10.png",
+    "static/media/resetButton3.png": "/static/media/resetButton3.82c8e8262ad02a97ea70.png",
+    "static/media/search-icon-white.png": "/static/media/search-icon-white.03397db34bfd858dd4b2.png",
+    "static/media/pacman.svg": "/static/media/pacman.9471d726a68eccb7ea4d88ba262487e5.svg",
+    "index.html": "/index.html",
+    "main.9888f882.css.map": "/static/css/main.9888f882.css.map",
+    "main.9644ff24.js.map": "/static/js/main.9644ff24.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9888f882.css",
+    "static/js/main.9644ff24.js"
+  ]
+}

@@ -68,3 +68,20 @@
     margin-left: 50px;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .container select {
+    width: 120px;
+  }
+
+  .firstFilters select {
+    width: 120px;
+  }
+  .secondFilters select {
+    width: 120px;
+  }
+
+  .mainButtons Button {
+    width: 120px;
+  }
+}

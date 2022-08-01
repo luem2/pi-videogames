@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 //SV & DB Info, API Key
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME, SV_PORT, API_KEY } =
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME, PORT, API_KEY } =
   dotenv.config().parsed;
 
 //Enabled endpoints-flags API
@@ -16,7 +16,7 @@ module.exports = {
   DB_HOST,
   DB_PORT,
   DB_NAME,
-  SV_PORT,
+  PORT,
   API_KEY,
   API_GAMES_EP,
   API_GAMES_ID_EP,
