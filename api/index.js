@@ -25,7 +25,7 @@ const getGenres = require('./src/controllers/genres');
 const connection = async () => {
   try {
     await conn.authenticate();
-    conn.sync({ force: false }).then(() => {
+    conn.sync({ force: true }).then(() => {
       getGenres();
       server.listen(PORT, () => {
         console.log(`Listening on ${PORT}`); // eslint-disable-line no-console
