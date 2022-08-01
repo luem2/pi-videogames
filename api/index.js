@@ -23,7 +23,7 @@ const { PORT } = require('./src/utility/');
 const getGenres = require('./src/controllers/genres');
 
 conn
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     getGenres();
     server.listen(process.env.PORT || PORT, () => {
