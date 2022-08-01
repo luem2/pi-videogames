@@ -1,7 +1,8 @@
 const dotenv = require('dotenv');
-//SV & DB Info, API Key
+dotenv.config();
+
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME, PORT, API_KEY } =
-  dotenv.config().parsed;
+  process.env;
 
 //Enabled endpoints-flags API
 const API_GAMES_EP = 'https://api.rawg.io/api/games';

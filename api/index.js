@@ -28,7 +28,7 @@ const connection = async () => {
     conn.sync({ force: false }).then(() => {
       getGenres();
       server.listen(process.env.PORT || PORT, () => {
-        console.log(`Listening on ${PORT}`); // eslint-disable-line no-console
+        console.log(`Listening on ${process.env.PORT || PORT}`); // eslint-disable-line no-console
       });
     });
     console.log('Connection has been established successfully.');
