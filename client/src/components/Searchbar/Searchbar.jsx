@@ -13,14 +13,18 @@ const Searchbar = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async e => {
-    e.preventDefault();
-    if (!search.length) {
-      dispatch(emptyInputFunction());
-    } else {
-      dispatch(clearFilteredVideogames());
-      dispatch(searchVideogames(search));
+    try {
+      e.preventDefault();
+      if (!search.length) {
+        dispatch(emptyInputFunction());
+      } else {
+        dispatch(clearFilteredVideogames());
+        dispatch(searchVideogames(search));
+      }
+      setSearch('');
+    } catch (error) {
+      console.log(error);
     }
-    setSearch('');
   };
 
   const onInputChange = e => {
