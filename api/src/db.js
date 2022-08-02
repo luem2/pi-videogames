@@ -7,17 +7,22 @@ const {
   DB_HOST,
   DB_PORT,
   DB_NAME,
+  PGUSER,
+  PGPASSWORD,
+  PGHOST,
+  PGPORT,
+  PGDATABASE,
 } = require('./utility/');
 
 const sequelize =
   process.env.NODE_ENV === 'production'
     ? new Sequelize({
-        database: DB_NAME,
+        database: PGDATABASE,
         dialect: 'postgres',
-        host: DB_HOST,
-        port: DB_PORT,
-        username: DB_USER,
-        password: DB_PASSWORD,
+        host: PGHOST,
+        port: PGPORT,
+        username: PGUSER,
+        password: PGPASSWORD,
         pool: {
           max: 3,
           min: 1,
