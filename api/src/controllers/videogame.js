@@ -3,9 +3,8 @@ const { Videogame, Genre } = require('../db');
 const { API_KEY, API_GAMES_ID_EP } = require('../utility/');
 
 const getIdGame = async (req, res, next) => {
-  const { idVideogame } = req.params;
-
   try {
+    const { idVideogame } = req.params;
     if (idVideogame.length === 36) {
       const gameId = await Videogame.findByPk(idVideogame, {
         include: Genre,

@@ -3,9 +3,8 @@ const { Videogame, Genre, Op } = require('../db');
 const { API_KEY, API_GAMES_EP, API_GAMES_QUERY_EP } = require('../utility/');
 
 const getGames = async (req, res, next) => {
-  const { name } = req.query;
-
   try {
+    const { name } = req.query;
     if (!name) {
       const allGamesApi = [];
 
