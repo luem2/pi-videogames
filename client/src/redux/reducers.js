@@ -17,6 +17,7 @@ import {
   EMPTY_INPUT,
   VIDEOGAME_CREATED,
   CLOSE_MODAL_VIDEOGAME_CREATED,
+  CLEAR_HOME,
 } from './actions';
 
 import { ASCENDENTE, EXTERNAL_API } from '../utility';
@@ -96,13 +97,23 @@ function reducer(state = initialState, action) {
           filteredVideogames: state.videogames,
         };
       }
-      const genresVideogames = [...state.filteredVideogames];
-      const filteredVideogames = genresVideogames.filter(g =>
+      const genresVideogames = [...state.filteredVideogames].filter(g =>
         g.genres?.includes(action.payload)
       );
+
+      if (!genresVideogames.length) {
+        return {
+          ...state,
+          modal: {
+            ...state.modal,
+            gameNotFound: true,
+          },
+        };
+      }
+
       return {
         ...state,
-        filteredVideogames: filteredVideogames,
+        filteredVideogames: genresVideogames,
       };
 
     case GAMES_SORT:
@@ -112,13 +123,24 @@ function reducer(state = initialState, action) {
           filteredVideogames: state.videogames,
         };
       }
-      let gamesVideogames = [...state.videogames].filter(g => {
+
+      const gamesVideogames = [...state.videogames].filter(g => {
         if (action.payload === EXTERNAL_API) {
           return g.id.length !== 36;
         } else {
           return g.id.length === 36;
         }
       });
+
+      if (!gamesVideogames.length) {
+        return {
+          ...state,
+          modal: {
+            ...state.modal,
+            gameNotFound: true,
+          },
+        };
+      }
 
       return {
         ...state,
@@ -135,6 +157,12 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         videogameDetail: {},
+      };
+
+    case CLEAR_HOME:
+      return {
+        ...state,
+        filteredVideogames: state.videogames,
       };
 
     case CLEAR_FILTERS:

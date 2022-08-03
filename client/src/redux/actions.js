@@ -20,6 +20,7 @@ export const EMPTY_INPUT = 'EMPTY_INPUT';
 export const CLOSE_MODAL_EMPTY_INPUT = 'CLOSE_MODAL_EMPTY_INPUT';
 export const VIDEOGAME_CREATED = 'VIDEOGAME_CREATED';
 export const CLOSE_MODAL_VIDEOGAME_CREATED = 'CLOSE_MODAL_VIDEOGAME_CREATED';
+export const CLEAR_HOME = 'CLEAR_HOME';
 
 //actions:
 export function getAllVideogames() {
@@ -78,6 +79,8 @@ export function getDetails(id) {
 export const clearDetail = () => ({
   type: CLEAR_DETAILS,
 });
+
+export const clearHome = () => ({ type: CLEAR_HOME });
 
 export const clearFilters = () => ({ type: CLEAR_FILTERS });
 

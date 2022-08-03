@@ -10,6 +10,7 @@ import {
   closeModalEmptyInput,
   getAllVideogames,
   getGenres,
+  clearHome,
 } from '../../redux/actions';
 import style from './Home.module.css';
 import Modal from '../../components/Modal/Modal';
@@ -48,6 +49,9 @@ const Home = () => {
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getAllVideogames());
+    return () => {
+      dispatch(clearHome());
+    };
   }, [dispatch]);
 
   return (
