@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const { PORT } = require('./src/utility/');
+const { PORT } = require('./config');
 const getGenres = require('./src/controllers/genres');
 
 conn
