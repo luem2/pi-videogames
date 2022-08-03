@@ -16,6 +16,7 @@ import ButtonDisabled from '../../components/ButtonDisabled/ButtonDisabled';
 import Modal from '../../components/Modal/Modal';
 import marioFeliz from '../../assets/mariofeliz.png';
 import marioFace from '../../assets/marioFace.png';
+
 const validate = videogame => {
   const errors = {};
   const year = Number(videogame.released.split('-')[0]);

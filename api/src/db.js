@@ -12,7 +12,7 @@ const {
   PGHOST,
   PGPORT,
   PGDATABASE,
-} = require('./utility/');
+} = require('../config');
 
 const sequelize =
   process.env.NODE_ENV === 'production'

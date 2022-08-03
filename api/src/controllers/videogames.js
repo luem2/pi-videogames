@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Videogame, Genre, Op } = require('../db');
-const { API_KEY, API_GAMES_EP, API_GAMES_QUERY_EP } = require('../utility/');
+const { API_KEY, API_GAMES_EP, API_GAMES_QUERY_EP } = require('../../config');
 
 const getGames = async (req, res, next) => {
   try {

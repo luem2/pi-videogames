@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Genre } = require('../db.js');
-const { API_KEY, API_GENRES_EP } = require('../utility/');
+const { API_KEY, API_GENRES_EP } = require('../../config');
 
 const getGenres = async () => {
   try {
