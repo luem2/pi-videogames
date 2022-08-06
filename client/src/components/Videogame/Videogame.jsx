@@ -8,7 +8,7 @@ const Videogame = ({ id, name, image, rating, genres }) => {
       <Link to={`/details/${id}`} style={{ textDecoration: 'none' }}>
         <img className={style.images} src={image} alt={name} />
         <h3 className={style.h3}>
-          {name.length > 30 ? name.substring(0, 30).concat('...') : name}
+          {name.length > 26 ? name.substring(0, 26).concat('...') : name}
         </h3>
         <div className={style.genresContainer}>
           <p className={style.genres}>

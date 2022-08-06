@@ -49,16 +49,16 @@ const VideogameDetails = () => {
                 : videogame.platforms?.map(p => p.name) + ''}
             </p>
             <p>Rating: {videogame.rating}★</p>
-          </div>
 
-          <div className={style.text}>
-            <h3>Sinopsis</h3>
-            {videogame.description?.replace(/<[^>]*>/g, '')}
-          </div>
-          <div className={style.goHome}>
-            <Link to='/home' style={{ textDecoration: 'none' }}>
-              <Button content='🏠 Go Home' />
-            </Link>
+            <div className={style.text}>
+              <h3>Sinopsis</h3>
+              {videogame.description?.replace(/<[^>]*>/g, '')}
+            </div>
+            <div className={style.goHome}>
+              <Link to='/home' style={{ textDecoration: 'none' }}>
+                <Button content='🏠 Go Home' />
+              </Link>
+            </div>
           </div>
         </Fragment>
       ) : (

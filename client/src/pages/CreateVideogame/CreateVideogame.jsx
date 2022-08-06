@@ -7,6 +7,7 @@ import {
   closeModalVideogameCreated,
   createVideogame,
   getGenres,
+  getAllVideogames,
 } from '../../redux/actions';
 import { platforms } from '../../utility/platforms';
 import style from './CreateVideogame.module.css';
@@ -48,10 +49,10 @@ const validate = videogame => {
 
 const CreateVideogame = () => {
   const videogames = useSelector(state => state.videogames);
+  const genres = useSelector(state => state.genres.data);
   const gameCreatedSuccessfully = useSelector(state => state.modal.gameCreated);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const genres = useSelector(state => state.genres.data);
 
   const [videogame, setVideogame] = useState({
     name: '',
@@ -134,6 +135,7 @@ const CreateVideogame = () => {
     }
 
     dispatch(createVideogame(videogame));
+    dispatch(getAllVideogames());
     dispatch(videogameCreatedFunction());
 
     setVideogame({
@@ -161,7 +163,9 @@ const CreateVideogame = () => {
   };
 
   useEffect(() => {
-    dispatch(getGenres());
+    if (!genres.length) {
+      dispatch(getGenres());
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (
@@ -257,22 +261,30 @@ const CreateVideogame = () => {
             required
           >
             {platforms.map((p, i) => (
-              <option key={i + p} value={p}>
+              <option key={i} value={p}>
                 {p}
               </option>
             ))}
           </select>
           {errors.platforms && <p>{errors.platforms}</p>}
         </div>
-        <textarea
-          disabled
-          name=''
-          id=''
-          cols='30'
-          rows='10'
-          value={videogame.platforms}
-        ></textarea>
-
+        <div className={style.platformsContainer}>
+          {videogame.platforms?.map((p, i) => (
+            <div key={i}>
+              <span
+                key={i}
+                onClick={() => {
+                  setVideogame({
+                    ...videogame,
+                    ...videogame.platforms.splice(i, 1),
+                  });
+                }}
+              >
+                {p}
+              </span>
+            </div>
+          ))}
+        </div>
         <label>Genres</label>
         <div className={style.genresInput}>
           <select
@@ -289,14 +301,23 @@ const CreateVideogame = () => {
           </select>
           {errors.genres && <p>{errors.genres}</p>}
         </div>
-        <textarea
-          disabled
-          name=''
-          id=''
-          cols='30'
-          rows='10'
-          value={videogame.genres}
-        ></textarea>
+        <div className={style.genresContainer}>
+          {videogame.genres?.map((p, i) => (
+            <div key={i}>
+              <span
+                key={i}
+                onClick={() => {
+                  setVideogame({
+                    ...videogame,
+                    ...videogame.genres.splice(i, 1),
+                  });
+                }}
+              >
+                {p}
+              </span>
+            </div>
+          ))}
+        </div>
 
         <label>Imagen:</label>
         <input
@@ -307,6 +328,13 @@ const CreateVideogame = () => {
           value={videogame.background_image}
           placeholder='Example: http://henry-game.com/image.png'
         />
+        <div className={style.imagePreview}>
+          {videogame.background_image ? (
+            <img src={videogame.background_image} alt={videogame.name} />
+          ) : (
+            <p>Image Preview</p>
+          )}
+        </div>
       </div>
       <div className={style.containerButtons}>
         <div className={style.submitButton}>

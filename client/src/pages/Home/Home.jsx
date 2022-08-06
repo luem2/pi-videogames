@@ -10,7 +10,6 @@ import {
   closeModalEmptyInput,
   getAllVideogames,
   getGenres,
-  clearHome,
 } from '../../redux/actions';
 import style from './Home.module.css';
 import Modal from '../../components/Modal/Modal';
@@ -24,7 +23,6 @@ const Home = () => {
   const modal = useSelector(state => state.modal);
   const gameNotFound = modal.gameNotFound;
   const emptyInput = modal.emptyInput;
-  /* Paginate */
   const [currentPage, setCurrentPage] = useState(1);
   const [videogamesPerPage] = useState(15);
   const indexOfLastVideogame = currentPage * videogamesPerPage;
@@ -47,11 +45,10 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(getGenres());
-    dispatch(getAllVideogames());
-    return () => {
-      dispatch(clearHome());
-    };
+    if (!allVideogames.length) {
+      dispatch(getGenres());
+      dispatch(getAllVideogames());
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (

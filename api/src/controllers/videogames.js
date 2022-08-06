@@ -83,6 +83,8 @@ const getGames = async (req, res, next) => {
 
 const postGame = async (req, res, next) => {
   try {
+    const defaultImage =
+      'https://i.blogs.es/2ed8d3/super-mario-bros-2/1366_2000.jpeg';
     const {
       name,
       description,
@@ -100,7 +102,7 @@ const postGame = async (req, res, next) => {
     const gameCreated = await Videogame.create({
       name,
       description,
-      background_image,
+      background_image: background_image || defaultImage,
       released,
       rating,
       platforms,
