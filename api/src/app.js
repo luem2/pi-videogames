@@ -19,7 +19,7 @@ server.use(morgan('dev'));
 server.use((req, res, next) => {
   res.header(
     'Access-Control-Allow-Origin',
-    'https://henrygames.lucianopinol.com/'
+    'https://henrygames.lucianopinol.com'
   );
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header(
