@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import github from '../../assets/GitHub.png';
 import logoAlternative from '../../assets/logo2.png';
+import logoLuem from '../../assets/CircleLogo.png';
 
 const Landing = () => {
   return (
@@ -33,6 +34,16 @@ const Landing = () => {
           </span>
         </div>
       </div>
+      <span className={style.createdBy}>
+        Created By:
+        <a
+          href='https://lucianopinol.com/'
+          rel='noopener noreferrer'
+          target='_blank'
+        >
+          <img src={logoLuem} alt='luem-logo' />
+        </a>
+      </span>
     </div>
   );
 };

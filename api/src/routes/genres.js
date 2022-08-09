@@ -7,8 +7,8 @@ router.get('/', async (req, res) => {
     const result = await getGenres();
     const genres = result.map(g => g.dataValues);
     res.send(genres);
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log(e);
   }
 });
 

@@ -30,4 +30,4 @@ conn
       console.log(`Listening on ${process.env.PORT || PORT}`); // eslint-disable-line no-console
     });
   })
-  .catch(error => console.log(error));
+  .catch(e => console.log(e));

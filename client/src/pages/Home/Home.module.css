@@ -59,3 +59,38 @@
   height: 100px;
   width: 100px;
 }
+
+.gameDeletedModal {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameDeletedModal img {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.gameDeletedModal Button {
+  margin-top: 10px;
+}
+
+.gameDeletedModal h2 {
+  margin-bottom: 20px;
+}
+
+.editedSuccessfully {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.editedSuccessfully img {
+  width: 150px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

@@ -6,7 +6,7 @@ const Videogames = ({ currentVideogames }) => {
   return (
     <div className={style.container}>
       {currentVideogames.length ? (
-        <React.Fragment>
+        <>
           {currentVideogames.map(g => (
             <Videogame
               key={g.id}
@@ -21,7 +21,7 @@ const Videogames = ({ currentVideogames }) => {
               rating={g.rating}
             />
           ))}
-        </React.Fragment>
+        </>
       ) : (
         <Loader />
       )}

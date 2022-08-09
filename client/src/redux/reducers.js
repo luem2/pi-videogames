@@ -13,10 +13,18 @@ import {
   CLEAR_FILTEREDVIDEOGAMES,
   GAME_NOT_FOUND,
   CLOSE_MODAL_NOT_FOUND,
-  CLOSE_MODAL_EMPTY_INPUT,
   EMPTY_INPUT,
+  CLOSE_MODAL_EMPTY_INPUT,
   VIDEOGAME_CREATED,
   CLOSE_MODAL_VIDEOGAME_CREATED,
+  ARE_YOU_SURE,
+  CLOSE_MODAL_ARE_YOU_SURE,
+  VIDEOGAME_UPDATE,
+  CLOSE_MODAL_VIDEOGAME_UPDATE,
+  VIDEOGAME_DELETE,
+  CLOSE_MODAL_VIDEOGAME_DELETE,
+  VIDEOGAME_ALREADY_EXISTS,
+  CLOSE_MODAL_VIDEOGAME_ALREADY_EXISTS,
   CLEAR_HOME,
 } from './actions';
 
@@ -31,6 +39,11 @@ const initialState = {
     emptyInput: false,
     gameNotFound: false,
     gameCreated: false,
+    areYouSure: false,
+    editGame: false,
+    deletedGame: false,
+    videogameExists: false,
+    gameNotChanged: false,
   },
 };
 
@@ -159,12 +172,6 @@ function reducer(state = initialState, action) {
         videogameDetail: {},
       };
 
-    case CLEAR_HOME:
-      return {
-        ...state,
-        filteredVideogames: state.videogames,
-      };
-
     case CLEAR_FILTERS:
       return {
         ...state,
@@ -240,6 +247,84 @@ function reducer(state = initialState, action) {
           ...state.modal,
           gameCreated: false,
         },
+      };
+
+    case ARE_YOU_SURE:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          areYouSure: true,
+        },
+      };
+
+    case CLOSE_MODAL_ARE_YOU_SURE:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          areYouSure: false,
+        },
+      };
+
+    case VIDEOGAME_UPDATE:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          editGame: true,
+        },
+      };
+
+    case CLOSE_MODAL_VIDEOGAME_UPDATE:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          editGame: false,
+        },
+      };
+
+    case VIDEOGAME_DELETE:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          deleteGame: true,
+        },
+      };
+
+    case CLOSE_MODAL_VIDEOGAME_DELETE:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          deleteGame: false,
+        },
+      };
+
+    case VIDEOGAME_ALREADY_EXISTS:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          videogameExists: true,
+        },
+      };
+
+    case CLOSE_MODAL_VIDEOGAME_ALREADY_EXISTS:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          videogameExists: false,
+        },
+      };
+
+    case CLEAR_HOME:
+      return {
+        ...state,
+        filteredVideogames: [],
       };
 
     default:

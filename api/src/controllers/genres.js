@@ -15,8 +15,8 @@ const getGenres = async () => {
 
     const allGenres = await Genre.findAll();
     return allGenres;
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log(e);
   }
 };
 

@@ -49,6 +49,23 @@ video {
   margin-left: 10px;
 }
 
+.createdBy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: auto;
+  gap: 10px;
+  margin-top: 20px;
+  margin-right: 40px;
+}
+
+.createdBy img {
+  width: 30px;
+}
+
 @media screen and (max-width: 540px) {
   .content {
     margin-right: 25px;

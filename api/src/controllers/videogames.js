@@ -76,51 +76,9 @@ const getGames = async (req, res, next) => {
         ? res.send(allGamesQuery)
         : res.status(404).send({ msg: 'The requested game was not found' });
     }
-  } catch (error) {
-    next(error);
+  } catch (e) {
+    next(e);
   }
 };
 
-const postGame = async (req, res, next) => {
-  try {
-    const defaultImage =
-      'https://i.blogs.es/2ed8d3/super-mario-bros-2/1366_2000.jpeg';
-    const {
-      name,
-      description,
-      genres,
-      background_image,
-      released,
-      rating,
-      platforms,
-    } = req.body;
-
-    if (!name || !description || !platforms) {
-      res.status(401).send({ msg: 'Required data is missing' });
-    }
-
-    const gameCreated = await Videogame.create({
-      name,
-      description,
-      background_image: background_image || defaultImage,
-      released,
-      rating,
-      platforms,
-    });
-
-    const genreMatched = await Genre.findAll({
-      where: {
-        name: genres,
-      },
-    });
-
-    gameCreated.addGenre(genreMatched);
-    res.send({
-      msg: 'The Videogame was created successfully!',
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { getGames, postGame };
+module.exports = getGames;

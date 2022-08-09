@@ -20,6 +20,15 @@ export const EMPTY_INPUT = 'EMPTY_INPUT';
 export const CLOSE_MODAL_EMPTY_INPUT = 'CLOSE_MODAL_EMPTY_INPUT';
 export const VIDEOGAME_CREATED = 'VIDEOGAME_CREATED';
 export const CLOSE_MODAL_VIDEOGAME_CREATED = 'CLOSE_MODAL_VIDEOGAME_CREATED';
+export const ARE_YOU_SURE = 'ARE_YOU_SURE';
+export const CLOSE_MODAL_ARE_YOU_SURE = 'CLOSE_MODAL_ARE_YOU_SURE';
+export const VIDEOGAME_UPDATE = 'VIDEOGAME_UPDATE';
+export const CLOSE_MODAL_VIDEOGAME_UPDATE = 'CLOSE_MODAL_VIDEOGAME_UPDATE';
+export const VIDEOGAME_DELETE = 'VIDEOGAME_DELETE';
+export const CLOSE_MODAL_VIDEOGAME_DELETE = 'CLOSE_MODAL_VIDEOGAME_DELETE';
+export const VIDEOGAME_ALREADY_EXISTS = 'VIDEOGAME_ALREADY_EXISTS';
+export const CLOSE_MODAL_VIDEOGAME_ALREADY_EXISTS =
+  'CLOSE_MODAL_VIDEOGAME_ALREADY_EXISTS';
 export const CLEAR_HOME = 'CLEAR_HOME';
 
 //actions:
@@ -32,8 +41,8 @@ export function getAllVideogames() {
         type: GET_ALL_GAMES,
         payload: videogames,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.error(e);
     }
   };
 }
@@ -49,14 +58,14 @@ export function searchVideogames(search) {
         type: GET_QUERY_GAMES,
         payload: videogames,
       });
-    } catch (error) {
+    } catch (e) {
       dispatch({
         type: GAME_NOT_FOUND,
       });
       dispatch({
         type: CLEAR_FILTERS,
       });
-      console.log(error);
+      console.error(e);
     }
   };
 }
@@ -70,19 +79,55 @@ export function getDetails(id) {
         type: GET_DETAILS,
         payload: videogame,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.error(e);
     }
   };
 }
+
+export const createVideogame = videogame => async () => {
+  try {
+    await axios.post(`/api/videogame`, videogame);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const updateVideogame = (id, videogame) => async () => {
+  try {
+    await axios.put(`/api/videogame/${id}`, videogame);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const deleteGame = id => async () => {
+  try {
+    await axios.delete(`api/videogame/${id}`);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getGenres = () => async dispatch => {
+  try {
+    const genres = await axios.get(`/api/genres`);
+    dispatch({
+      type: GET_GENRES,
+      payload: genres,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 export const clearDetail = () => ({
   type: CLEAR_DETAILS,
 });
 
-export const clearHome = () => ({ type: CLEAR_HOME });
-
 export const clearFilters = () => ({ type: CLEAR_FILTERS });
+
+export const clearHome = () => ({ type: CLEAR_HOME });
 
 export const clearFilteredVideogames = () => ({
   type: CLEAR_FILTEREDVIDEOGAMES,
@@ -116,27 +161,6 @@ export function gamesSort(order) {
   };
 }
 
-export const createVideogame = videogame => async () => {
-  try {
-    const response = await axios.post(`/api/videogames`, videogame);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getGenres = () => async dispatch => {
-  try {
-    const response = await axios.get(`/api/genres`);
-    dispatch({
-      type: GET_GENRES,
-      payload: response,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const closeModalNotFound = () => ({
   type: CLOSE_MODAL_NOT_FOUND,
 });
@@ -155,4 +179,30 @@ export const videogameCreatedFunction = () => ({
 
 export const closeModalVideogameCreated = () => ({
   type: CLOSE_MODAL_VIDEOGAME_CREATED,
+});
+
+export const areYouSureFunction = () => ({ type: ARE_YOU_SURE });
+
+export const closeModalAreYouSure = () => ({
+  type: CLOSE_MODAL_ARE_YOU_SURE,
+});
+
+export const videogameUpdateFunction = () => ({ type: VIDEOGAME_UPDATE });
+
+export const closeModalVideogameUpdate = () => ({
+  type: CLOSE_MODAL_VIDEOGAME_UPDATE,
+});
+
+export const videogameDeleteFunction = () => ({ type: VIDEOGAME_DELETE });
+
+export const closeModalVideogameDelete = () => ({
+  type: CLOSE_MODAL_VIDEOGAME_DELETE,
+});
+
+export const videogameAlreadyExists = () => ({
+  type: VIDEOGAME_ALREADY_EXISTS,
+});
+
+export const closeModalVideogameAlreadyExists = () => ({
+  type: CLOSE_MODAL_VIDEOGAME_ALREADY_EXISTS,
 });

@@ -1,84 +1,61 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import {
-  videogameCreatedFunction,
-  closeModalVideogameCreated,
-  createVideogame,
-  getGenres,
-  getAllVideogames,
+  videogameUpdateFunction,
   videogameAlreadyExists,
   closeModalVideogameAlreadyExists,
+  getGenres,
   clearHome,
+  getAllVideogames,
+  updateVideogame,
 } from '../../redux/actions';
-import { platforms } from '../../utility/platforms';
-import style from './CreateVideogame.module.css';
-import rana from '../../assets/rana.png';
-import leon from '../../assets/leon.png';
+import { validate } from '../CreateVideogame/CreateVideogame';
 import Button from '../../components/Button/Button';
 import ButtonDisabled from '../../components/ButtonDisabled/ButtonDisabled';
 import Modal from '../../components/Modal/Modal';
-import marioFeliz from '../../assets/mariofeliz.png';
-import marioFace from '../../assets/marioFace.png';
+import { platforms } from '../../utility/platforms';
+import style from './UpdateVideogame.module.css';
 import hongo from '../../assets/hongo.png';
+import marioFace from '../../assets/marioFace.png';
+import unicornio from '../../assets/unicornio.png';
+import panda from '../../assets/panda.png';
+import pinguino from '../../assets/pinguino.png';
 
-export const validate = videogame => {
-  const errors = {};
-  const year = Number(videogame.released?.split('-')[0]);
-  const month = Number(videogame.released?.split('-')[1]);
-  const day = Number(videogame.released?.split('-')[2]);
-
-  if (!videogame.name) {
-    errors.name = 'Enter a name';
-  }
-
-  if (!videogame.description) {
-    errors.description = 'Enter a description';
-  }
-
-  if (
-    Number(videogame.rating) < 1 ||
-    Number(videogame.rating) > 5 ||
-    isNaN(Number(videogame.rating))
-  ) {
-    errors.rating = 'Enter a score from 1 to 5';
-  }
-
-  if (year > 2022 || !month || !day) {
-    errors.released = 'Enter a correct date released';
-  }
-
-  return errors;
-};
-
-const CreateVideogame = () => {
+const UpdateVideogame = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const videogames = useSelector(state => state.videogames);
   const genres = useSelector(state => state.genres.data);
-  const { gameCreated, videogameExists } = useSelector(state => state.modal);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const videogameExists = useSelector(state => state.modal.videogameExists);
+  const videogame = videogames?.find(g => g.id === id);
 
-  const [videogame, setVideogame] = useState({
-    name: '',
-    description: '',
-    background_image: '',
-    released: '',
-    rating: '',
-    genres: [],
-    platforms: [],
+  const [gameNotChangedModal, setGameNotChangedModal] = useState(false);
+  const platformsVideogameMatched = videogame?.platforms?.map(p => p);
+  const genresVideogameMatched = videogame?.Genres?.map(g => g.name);
+
+  const [input, setInput] = useState({
+    name: videogame?.name,
+    description: videogame?.description,
+    background_image: videogame?.background_image,
+    released: videogame?.released,
+    rating: videogame?.rating,
+    genres: genresVideogameMatched || [],
+    platforms: platformsVideogameMatched || [],
   });
 
   const [errors, setErrors] = useState({});
 
   const onInputChange = e => {
     e.preventDefault();
-    setVideogame({
-      ...videogame,
+    setInput({
+      ...input,
       [e.target.name]: e.target.value,
     });
     setErrors(
       validate({
-        ...videogame,
+        ...input,
         [e.target.name]: e.target.value,
       })
     );
@@ -87,14 +64,14 @@ const CreateVideogame = () => {
   const onSelectPlatformChange = e => {
     e.preventDefault();
 
-    if (!videogame.platforms.includes(e.target.value)) {
-      setVideogame({
-        ...videogame,
-        platforms: [...videogame.platforms, e.target.value],
+    if (!input.platforms.includes(e.target.value)) {
+      setInput({
+        ...input,
+        platforms: [...input.platforms, e.target.value],
       });
     } else {
-      setVideogame({
-        ...videogame,
+      setInput({
+        ...input,
       });
     }
   };
@@ -102,54 +79,66 @@ const CreateVideogame = () => {
   const onSelectGenreChange = e => {
     e.preventDefault();
 
-    if (!videogame.genres.includes(e.target.value)) {
-      setVideogame({
-        ...videogame,
-        genres: [...videogame.genres, e.target.value],
+    if (!input.genres.includes(e.target.value)) {
+      setInput({
+        ...input,
+        genres: [...input.genres, e.target.value],
       });
     } else {
-      setVideogame({
-        ...videogame,
+      setInput({
+        ...input,
       });
     }
   };
 
   const onSubmit = e => {
     e.preventDefault();
+    const videogame = videogames.find(g => g.id === id);
 
-    const videogameExists = videogames.filter(
-      g => g.name.toLowerCase() === videogame.name.toLowerCase()
+    const videogameGenres = videogame.Genres?.map(g => g.name);
+    const videogamePlatforms = videogame.platforms;
+
+    const areSameGenres =
+      videogameGenres?.length === input.genres?.length &&
+      videogameGenres.every((e, i) => e === input.genres[i]);
+
+    const areSamePlatforms =
+      videogamePlatforms?.length === input.platforms?.length &&
+      videogamePlatforms.every((e, i) => e === input.platforms[i]);
+
+    if (
+      videogame.name === input.name &&
+      videogame.description === input.description &&
+      videogame.background_image === input.background_image &&
+      videogame.released === input.released &&
+      videogame.rating === input.rating &&
+      areSameGenres &&
+      areSamePlatforms
+    ) {
+      return setGameNotChangedModal(true);
+    }
+
+    let videogameExists = videogames.filter(
+      g => g.name.toLowerCase() === input.name.toLowerCase()
     );
+
+    if (videogameExists[0]?.name === videogame?.name) videogameExists = [];
 
     if (videogameExists.length) {
       return dispatch(videogameAlreadyExists());
     }
 
-    dispatch(createVideogame(videogame));
+    dispatch(updateVideogame(id, input));
     dispatch(clearHome());
-    dispatch(videogameCreatedFunction());
-
-    clearInputs();
-  };
-
-  const clearInputs = () => {
-    setVideogame({
-      name: '',
-      description: '',
-      background_image: '',
-      released: '',
-      rating: '',
-      genres: [],
-      platforms: [],
-    });
+    navigate('/home');
+    dispatch(videogameUpdateFunction());
   };
 
   useEffect(() => {
     if (!videogames.length) {
       dispatch(getAllVideogames());
     }
-
-    if (!genres.length) {
+    if (!genres?.length) {
       dispatch(getGenres());
     } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -171,35 +160,29 @@ const CreateVideogame = () => {
           </div>
         </Modal>
       )}
-      {gameCreated && (
-        <Modal functionModal={closeModalVideogameCreated}>
-          <div className={style.modalContainer}>
-            <h2>Game created successfully! ✅</h2>
-          </div>
-          <div className={style.imageCreated}>
-            <img src={marioFeliz} alt='mario-feliz' />
-          </div>
-          <div className={style.buttonCreated}>
+      {gameNotChangedModal && (
+        <Modal
+          syncFunction={() => {
+            setGameNotChangedModal(false);
+          }}
+        >
+          <div className={style.gameNotChanged}>
+            <h2>The game has not changed</h2>
+            <img src={pinguino} alt='pinguino-gamer' />
+            <h3>Please, change what you want</h3>
             <Button
-              type='button'
-              content='🏠 Go Home'
+              content='Ok 😳'
               onClick={() => {
-                dispatch(closeModalVideogameCreated());
-                navigate('/home');
+                setGameNotChangedModal(false);
               }}
             />
           </div>
         </Modal>
       )}
-      <div className={style.createVideogameSection}>
-        <img src={rana} alt='rana-gaming' />
-        <h1>Create Videogame!</h1>
-        <img src={leon} alt='leon-gaming' />
-      </div>
-      <div className={style.button}>
-        <Link to='/home' style={{ textDecoration: 'none' }}>
-          <Button type='button' content='🏠 Go Home' />
-        </Link>
+      <div className={style.updateVideogameSection}>
+        <img src={unicornio} alt='unicornio-gaming' />
+        <h1>Update Videogame</h1>
+        <img src={panda} alt='panda-gaming' />
       </div>
       <div className={style.containerForm}>
         <label>Name:</label>
@@ -209,7 +192,7 @@ const CreateVideogame = () => {
             className={errors.name && style.danger}
             type='text'
             onChange={onInputChange}
-            value={videogame.name}
+            value={input.name}
             placeholder='Example: League of Henrys'
             required
           />
@@ -223,7 +206,7 @@ const CreateVideogame = () => {
             className={errors.description && style.danger}
             type='text'
             onChange={onInputChange}
-            value={videogame.description}
+            value={input.description}
             placeholder='Example: The best game of the world'
             required
           />
@@ -238,7 +221,7 @@ const CreateVideogame = () => {
             onChange={onInputChange}
             type='text'
             placeholder='Example: 5'
-            value={videogame.rating}
+            value={input.rating}
           />
           {errors.rating && <p>{errors.rating}</p>}
         </div>
@@ -250,19 +233,14 @@ const CreateVideogame = () => {
             onChange={onInputChange}
             type='date'
             className={errors.released && style.danger}
-            value={videogame.released}
+            value={input.released}
           />
           {errors.released && <p>{errors.released}</p>}
         </div>
 
         <label>Plataformas:</label>
         <div className={style.platformsInput}>
-          <select
-            name='platforms'
-            multiple
-            onChange={onSelectPlatformChange}
-            required
-          >
+          <select name='platforms' multiple onChange={onSelectPlatformChange}>
             {platforms.map((p, i) => (
               <option key={i} value={p}>
                 {p}
@@ -272,14 +250,14 @@ const CreateVideogame = () => {
           {errors.platforms && <p>{errors.platforms}</p>}
         </div>
         <div className={style.platformsContainer}>
-          {videogame.platforms?.map((p, i) => (
+          {input.platforms?.map((p, i) => (
             <div key={i}>
               <span
                 key={i}
                 onClick={() => {
-                  setVideogame({
-                    ...videogame,
-                    ...videogame.platforms.splice(i, 1),
+                  setInput({
+                    ...input,
+                    ...input.platforms.splice(i, 1),
                   });
                 }}
               >
@@ -290,12 +268,7 @@ const CreateVideogame = () => {
         </div>
         <label>Genres</label>
         <div className={style.genresInput}>
-          <select
-            name='genres'
-            multiple
-            onChange={onSelectGenreChange}
-            required
-          >
+          <select name='genres' multiple onChange={onSelectGenreChange}>
             {genres?.map(g => (
               <option key={g.id} value={g.name}>
                 {g.name}
@@ -305,14 +278,14 @@ const CreateVideogame = () => {
           {errors.genres && <p>{errors.genres}</p>}
         </div>
         <div className={style.genresContainer}>
-          {videogame.genres?.map((p, i) => (
+          {input.genres?.map((p, i) => (
             <div key={i}>
               <span
                 key={i}
                 onClick={() => {
-                  setVideogame({
-                    ...videogame,
-                    ...videogame.genres.splice(i, 1),
+                  setInput({
+                    ...input,
+                    ...input.genres.splice(i, 1),
                   });
                 }}
               >
@@ -328,40 +301,39 @@ const CreateVideogame = () => {
           type='text'
           onChange={onInputChange}
           className={style.image}
-          value={videogame.background_image}
+          value={input.background_image}
           placeholder='Example: http://henry-game.com/image.png'
         />
         <div className={style.imagePreview}>
-          {videogame.background_image ? (
-            <img
-              src={videogame.background_image}
-              alt={`${videogame.name}-img`}
-            />
+          {input.background_image ? (
+            <img src={input.background_image} alt={`${input.name}-img`} />
           ) : (
             <p>Image Preview</p>
           )}
         </div>
       </div>
       <div className={style.containerButtons}>
+        <div className={style.goBack}>
+          <Button
+            type='button'
+            content='🔙 Go back'
+            onClick={() => {
+              navigate(-1);
+            }}
+          />
+        </div>
         <div className={style.submitButton}>
           {Object.keys(errors).length ? (
             <div>
               <ButtonDisabled type='button' content='There are mistakes ⚠️' />
             </div>
           ) : (
-            <Button type='submit' image={marioFace} content='Create Game!' />
+            <Button type='submit' image={marioFace} content='Update Game!' />
           )}
-        </div>
-        <div className={style.clearInput}>
-          <Button
-            onClick={clearInputs}
-            content='📖 Clear Inputs'
-            type='button'
-          ></Button>
         </div>
       </div>
     </form>
   );
 };
 
-export default CreateVideogame;
+export default UpdateVideogame;

@@ -20,6 +20,7 @@
   display: flex;
   justify-content: center;
   background-color: rgb(0, 0, 0, 0.2);
+  text-shadow: 2px 3px 4px rgb(126, 39, 240);
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 20px;
@@ -37,6 +38,8 @@
 
 .title {
   font-size: 26px;
+  color: rgb(137, 83, 158);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
 
 .text {
@@ -46,7 +49,8 @@
   justify-content: center;
   font-size: 16px;
   width: 800px;
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: rgba(33, 20, 78, 0.2);
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
   padding: 20px;
   border-radius: 15px;
   margin-top: 20px;
@@ -66,6 +70,59 @@
 .loader {
   margin-top: 220px;
   margin-left: 50px;
+}
+
+.optionGames {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.modifyButton Button {
+  background-color: rgb(8, 78, 209);
+}
+
+.modifyButton Button:hover {
+  background-color: rgb(21, 64, 145);
+}
+
+.deleteButton Button {
+  background-color: rgb(224, 28, 28);
+}
+
+.deleteButton Button:hover {
+  background-color: rgb(160, 23, 23);
+}
+
+.areYouSureModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.areYouSureModal img {
+  margin: 10px;
+  width: 100px;
+}
+.areYouSureModal h3 {
+  margin-top: 10px;
+}
+
+.buttonsConfirmation {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.yes Button {
+  background-color: red;
+}
+
+.yes Button:hover {
+  background-color: rgb(158, 23, 23);
 }
 
 @media screen and (max-width: 920px) {

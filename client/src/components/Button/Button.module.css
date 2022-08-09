@@ -6,7 +6,7 @@
   border: solid 1px rgb(0, 0, 0, 0.4);
   font-size: 14px;
   font-weight: bold;
-  width: 190px;
+  max-width: 190px;
   border-radius: 20px;
   background-color: rgb(111, 10, 170, 0.8);
   backdrop-filter: blur(4px) saturate(180%);
