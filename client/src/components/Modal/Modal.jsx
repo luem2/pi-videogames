@@ -6,7 +6,7 @@ const Modal = ({ children, functionModal, syncFunction }) => {
   const dispatch = useDispatch();
   const handleModalContainerClick = e => e.stopPropagation();
 
-  const closeModalFunction = e => {
+  const closeModalFunction = () => {
     dispatch(functionModal());
   };
 
