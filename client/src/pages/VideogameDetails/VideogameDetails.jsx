@@ -80,7 +80,9 @@ const VideogameDetails = () => {
           />
           <div className={style.infoContainer}>
             <h3 className={style.title}>{videogame.name}</h3>
-            <div className={style.infoContainer}>
+            <div
+              className={`${style.infoContainer} ${style.infoContainerPlus}`}
+            >
               <p>
                 Genres:{' '}
                 {videogame.id.length !== 36

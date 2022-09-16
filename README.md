@@ -8,7 +8,14 @@
   </div>
 </p>
 
+## Info introduction Project:
+
+Español: Pequeña aplicación para buscar y crear información sobre juegos, filtrar por nombre, valoración, género y origen.
+
+English: Small application to search and create game information, filter by name, rating, genre and origin.
+
 ## Link del Deploy
+
 [Click Aquí - Henry Videogames](https://henrygames.lucianopinol.com/)
 
 ## Objetivos del Proyecto

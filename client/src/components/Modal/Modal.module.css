@@ -22,6 +22,7 @@
   border-radius: 5px;
   background-color: rgba(49, 43, 43, 0.9);
   box-shadow: 2px 4px 10px rgb(0, 0, 0, 0.7);
+  animation: fadeInDown 0.3s;
 }
 
 .modalClose {
@@ -40,6 +41,17 @@
 .modalClose:hover {
   background-color: rgb(153, 72, 228);
   cursor: pointer;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media screen and (max-width: 440px) {

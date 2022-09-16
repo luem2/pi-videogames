@@ -36,6 +36,10 @@ video {
   width: 150px;
 }
 
+.content h2 {
+  margin: 0.5rem auto;
+}
+
 .buttonContainer {
   display: flex;
   margin-top: 20px;
@@ -66,28 +70,7 @@ video {
   width: 30px;
 }
 
-@media screen and (max-width: 540px) {
-  .content {
-    margin-right: 25px;
-    padding: 50px;
-  }
-
-  .content h2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-    padding: 10px;
-    margin-left: 50px;
-  }
-}
-
 @media screen and (max-width: 400px) {
-  .content h2 {
-    margin-top: 10px;
-    margin-left: 50px;
-  }
-
   .buttonContainer {
     display: flex;
     justify-content: center;
