@@ -21,7 +21,6 @@ const API_GAMES_EP = 'https://api.rawg.io/api/games';
 const API_GAMES_ID_EP = 'https://api.rawg.io/api/games';
 const API_GAMES_QUERY_EP = 'https://api.rawg.io/api/games?search=';
 const API_GENRES_EP = 'https://api.rawg.io/api/genres';
-const DOMAIN = 'http://localhost:';
 
 module.exports = {
   DB_USER,
@@ -35,7 +34,6 @@ module.exports = {
   API_GAMES_ID_EP,
   API_GAMES_QUERY_EP,
   API_GENRES_EP,
-  DOMAIN,
   PGUSER,
   PGPASSWORD,
   PGHOST,

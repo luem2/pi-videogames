@@ -85,40 +85,48 @@ export function getDetails(id) {
   };
 }
 
-export const createVideogame = videogame => async () => {
-  try {
-    await axios.post(`/api/videogame`, videogame);
-  } catch (e) {
-    console.error(e);
-  }
+export const createVideogame = videogame => {
+  return async () => {
+    try {
+      await axios.post(`/api/videogame`, videogame);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 };
 
-export const updateVideogame = (id, videogame) => async () => {
-  try {
-    await axios.put(`/api/videogame/${id}`, videogame);
-  } catch (e) {
-    console.error(e);
-  }
+export const updateVideogame = (id, videogame) => {
+  return async () => {
+    try {
+      await axios.put(`/api/videogame/${id}`, videogame);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 };
 
-export const deleteGame = id => async () => {
-  try {
-    await axios.delete(`api/videogame/${id}`);
-  } catch (e) {
-    console.error(e);
-  }
+export const deleteGame = id => {
+  return async () => {
+    try {
+      await axios.delete(`api/videogame/${id}`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 };
 
-export const getGenres = () => async dispatch => {
-  try {
-    const genres = await axios.get(`/api/genres`);
-    dispatch({
-      type: GET_GENRES,
-      payload: genres,
-    });
-  } catch (e) {
-    console.error(e);
-  }
+export const getGenres = () => {
+  return async dispatch => {
+    try {
+      const genres = await axios.get(`/api/genres`);
+      dispatch({
+        type: GET_GENRES,
+        payload: genres,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 };
 
 export const clearDetail = () => ({
@@ -129,37 +137,19 @@ export const clearFilters = () => ({ type: CLEAR_FILTERS });
 
 export const clearHome = () => ({ type: CLEAR_HOME });
 
-export const clearFilteredVideogames = () => ({
-  type: CLEAR_FILTEREDVIDEOGAMES,
-});
-
-export function alphaSort(order) {
+export const clearFilteredVideogames = () => {
   return {
-    type: ALPHA_SORT,
-    payload: order,
+    type: CLEAR_FILTEREDVIDEOGAMES,
   };
-}
+};
 
-export function ratingSort(order) {
-  return {
-    type: RATING_SORT,
-    payload: order,
-  };
-}
+export const alphaSort = order => ({ type: ALPHA_SORT, payload: order });
 
-export function genresSort(order) {
-  return {
-    type: GENRES_SORT,
-    payload: order,
-  };
-}
+export const ratingSort = order => ({ type: RATING_SORT, payload: order });
 
-export function gamesSort(order) {
-  return {
-    type: GAMES_SORT,
-    payload: order,
-  };
-}
+export const genresSort = order => ({ type: GENRES_SORT, payload: order });
+
+export const gamesSort = order => ({ type: GAMES_SORT, payload: order });
 
 export const closeModalNotFound = () => ({
   type: CLOSE_MODAL_NOT_FOUND,
