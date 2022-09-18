@@ -11,10 +11,6 @@
   text-shadow: 1px 3px 1px rgb(0, 0, 0);
 }
 
-.updateVideogameSection img {
-  width: 150px;
-}
-
 .form {
   display: flex;
   flex-direction: column;
@@ -245,10 +241,6 @@
 .gameNotChanged h3 {
   margin-bottom: 20px;
   margin-top: 10px;
-}
-
-.gameNotChanged img {
-  width: 150px;
 }
 
 @media screen and (max-width: 750px) {

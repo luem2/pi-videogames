@@ -2,6 +2,7 @@ import React from 'react';
 import Videogame from '../Videogame/Videogame';
 import Loader from '../Loader/Loader';
 import style from './Videogames.module.css';
+
 const Videogames = ({ currentVideogames }) => {
   return (
     <div className={style.container}>

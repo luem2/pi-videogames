@@ -8,3 +8,10 @@
   flex-wrap: wrap;
   gap: 30px;
 }
+
+@media screen and (max-width: 975px) {
+  .container {
+    height: 600px;
+    overflow: scroll;
+  }
+}

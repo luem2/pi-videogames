@@ -163,7 +163,7 @@
   .text {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     width: 350px;
     max-height: 350px;
     overflow: scroll;
