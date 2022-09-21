@@ -5,9 +5,9 @@ import style from './Videogames.module.css';
 
 const Videogames = ({ currentVideogames }) => {
   return (
-    <div className={style.container}>
+    <>
       {currentVideogames.length ? (
-        <>
+        <div className={style.container}>
           {currentVideogames.map(g => (
             <Videogame
               key={g.id}
@@ -22,11 +22,11 @@ const Videogames = ({ currentVideogames }) => {
               rating={g.rating}
             />
           ))}
-        </>
+        </div>
       ) : (
         <Loader />
       )}
-    </div>
+    </>
   );
 };
 export default Videogames;

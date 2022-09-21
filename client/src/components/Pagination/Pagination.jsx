@@ -2,7 +2,12 @@ import React from 'react';
 import Loader from '../Loader/Loader';
 import style from './Pagination.module.css';
 
-const Pagination = ({ videogamesPerPage, allVideogames, paginate }) => {
+const Pagination = ({
+  videogamesPerPage,
+  allVideogames,
+  paginate,
+  currentPage,
+}) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(allVideogames / videogamesPerPage); i++) {
@@ -16,7 +21,9 @@ const Pagination = ({ videogamesPerPage, allVideogames, paginate }) => {
           pageNumbers.map(number => (
             <li className={style.number} key={number}>
               <button
-                className={style.botoncito}
+                className={`${style.botoncito} ${
+                  number === currentPage && style.isActive
+                }`}
                 onClick={() => {
                   paginate(number);
                 }}

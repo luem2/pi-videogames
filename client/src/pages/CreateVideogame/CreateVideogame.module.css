@@ -38,6 +38,11 @@
   background-color: rgb(0, 0, 0, 0.3);
 }
 
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
 .containerForm select {
   background-color: rgb(0, 0, 0, 0.3);
 }
@@ -221,6 +226,7 @@
 }
 
 .imagePreview img {
+  max-height: 580px;
   width: 580px;
   border-radius: 10px;
 }

@@ -9,6 +9,24 @@
   gap: 30px;
 }
 
+.container::-webkit-scrollbar {
+  width: 18px;
+}
+
+.container::-webkit-scrollbar-corner {
+  background-color: #482b64;
+}
+
+.container::-webkit-scrollbar-track {
+  background: #482b64;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: rgb(91, 20, 107);
+  border-radius: 20px;
+  border: 3px solid rgb(128, 38, 163);
+}
+
 @media screen and (max-width: 975px) {
   .container {
     height: 600px;

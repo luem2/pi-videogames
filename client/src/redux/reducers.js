@@ -110,7 +110,7 @@ function reducer(state = initialState, action) {
           filteredVideogames: state.videogames,
         };
       }
-      const genresVideogames = [...state.filteredVideogames].filter(g =>
+      const genresVideogames = state.videogames.filter(g =>
         g.genres?.includes(action.payload)
       );
 

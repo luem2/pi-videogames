@@ -1,5 +1,5 @@
 import React from 'react';
-import videoBg from '../../assets/bg.mkv';
+import videoBg from '../../assets/bg.mp4';
 import logo from '../../assets/logo.png';
 import style from './Landing.module.css';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ const Landing = () => {
       <div className={style.overlay}></div>
       <video src={videoBg} autoPlay muted loop />
       <div className={style.content}>
-        <img src={logo} alt='logo-hernygames' />
+        <img src={logo} alt='logo-henrygames' />
         <h2>Welcome to Henry Games!</h2>
         <div className={style.buttonContainer}>
           <span className={style.home}>

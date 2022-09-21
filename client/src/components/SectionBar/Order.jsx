@@ -38,13 +38,13 @@ const Order = () => {
     <div className={style.container}>
       <div className={style.firstFilters}>
         <select className={style.order} name='select' onChange={orderByAlpha}>
-          <option value='default'>Order alphabetically </option>
+          <option value='default'>Alpha Order:</option>
           <option value={ASCENDENTE}>Sort: A - Z</option>
           <option value={DESCENDENTE}>Sort: Z - A</option>
         </select>
 
         <select className={style.order} name='select' onChange={orderByRating}>
-          <option value='default'>Order by Rating</option>
+          <option value='default'>Rating Order:</option>
           <option value={DESCENDENTE}>High Rating</option>
           <option value={ASCENDENTE}>Low Rating</option>
         </select>
@@ -52,7 +52,7 @@ const Order = () => {
 
       <div className={style.secondFilters}>
         <select className={style.order} name='select' onChange={orderByGenres}>
-          <option value='default'>Order by Genre</option>
+          <option value='default'>Genre Order:</option>
           {genres.map((p, i) => (
             <option key={i + p} value={p}>
               {p}

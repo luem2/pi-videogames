@@ -3,7 +3,6 @@ import Videogames from '../../components/Videogames/Videogames';
 import Header from '../../components/Header/Header';
 import Pagination from '../../components/Pagination/Pagination';
 import SectionBar from '../../components/SectionBar/SectionBar';
-import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllVideogames,
@@ -126,12 +125,10 @@ const Home = () => {
       <Pagination
         videogamesPerPage={videogamesPerPage}
         allVideogames={allVideogames.length}
+        currentPage={currentPage}
         paginate={paginate}
       />
       <Videogames currentVideogames={currentVideogames} />
-      <div className={style.container}>
-        <Footer />
-      </div>
     </div>
   );
 };

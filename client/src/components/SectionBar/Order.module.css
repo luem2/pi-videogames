@@ -1,8 +1,31 @@
 .container {
   display: flex;
+  position: relative;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+select:hover {
+  background-color: #3f085f;
+}
+
+option:hover {
+  color: #c9a0e0;
+  background-color: #3f085f;
+}
+
+option {
+  font-size: small;
+  font-weight: bold;
+}
+
+option:checked {
+  background-color: #7924aa;
+}
+
+option:focus {
+  background-color: #7924aa;
 }
 
 .order {
