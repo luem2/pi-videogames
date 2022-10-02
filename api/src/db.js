@@ -1,3 +1,4 @@
+import * as pg from 'pg';
 const { Sequelize, Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -18,6 +19,7 @@ const sequelize =
   process.env.NODE_ENV === 'production'
     ? new Sequelize({
         database: PGDATABASE,
+        dialectModule: pg,
         dialect: 'postgres',
         host: PGHOST,
         port: PGPORT,
