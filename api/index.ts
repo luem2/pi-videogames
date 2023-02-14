@@ -17,17 +17,17 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
-const { PORT } = require('./config');
-const getGenres = require('./src/controllers/genres');
 
-conn
-  .sync({ force: false })
-  .then(() => {
-    getGenres();
-    server.listen(process.env.PORT || PORT, () => {
-      console.log(`Listening on ${process.env.PORT || PORT}`); // eslint-disable-line no-console
-    });
-  })
-  .catch(e => console.log(e));
+import server from './src/app'
+import { conn } from './src/db'
+import { PORT } from './config'
+import getGenres from './src/controllers/genres'
+
+conn.sync({ force: false })
+    .then(() => {
+        getGenres()
+        server.listen(process.env.PORT || PORT, () => {
+            console.log(`Listening on ${process.env.PORT || PORT}`) // eslint-disable-line no-console
+        })
+    })
+    .catch((e) => console.log(e))
