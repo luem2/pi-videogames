@@ -1,4 +1,4 @@
-import { Model, Optional } from 'sequelize'
+import { Model, Optional, Association, InferAttributes } from 'sequelize'
 
 class Genre extends Model {
     declare name: string

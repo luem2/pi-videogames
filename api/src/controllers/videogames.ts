@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Videogame, Genre, Op } from '../db'
-const { API_KEY, API_GAMES_EP, API_GAMES_QUERY_EP } = require('../../config')
+import { API_KEY, API_GAMES_EP, API_GAMES_QUERY_EP } from '../config/env'
 
 const getGames = async (req, res, next) => {
     try {

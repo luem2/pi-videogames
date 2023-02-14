@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Videogame, Genre } from '../db'
-import { API_KEY, API_GAMES_ID_EP } from '../../config'
+import { API_KEY, API_GAMES_ID_EP } from '../config/env'
 
 export const getIdGame = async (req, res, next) => {
     try {

@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-        "module": "NodeNext",
-        "strict": false,
-        "moduleResolution": "nodenext",
-        "target": "ES2020",
-        "sourceMap": true,
-        "outDir": "./dist"
-    },
-    "include": ["src/**/*"]
+        "target": "ES6",
+        "module": "CommonJS",
+        "outDir": "./dist",
+        "strict": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "sourceMap": true
+    }
 }
