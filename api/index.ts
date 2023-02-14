@@ -19,15 +19,16 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import server from './src/app'
-import { conn } from './src/db'
+import db from './src/db'
 import { PORT } from './config'
 import getGenres from './src/controllers/genres'
 
-conn.sync({ force: false })
+db.conn
+    .sync({ force: false })
     .then(() => {
         getGenres()
         server.listen(process.env.PORT || PORT, () => {
-            console.log(`Listening on ${process.env.PORT || PORT}`) // eslint-disable-line no-console
+            console.log(`Listening on ${process.env.PORT || PORT}`)
         })
     })
     .catch((e) => console.log(e))

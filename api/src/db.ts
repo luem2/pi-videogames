@@ -23,7 +23,7 @@ const sequelize =
               dialectModule: pg,
               dialect: 'postgres',
               host: PGHOST,
-              port: PGPORT,
+              port: +PGPORT,
               username: PGUSER,
               password: PGPASSWORD,
               pool: {
