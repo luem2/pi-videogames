@@ -1,19 +1,30 @@
-import axios from 'axios'
-import { Videogame, Genre } from '../db'
-import { API_KEY, API_GAMES_ID_EP } from '../config/env'
+import type { NextFunction, Request, Response } from 'express'
+import type { IVideogame } from '../types'
 
-export const getIdGame = async (req, res, next) => {
+import axios from 'axios'
+
+import Genre from '../database/models/Genre'
+import Videogame from '../database/models/Videogame'
+
+import { config, API_GAMES_ID_EP } from '../config/env'
+
+export const getVideogameById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const { idVideogame } = req.params
+
         if (idVideogame.length === 36) {
-            const gameId = await Videogame.findByPk(idVideogame, {
+            const videogame = await Videogame.findByPk(idVideogame, {
                 include: Genre,
             })
 
-            res.send(gameId)
+            res.send(videogame)
         } else {
             const result = await axios.get(
-                `${API_GAMES_ID_EP}/${idVideogame}?key=${API_KEY}`
+                `${API_GAMES_ID_EP}/${idVideogame}?key=${config.API_KEY}`
             )
 
             const {
@@ -25,9 +36,9 @@ export const getIdGame = async (req, res, next) => {
                 platforms,
                 genres,
                 background_image,
-            } = result.data
+            }: IVideogame = result.data
 
-            const gameId = {
+            const videogame = {
                 id,
                 name,
                 description,
@@ -40,14 +51,18 @@ export const getIdGame = async (req, res, next) => {
                 background_image,
                 genres: genres?.map((g) => g.name),
             }
-            res.send(gameId)
+            res.send(videogame)
         }
     } catch (e) {
         next(e)
     }
 }
 
-export const updateGame = async (req, res, next) => {
+export const updateVideogame = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const id = req.params.idVideogame
         const defaultImage =
@@ -80,13 +95,16 @@ export const updateGame = async (req, res, next) => {
         )
 
         if (genres) {
-            const game = await Videogame.findByPk(id)
+            const videogame = await Videogame.findByPk(id)
             const genresMatched = await Genre.findAll({
                 where: {
                     name: genres,
                 },
             })
-            await game.setGenres(genresMatched)
+            if (videogame !== null) {
+                await videogame.setGenres(genresMatched)
+            }
+            // await videogame.setGenres(genresMatched)
         }
 
         res.send({ msg: 'The game was successfully updated!' })
@@ -95,7 +113,11 @@ export const updateGame = async (req, res, next) => {
     }
 }
 
-export const deleteGame = async (req, res, next) => {
+export const deleteVideogame = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const id = req.params.idVideogame
 
@@ -111,7 +133,11 @@ export const deleteGame = async (req, res, next) => {
     }
 }
 
-export const postGame = async (req, res, next) => {
+export const postVideogame = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const {
             name,
@@ -130,7 +156,7 @@ export const postGame = async (req, res, next) => {
             res.status(401).send({ msg: 'Required data is missing' })
         }
 
-        const gameCreated = await Videogame.create({
+        const videogameCreated = await Videogame.create({
             name,
             description,
             background_image: background_image || defaultImage,
@@ -145,7 +171,7 @@ export const postGame = async (req, res, next) => {
             },
         })
 
-        gameCreated.addGenre(genreMatched)
+        videogameCreated.addGenre(genreMatched)
 
         res.send({
             msg: 'The Videogame was created successfully!',
