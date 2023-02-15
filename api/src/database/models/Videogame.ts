@@ -1,6 +1,8 @@
+import type { BelongsToManyAddAssociationMixin } from 'sequelize'
 import { Model, DataTypes } from 'sequelize'
-import db from '../connection'
 
+import db from '../connection'
+import Genre from './Genre'
 class Videogame extends Model {
     declare id: number
     declare name: string
@@ -9,9 +11,9 @@ class Videogame extends Model {
     declare released: string
     declare rating: number
     declare platforms: Array<string>
-    //TODO: Hacer bien esto:
-    declare setGenres: any
-    declare addGenre: any
+
+    addGenre: BelongsToManyAddAssociationMixin<Genre, Genre[]>
+    setGenres: BelongsToManyAddAssociationMixin<Genre, Genre[]>
 }
 
 Videogame.init(
@@ -64,55 +66,5 @@ Videogame.init(
         timestamps: false,
     }
 )
-
-// const Videogame = db.define(
-//     'Videogame',
-//     {
-//         id: {
-//             type: DataTypes.UUID,
-//             defaultValue: DataTypes.UUIDV4,
-//             primaryKey: true,
-//             allowNull: false,
-//         },
-
-//         name: {
-//             type: DataTypes.STRING,
-//             allowNull: false,
-//             unique: 'The videogame already exists',
-//         },
-
-//         description: {
-//             type: DataTypes.TEXT,
-//             allowNull: false,
-//         },
-
-//         background_image: {
-//             type: DataTypes.TEXT,
-//         },
-
-//         released: {
-//             type: DataTypes.STRING,
-//         },
-
-//         rating: {
-//             type: DataTypes.FLOAT,
-//             validate: {
-//                 isNumeric: true,
-//                 is: {
-//                     args: /[+]?([0-4]*\.[0-9]+|[0-5])/,
-//                     msg: 'The score must be between 1 to 5',
-//                 },
-//             },
-//         },
-
-//         platforms: {
-//             type: DataTypes.ARRAY(DataTypes.STRING),
-//             allowNull: false,
-//         },
-//     },
-//     {
-//         timestamps: false,
-//     }
-// )
 
 export default Videogame

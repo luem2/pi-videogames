@@ -7,7 +7,7 @@ import store from './redux/store'
 import './index.css'
 
 axios.defaults.baseURL =
-    import.meta.env.REACT_APP_API || 'http://localhost:3001'
+    import.meta.env.REACT_APP_API || 'http://localhost:3000'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

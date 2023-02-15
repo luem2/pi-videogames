@@ -12,7 +12,6 @@ import videogamesRoutes from './routes/videogames.route'
 import genresRoutes from './routes/genres.route'
 
 import { handleError } from './middlewares/handleError'
-import { notFound } from './middlewares/notFound'
 import db from './database/connection'
 import { config } from './config/env'
 
@@ -49,7 +48,8 @@ class Server {
         // CORS
         this.app.use(
             cors({
-                origin: 'https://henrygames.lucianopinol.com',
+                origin: '*',
+                // origin: 'https://henrygames.lucianopinol.com',
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
@@ -82,9 +82,6 @@ class Server {
 
         // Handle Error
         this.app.use(handleError)
-
-        // Not Found
-        this.app.use(notFound)
     }
 
     routes() {

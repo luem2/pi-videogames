@@ -3,8 +3,8 @@ import type { IVideogame } from '../types'
 
 import axios from 'axios'
 
-import Genre from '../database/models/Genre'
-import Videogame from '../database/models/Videogame'
+import { Genre } from '../database/models'
+import { Videogame } from '../database/models'
 
 import { config, API_GAMES_ID_EP } from '../config/env'
 
@@ -96,6 +96,7 @@ export const updateVideogame = async (
 
         if (genres) {
             const videogame = await Videogame.findByPk(id)
+            console.log(videogame)
             const genresMatched = await Genre.findAll({
                 where: {
                     name: genres,
@@ -104,7 +105,6 @@ export const updateVideogame = async (
             if (videogame !== null) {
                 await videogame.setGenres(genresMatched)
             }
-            // await videogame.setGenres(genresMatched)
         }
 
         res.send({ msg: 'The game was successfully updated!' })

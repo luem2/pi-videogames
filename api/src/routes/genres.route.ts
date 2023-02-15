@@ -1,4 +1,5 @@
-import { Request, Response, Router } from 'express'
+import type { Request, Response } from 'express'
+import { Router } from 'express'
 import getGenres from '../controllers/genres.controller'
 
 const router = Router()

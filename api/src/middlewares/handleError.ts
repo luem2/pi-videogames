@@ -1,6 +1,5 @@
 import type { IError } from '../types'
-
-import { Request, Response, NextFunction } from 'express'
+import type { Request, Response, NextFunction } from 'express'
 
 export function handleError(
     err: IError,
