@@ -2,6 +2,8 @@
     "compilerOptions": {
         "target": "ES6",
         "module": "CommonJS",
+        "baseUrl": ".",
+        "rootDir": "./",
         "outDir": "./dist",
         "strict": true,
         "esModuleInterop": true,
@@ -9,5 +11,7 @@
         "strictPropertyInitialization": false,
         "moduleResolution": "node",
         "sourceMap": true
-    }
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
 }

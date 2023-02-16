@@ -3,16 +3,14 @@ import type { IVideogame } from '../types'
 
 import axios from 'axios'
 
-import { Genre } from '../database/models'
-import { Videogame } from '../database/models'
-
+import { Genre, Videogame } from '../database/models'
 import { config, API_GAMES_ID_EP } from '../config/env'
 
 export const getVideogameById = async (
     req: Request,
     res: Response,
     next: NextFunction
-) => {
+): Promise<void> => {
     try {
         const { idVideogame } = req.params
 
@@ -51,6 +49,7 @@ export const getVideogameById = async (
                 background_image,
                 genres: genres?.map((g) => g.name),
             }
+
             res.send(videogame)
         }
     } catch (e) {
@@ -62,7 +61,7 @@ export const updateVideogame = async (
     req: Request,
     res: Response,
     next: NextFunction
-) => {
+): Promise<void> => {
     try {
         const id = req.params.idVideogame
         const defaultImage =
@@ -82,7 +81,7 @@ export const updateVideogame = async (
             {
                 name,
                 description,
-                background_image: background_image || defaultImage,
+                background_image: background_image ?? defaultImage,
                 released,
                 rating,
                 platforms,
@@ -94,14 +93,16 @@ export const updateVideogame = async (
             }
         )
 
-        if (genres) {
+        if (genres !== undefined && genres !== null) {
             const videogame = await Videogame.findByPk(id)
+
             console.log(videogame)
             const genresMatched = await Genre.findAll({
                 where: {
                     name: genres,
                 },
             })
+
             if (videogame !== null) {
                 await videogame.setGenres(genresMatched)
             }
@@ -117,7 +118,7 @@ export const deleteVideogame = async (
     req: Request,
     res: Response,
     next: NextFunction
-) => {
+): Promise<void> => {
     try {
         const id = req.params.idVideogame
 
@@ -137,7 +138,7 @@ export const postVideogame = async (
     req: Request,
     res: Response,
     next: NextFunction
-) => {
+): Promise<void> => {
     try {
         const {
             name,
@@ -152,14 +153,27 @@ export const postVideogame = async (
         const defaultImage =
             'https://i.blogs.es/f00b44/screenshot_699/840_560.jpeg'
 
-        if (!name || !description || !platforms) {
-            res.status(401).send({ msg: 'Required data is missing' })
+        function checkNullOrUndefined(
+            prop: unknown,
+            msg: string
+        ): Response<unknown, Record<string, unknown>> | undefined {
+            if (prop === null ?? prop === undefined) {
+                return res.status(401).send({ msg })
+            }
         }
+
+        checkNullOrUndefined(name, ' The prop name is missing')
+        checkNullOrUndefined(description, ' The prop description is missing')
+        checkNullOrUndefined(platforms, ' The prop platforms is missing')
+
+        // if (!name ?? !description ?? !platforms) {
+        //     res.status(401).send({ msg: 'Required data is missing' })
+        // }
 
         const videogameCreated = await Videogame.create({
             name,
             description,
-            background_image: background_image || defaultImage,
+            background_image: background_image ?? defaultImage,
             released,
             rating,
             platforms,

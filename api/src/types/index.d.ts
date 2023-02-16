@@ -30,7 +30,7 @@ export interface IVideogame {
     }>
 }
 
-export type IError = {
+export interface IError {
     status: number
     message: string
 }

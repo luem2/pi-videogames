@@ -3,22 +3,20 @@ import type { Application } from 'express'
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import getGenres from './controllers/genres.controller'
 import cookieParser from 'cookie-parser'
 
-//Rutas:
+import getGenres from './controllers/genres.controller'
+import genresRoutes from './routes/genres.route'
 import videogameRoutes from './routes/videogame.route'
 import videogamesRoutes from './routes/videogames.route'
-import genresRoutes from './routes/genres.route'
-
 import { handleError } from './middlewares/handleError'
-import db from './database/connection'
 import { config } from './config/env'
+import db from './database/connection'
 
 class Server {
-    private app: Application
-    private port: string | number
-    private apiPaths = {
+    readonly app: Application
+    readonly port: string | number
+    readonly apiPaths = {
         genres: '/api/genres',
         videogame: '/api/videogame',
         videogames: '/api/videogames',
@@ -29,27 +27,27 @@ class Server {
         this.port = config.PORT
 
         this.dbConnection()
+
         this.middlewares()
         this.routes()
     }
 
-    async dbConnection() {
+    async dbConnection(): Promise<void> {
         try {
             await db.authenticate()
             await db.sync({ force: false })
             await getGenres()
             console.log('Database connected')
-        } catch (error: any) {
-            throw new Error(error)
+        } catch (error) {
+            console.error(error)
         }
     }
 
-    middlewares() {
+    middlewares(): void {
         // CORS
         this.app.use(
             cors({
-                origin: '*',
-                // origin: 'https://henrygames.lucianopinol.com',
+                origin: 'https://henrygames.lucianopinol.com',
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
@@ -84,13 +82,13 @@ class Server {
         this.app.use(handleError)
     }
 
-    routes() {
+    routes(): void {
         this.app.use(this.apiPaths.genres, genresRoutes)
         this.app.use(this.apiPaths.videogame, videogameRoutes)
         this.app.use(this.apiPaths.videogames, videogamesRoutes)
     }
 
-    listen() {
+    listen(): void {
         this.app.listen(this.port, () => {
             console.log(`Server listening on port ${this.port}`)
         })

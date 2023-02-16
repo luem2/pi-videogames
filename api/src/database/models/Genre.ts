@@ -1,8 +1,10 @@
 import type { BelongsToManyAddAssociationMixin } from 'sequelize'
+import type Videogame from './Videogame'
+
 import { Model, DataTypes } from 'sequelize'
+
 import db from '../connection'
 
-import Videogame from './Videogame'
 
 class Genre extends Model {
     declare name: string

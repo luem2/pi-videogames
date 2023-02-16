@@ -6,13 +6,18 @@ import { Op } from 'sequelize'
 
 import Genre from '../database/models/Genre'
 import Videogame from '../database/models/Videogame'
-
 import { config, API_GAMES_EP, API_GAMES_QUERY_EP } from '../config/env'
 
-const getGames = async (req: Request, res: Response, next: NextFunction) => {
+const getGames = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
     try {
         const { name } = req.query
-        if (!name) {
+        const stringName = name as string
+
+        if (name === undefined ?? name === null) {
             const allGamesApi = []
 
             for (let i = 1; i < 6; i++) {
@@ -42,9 +47,8 @@ const getGames = async (req: Request, res: Response, next: NextFunction) => {
             })
 
             const allGames = [...allGamesApi, ...dbGames]
-            // allGames.sort((a, b) => a.name.length < b.name.length)
 
-            allGames.length
+            allGames.length > 0
                 ? res.send(allGames)
                 : res.status(401).send({ msg: 'No games Found' })
         } else {
@@ -52,10 +56,13 @@ const getGames = async (req: Request, res: Response, next: NextFunction) => {
 
             for (let i = 1; i < 6; i++) {
                 const apiResult = await axios.get(
-                    `${API_GAMES_QUERY_EP}${name}&key=${config.API_KEY}&page=${i}`
+                    `${API_GAMES_QUERY_EP}${stringName}&key=${config.API_KEY}&page=${i}`
                 )
 
-                if (apiResult.data.next) {
+                if (
+                    apiResult.data.next !== null &&
+                    apiResult.data.next !== undefined
+                ) {
                     const queryApiGames = apiResult.data.results.map(
                         (g: IVideogame) => ({
                             id: g.id,
@@ -69,6 +76,7 @@ const getGames = async (req: Request, res: Response, next: NextFunction) => {
                             })),
                         })
                     )
+
                     allQueryApiGames.push(...queryApiGames)
                 } else break
             }
@@ -83,7 +91,7 @@ const getGames = async (req: Request, res: Response, next: NextFunction) => {
 
             const allGamesQuery = [...dbResult, ...allQueryApiGames]
 
-            allGamesQuery.length
+            allGamesQuery.length > 0
                 ? res.send(allGamesQuery)
                 : res
                       .status(404)

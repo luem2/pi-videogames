@@ -1,13 +1,13 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App'
 import axios from 'axios'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
+
+import App from './App'
 import store from './redux/store'
 import './index.css'
 
-axios.defaults.baseURL =
-    import.meta.env.REACT_APP_API || 'http://localhost:3000'
+axios.defaults.baseURL = import.meta.env.VITE_APP_API ?? 'http://localhost:3000'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

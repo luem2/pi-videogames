@@ -1,5 +1,4 @@
 import { Router } from 'express'
-const router = Router()
 
 import {
     getVideogameById,
@@ -7,6 +6,8 @@ import {
     deleteVideogame,
     postVideogame,
 } from '../controllers/videogame.controller'
+
+const router = Router()
 
 router.get('/:idVideogame', getVideogameById)
 router.put('/:idVideogame', updateVideogame)

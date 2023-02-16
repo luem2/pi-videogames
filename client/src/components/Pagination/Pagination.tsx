@@ -1,43 +1,43 @@
-import React from 'react';
-import Loader from '../Loader/Loader';
-import style from './Pagination.module.css';
+import React from 'react'
+import Loader from '../Loader/Loader'
+import style from './Pagination.module.css'
 
 const Pagination = ({
-  videogamesPerPage,
-  allVideogames,
-  paginate,
-  currentPage,
+    videogamesPerPage,
+    allVideogames,
+    paginate,
+    currentPage,
 }) => {
-  const pageNumbers = [];
+    const pageNumbers = []
 
-  for (let i = 1; i <= Math.ceil(allVideogames / videogamesPerPage); i++) {
-    pageNumbers.push(i);
-  }
+    for (let i = 1; i <= Math.ceil(allVideogames / videogamesPerPage); i++) {
+        pageNumbers.push(i)
+    }
 
-  return (
-    <nav className={style.container}>
-      <ul className={style.page}>
-        {pageNumbers ? (
-          pageNumbers.map(number => (
-            <li className={style.number} key={number}>
-              <button
-                className={`${style.botoncito} ${
-                  number === currentPage && style.isActive
-                }`}
-                onClick={() => {
-                  paginate(number);
-                }}
-              >
-                {number}
-              </button>
-            </li>
-          ))
-        ) : (
-          <Loader />
-        )}
-      </ul>
-    </nav>
-  );
-};
+    return (
+        <nav className={style.container}>
+            <ul className={style.page}>
+                {pageNumbers ? (
+                    pageNumbers.map((number) => (
+                        <li className={style.number} key={number}>
+                            <button
+                                className={`${style.botoncito} ${
+                                    number === currentPage && style.isActive
+                                }`}
+                                onClick={() => {
+                                    paginate(number)
+                                }}
+                            >
+                                {number}
+                            </button>
+                        </li>
+                    ))
+                ) : (
+                    <Loader />
+                )}
+            </ul>
+        </nav>
+    )
+}
 
-export default Pagination;
+export default Pagination

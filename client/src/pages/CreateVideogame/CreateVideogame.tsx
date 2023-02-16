@@ -344,7 +344,7 @@ const CreateVideogame = () => {
             </div>
             <div className={style.containerButtons}>
                 <div className={style.submitButton}>
-                    {Object.keys(errors).length ? (
+                    {Object.keys(errors).length > 0 ? (
                         <div>
                             <ButtonDisabled
                                 type='button'
