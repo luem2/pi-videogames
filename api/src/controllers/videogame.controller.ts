@@ -171,7 +171,9 @@ export const postVideogame = async (
             },
         })
 
-        videogameCreated.$set('genres', genreMatched)
+        const genresArr = genreMatched.map((g) => g.name)
+
+        videogameCreated.$set('genres', genresArr)
 
         res.send({
             msg: 'The Videogame was created successfully!',

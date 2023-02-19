@@ -15,7 +15,7 @@ import { VideogameGenre } from './VideogameGenre'
 export class Genre extends Model<IGenre> {
     @AllowNull(false)
     @Column
-    declare name: string
+    name: string
 
     @BelongsToMany(() => Videogame, () => VideogameGenre)
     videogames: Videogame[]
