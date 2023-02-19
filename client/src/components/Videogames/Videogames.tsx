@@ -1,9 +1,15 @@
-import React from 'react'
+import type { IVideogame } from 'src/types'
+
 import Videogame from '../Videogame/Videogame'
 import Loader from '../Loader/Loader'
+
 import style from './Videogames.module.css'
 
-const Videogames = ({ currentVideogames }) => {
+interface Props {
+    currentVideogames: IVideogame[]
+}
+
+const Videogames = ({ currentVideogames }: Props): JSX.Element => {
     return (
         <>
             {currentVideogames.length ? (
@@ -11,14 +17,10 @@ const Videogames = ({ currentVideogames }) => {
                     {currentVideogames.map((g) => (
                         <Videogame
                             key={g.id}
+                            background_image={g.background_image}
+                            genres={g.genres.map((g) => g + ' ')}
                             id={g.id}
                             name={g.name}
-                            image={g.background_image}
-                            genres={
-                                g.id.length !== 36
-                                    ? g.genres?.map((g) => g + ' ')
-                                    : g.Genres?.map((o) => o.name + ' ')
-                            }
                             rating={g.rating}
                         />
                     ))}
@@ -29,4 +31,5 @@ const Videogames = ({ currentVideogames }) => {
         </>
     )
 }
+
 export default Videogames

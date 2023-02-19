@@ -1,29 +1,33 @@
-import { React, useState } from 'react'
+import type { AppDispatch } from 'src/store'
+
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+
 import {
     clearFilteredVideogames,
-    emptyInputFunction,
-    searchVideogames,
-} from '../../redux/actions'
-import style from './Searchbar.module.css'
+    searchVideogamesThunk,
+} from '../../store/videogame.slice'
+import { emptyInputModal } from '../../store/modal.slice'
 import searchIcon from '../../assets/search-icon-white.png'
 
-const Searchbar = () => {
-    const [search, setSearch] = useState('')
-    const dispatch = useDispatch()
+import style from './Searchbar.module.css'
 
-    const onSubmit = (e) => {
+const Searchbar = (): JSX.Element => {
+    const [search, setSearch] = useState<string>('')
+    const dispatch: AppDispatch = useDispatch()
+
+    const onSubmit = (e: React.FormEvent): void => {
         e.preventDefault()
         if (!search.length) {
-            dispatch(emptyInputFunction())
+            dispatch(emptyInputModal(true))
         } else {
-            dispatch(searchVideogames(search))
+            dispatch(searchVideogamesThunk(search))
             dispatch(clearFilteredVideogames())
         }
         setSearch('')
     }
 
-    const onInputChange = (e) => {
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearch(e.target.value)
     }
 
@@ -31,13 +35,14 @@ const Searchbar = () => {
         <div className={style.container}>
             <form className={style.formContainer} onSubmit={onSubmit}>
                 <input
-                    type='text'
-                    onChange={onInputChange}
-                    value={search}
+                    name='search'
                     placeholder='Search'
+                    type='text'
+                    value={search}
+                    onChange={onInputChange}
                 />
                 <button className={style.buttonSubmit} type='submit'>
-                    <img src={searchIcon} alt='search-icon' />
+                    <img alt='search-icon' src={searchIcon} />
                 </button>
             </form>
         </div>

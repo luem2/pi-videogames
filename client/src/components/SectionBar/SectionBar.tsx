@@ -1,17 +1,18 @@
-import React from 'react'
-import Order from './Order'
-import Button from '../Button/Button'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { clearFilters } from '../../redux/actions'
-import style from './SectionBar.module.css'
+
+import Button from '../Button/Button'
+import { clearFilters } from '../../store/videogame.slice'
 import reset from '../../assets/resetButton3.png'
 import create from '../../assets/mando3.png'
 
-const Sidebar = () => {
+import style from './SectionBar.module.css'
+import Order from './Order'
+
+const Sidebar = (): JSX.Element => {
     const dispatch = useDispatch()
 
-    const handleReset = (e) => {
+    const handleReset = (e: React.FormEvent): void => {
         e.preventDefault()
         dispatch(clearFilters())
     }
@@ -19,11 +20,19 @@ const Sidebar = () => {
     return (
         <div className={style.container}>
             <div className={style.mainButtons}>
-                <Link to='/create' style={{ textDecoration: 'none' }}>
-                    <Button image={create} content='Create game!' />
+                <Link style={{ textDecoration: 'none' }} to='/create'>
+                    <Button
+                        content='Create game!'
+                        image={create}
+                        type='button'
+                    />
                 </Link>
                 <div onClick={handleReset}>
-                    <Button image={reset} content='Reset filters' />
+                    <Button
+                        content='Reset filters'
+                        image={reset}
+                        type='button'
+                    />
                 </div>
             </div>
             <div className={style.order}>

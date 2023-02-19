@@ -1,72 +1,45 @@
-import type { BelongsToManyAddAssociationMixin } from 'sequelize'
-import type Genre from './Genre'
+import type { IVideogame, PlatformName } from 'src/types'
 
-import { Model, DataTypes } from 'sequelize'
+import {
+    Model,
+    BelongsToMany,
+    Table,
+    Column,
+    AllowNull,
+    DataType,
+    Unique,
+    IsNumeric,
+} from 'sequelize-typescript'
 
-import db from '../connection'
+import { Genre } from './Genre'
+import { VideogameGenre } from './VideogameGenre'
 
-class Videogame extends Model {
-    declare id: number
-    declare name: string
-    declare description: string
-    declare background_image: string
-    declare released: string
-    declare rating: number
-    declare platforms: string[]
+@Table
+export class Videogame extends Model<IVideogame> {
+    @Unique('The videogame already exists')
+    @AllowNull(false)
+    @Column
+    name: string
 
-    addGenre: BelongsToManyAddAssociationMixin<Genre, Genre[]>
-    setGenres: BelongsToManyAddAssociationMixin<Genre, Genre[]>
+    @AllowNull(false)
+    @Column(DataType.STRING(400))
+    description: string
+
+    @Column(DataType.TEXT)
+    background_image: string
+
+    @AllowNull(false)
+    @Column
+    released: string
+
+    @IsNumeric
+    @Column(DataType.FLOAT)
+    rating: number
+
+    @AllowNull(false)
+    @Column(DataType.ARRAY(DataType.STRING))
+    platforms: PlatformName[]
+
+    @BelongsToMany(() => Genre, () => VideogameGenre)
+    genres: Genre[]
 }
-
-Videogame.init(
-    {
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
-            allowNull: false,
-        },
-
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: 'The videogame already exists',
-        },
-
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-
-        background_image: {
-            type: DataTypes.TEXT,
-        },
-
-        released: {
-            type: DataTypes.STRING,
-        },
-
-        rating: {
-            type: DataTypes.FLOAT,
-            validate: {
-                isNumeric: true,
-                is: {
-                    args: /[+]?([0-4]*\.[0-9]+|[0-5])/,
-                    msg: 'The score must be between 1 to 5',
-                },
-            },
-        },
-
-        platforms: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: false,
-        },
-    },
-    {
-        sequelize: db,
-        modelName: 'Videogame',
-        timestamps: false,
-    }
-)
-
-export default Videogame

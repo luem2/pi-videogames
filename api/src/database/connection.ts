@@ -1,9 +1,13 @@
+import path from 'path'
+
 import * as pg from 'pg'
-import { Sequelize } from 'sequelize'
+import { Sequelize } from 'sequelize-typescript'
 
 import { config } from '../config/env'
 
-const db =
+path.join(__dirname, '/models')
+
+export const sequelize =
     process.env.NODE_ENV === 'production'
         ? new Sequelize({
               database: config.PGDATABASE,
@@ -26,12 +30,12 @@ const db =
                   keepAlive: true,
               },
               ssl: true,
+              models: [path.join(__dirname, '/models')],
           })
         : new Sequelize(config.DB_NAME, config.DB_USER, config.DB_PASSWORD, {
               host: config.DB_HOST,
               port: config.DB_PORT as number,
               dialect: 'postgres',
               logging: false,
+              models: [path.join(__dirname, '/models')],
           })
-
-export default db

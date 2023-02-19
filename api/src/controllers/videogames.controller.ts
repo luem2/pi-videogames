@@ -4,8 +4,8 @@ import type { IVideogame } from '../types'
 import axios from 'axios'
 import { Op } from 'sequelize'
 
-import Genre from '../database/models/Genre'
-import Videogame from '../database/models/Videogame'
+import { Genre } from '../database/models/Genre'
+import { Videogame } from '../database/models/Videogame'
 import { config, API_GAMES_EP, API_GAMES_QUERY_EP } from '../config/env'
 
 const getGames = async (
@@ -32,10 +32,7 @@ const getGames = async (
                         genres: game.genres?.map((g) => g.name),
                         background_image: game.background_image,
                         rating: game.rating,
-                        platforms: game.platforms?.map((p) => ({
-                            id: p.platform.id,
-                            platform_name: p.platform.name,
-                        })),
+                        platforms: game.platforms.map((p) => p.platform.name),
                     })
                 )
 
@@ -70,10 +67,7 @@ const getGames = async (
                             genres: g.genres?.map((g) => g.name),
                             background_image: g.background_image,
                             rating: g.rating,
-                            platforms: g.platforms?.map((p) => ({
-                                id: p.platform.id,
-                                platform_name: p.platform.name,
-                            })),
+                            platforms: g.platforms.map((p) => p.platform.name),
                         })
                     )
 
@@ -84,7 +78,7 @@ const getGames = async (
             const dbResult = await Videogame.findAll({
                 where: {
                     name: {
-                        [Op.substring]: name,
+                        [Op.substring]: name?.toString(),
                     },
                 },
             })

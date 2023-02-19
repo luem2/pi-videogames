@@ -9,11 +9,10 @@ const router = Router()
 router.get('/', async (_req: Request, res: Response) => {
     try {
         const result = await getGenres()
-        const genres = result?.map((g) => g.dataValues)
 
-        res.send(genres)
+        res.send(result)
     } catch (e) {
-        console.log(e)
+        console.error(e)
     }
 })
 

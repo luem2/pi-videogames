@@ -1,27 +1,22 @@
-import type { BelongsToManyAddAssociationMixin } from 'sequelize'
-import type Videogame from './Videogame'
+import type { IGenre } from 'src/types'
 
-import { Model, DataTypes } from 'sequelize'
+import {
+    Model,
+    BelongsToMany,
+    Table,
+    Column,
+    AllowNull,
+} from 'sequelize-typescript'
 
-import db from '../connection'
+import { Videogame } from './Videogame'
+import { VideogameGenre } from './VideogameGenre'
 
-
-class Genre extends Model {
+@Table
+export class Genre extends Model<IGenre> {
+    @AllowNull(false)
+    @Column
     declare name: string
 
-    addVideogame: BelongsToManyAddAssociationMixin<Videogame, Videogame[]>
-    setVideogames: BelongsToManyAddAssociationMixin<Videogame, Videogame[]>
+    @BelongsToMany(() => Videogame, () => VideogameGenre)
+    videogames: Videogame[]
 }
-
-Genre.init(
-    {
-        name: { type: DataTypes.STRING },
-    },
-    {
-        sequelize: db,
-        modelName: 'Genre',
-        timestamps: false,
-    }
-)
-
-export default Genre

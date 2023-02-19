@@ -1,12 +1,29 @@
-import React from 'react'
+import type { IVideogame } from 'src/types'
+
 import { Link } from 'react-router-dom'
+
 import style from './Videogame.module.css'
 
-const Videogame = ({ id, name, image, rating, genres }) => {
+const Videogame = ({
+    id,
+    name,
+    background_image,
+    rating,
+    genres,
+}: IVideogame): JSX.Element => {
+    const idNumber = id as number
+
     return (
         <div className={style.container}>
-            <Link to={`/details/${id}`} style={{ textDecoration: 'none' }}>
-                <img className={style.images} src={image} alt={name} />
+            <Link
+                style={{ textDecoration: 'none' }}
+                to={`/details/${idNumber}`}
+            >
+                <img
+                    alt={name}
+                    className={style.images}
+                    src={background_image}
+                />
                 <h3 className={style.h3}>
                     {name.length > 26
                         ? name.substring(0, 26).concat('...')

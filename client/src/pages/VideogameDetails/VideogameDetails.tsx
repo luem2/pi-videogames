@@ -1,69 +1,46 @@
-import { React, useEffect } from 'react'
+import type { IVideogame } from 'src/types'
+import type { AppDispatch, RootState } from 'src/store'
+
+import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import Loader from '../../components/Loader/Loader'
 import { useDispatch, useSelector } from 'react-redux'
+
+import Loader from '../../components/Loader/Loader'
 import {
-    getDetails,
-    clearDetail,
-    areYouSureFunction,
-    closeModalAreYouSure,
-    deleteGame,
-    videogameDeleteFunction,
+    clearDetails,
+    deleteGameThunk,
     clearHome,
-} from '../../redux/actions'
+    getDetailsThunk,
+} from '../../store/videogame.slice'
+import { areYouSureModal, deletedGameModal } from '../../store/modal.slice'
 import Button from '../../components/Button/Button'
-import style from './VideogameDetails.module.css'
 import Modal from '../../components/Modal/Modal'
 import warning from '../../assets/warning.png'
 
-const VideogameDetails = () => {
+import style from './VideogameDetails.module.css'
+
+const VideogameDetails: React.FC = () => {
     const { id } = useParams()
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate()
-    const videogame = useSelector((state) => state.videogameDetail)
-    const areYouSureModal = useSelector((state) => state.modal.areYouSure)
+
+    const videogame: IVideogame = useSelector(
+        (state: RootState) => state.videogames.videogameDetails
+    )
+    const areYouSure = useSelector((state: RootState) => state.modal.areYouSure)
 
     useEffect(() => {
-        dispatch(getDetails(id))
+        if (id !== undefined) {
+            dispatch(getDetailsThunk(id))
+        }
 
         return () => {
-            dispatch(clearDetail())
+            dispatch(clearDetails())
         }
     }, [dispatch, id])
 
     return (
         <div className={style.container}>
-            {areYouSureModal && (
-                <Modal functionModal={closeModalAreYouSure}>
-                    <div className={style.areYouSureModal}>
-                        <h2>WARNING!</h2>
-                        <img src={warning} alt='warning' />
-                        <h3>Are you sure you want to delete this game?</h3>
-                        <div className={style.buttonsConfirmation}>
-                            <span className={style.yes}>
-                                <Button
-                                    content='Yes, Delete it 🗑️'
-                                    onClick={() => {
-                                        dispatch(deleteGame(id))
-                                        dispatch(closeModalAreYouSure())
-                                        dispatch(clearHome())
-                                        navigate('/home')
-                                        dispatch(videogameDeleteFunction())
-                                    }}
-                                />
-                            </span>
-                            <span>
-                                <Button
-                                    content='No, dont do it 😳'
-                                    onClick={() => {
-                                        dispatch(closeModalAreYouSure())
-                                    }}
-                                />
-                            </span>
-                        </div>
-                    </div>
-                </Modal>
-            )}
             {Object.keys(videogame).length === 0 ? (
                 <div className={style.loader}>
                     <Loader />
@@ -74,9 +51,9 @@ const VideogameDetails = () => {
                         <h1>★ {videogame.name} ★</h1>
                     </div>
                     <img
+                        alt={videogame.name}
                         className={style.image}
                         src={videogame.background_image}
-                        alt={videogame.name}
                     />
                     <div className={style.infoContainer}>
                         <h3 className={style.title}>{videogame.name}</h3>
@@ -84,21 +61,13 @@ const VideogameDetails = () => {
                             className={`${style.infoContainer} ${style.infoContainerPlus}`}
                         >
                             <p>
-                                Genres:{' '}
-                                {videogame.id.length !== 36
-                                    ? videogame.genres?.map((g) => g + ' ')
-                                    : videogame.Genres?.map(
-                                          (o) => o.name + ' '
-                                      )}
+                                Genres: {videogame.genres.map((g) => g + ' ')}
                             </p>
 
-                            <p>Released: {videogame.released}</p>
+                            <p> Released: {videogame.released?.valueOf()}</p>
                             <p>
-                                Platforms:{' '}
-                                {videogame.id.length === 36
-                                    ? videogame.platforms?.map((p) => p + ' ')
-                                    : videogame.platforms?.map((p) => p.name) +
-                                      ''}
+                                Platforms:
+                                {videogame.platforms.map((p) => p + ' ')}
                             </p>
                             <p>Rating: {videogame.rating}★</p>
                         </div>
@@ -107,33 +76,70 @@ const VideogameDetails = () => {
                             <h3>Sinopsis</h3>
                             {videogame.description?.replace(/<[^>]*>/g, '')}
                         </div>
-                        {id.length === 36 && (
+                        {id !== undefined && id.length === 36 && (
                             <div className={style.optionGames}>
                                 <span className={style.modifyButton}>
                                     <Link
-                                        to={`/update/${id}`}
                                         style={{ textDecoration: 'none' }}
+                                        to={`/update/${id}`}
                                     >
-                                        <Button content='Modify Game' />
+                                        <Button
+                                            content='Modify Game'
+                                            type='button'
+                                        />
                                     </Link>
                                 </span>
                                 <span className={style.deleteButton}>
                                     <Button
-                                        onClick={() => {
-                                            dispatch(areYouSureFunction())
-                                        }}
                                         content='Delete Game'
+                                        type='button'
+                                        onClick={() => {
+                                            dispatch(areYouSureModal(true))
+                                        }}
                                     />
                                 </span>
                             </div>
                         )}
                         <div className={style.goHome}>
-                            <Link to='/home' style={{ textDecoration: 'none' }}>
-                                <Button content='🏠 Go Home' />
+                            <Link style={{ textDecoration: 'none' }} to='/home'>
+                                <Button content='🏠 Go Home' type='button' />
                             </Link>
                         </div>
                     </div>
                 </>
+            )}
+            {areYouSure && (
+                <Modal functionModal={() => areYouSureModal(false)}>
+                    <div className={style.areYouSureModal}>
+                        <h2>WARNING!</h2>
+                        <img alt='warning' src={warning} />
+                        <h3>Are you sure you want to delete this game?</h3>
+                        <div className={style.buttonsConfirmation}>
+                            <span className={style.yes}>
+                                <Button
+                                    content='Yes, Delete it 🗑️'
+                                    type='button'
+                                    onClick={() => {
+                                        dispatch(deleteGameThunk(id))
+                                        dispatch(areYouSureModal(false))
+                                        dispatch(clearHome())
+                                        navigate('/home')
+                                        dispatch(deletedGameModal(true))
+                                    }}
+                                />
+                            </span>
+                            <span>
+                                <Button
+                                    content='No, dont do it 😳'
+                                    type='button'
+                                    onClick={() => {
+                                        dispatch(areYouSureModal(false))
+                                    }}
+                                />
+                            </span>
+                        </div>
+                    </div>
+                </Modal>
             )}
         </div>
     )

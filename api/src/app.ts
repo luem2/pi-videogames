@@ -20,6 +20,16 @@
 
 import Server from './server'
 
-const server = new Server()
+async function bootstrap(): Promise<void> {
+    try {
+        const server = new Server()
 
-server.listen()
+        server.dbConnection()
+
+        server.listen()
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+bootstrap()

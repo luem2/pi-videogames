@@ -9,9 +9,9 @@ import getGenres from './controllers/genres.controller'
 import genresRoutes from './routes/genres.route'
 import videogameRoutes from './routes/videogame.route'
 import videogamesRoutes from './routes/videogames.route'
+import { sequelize } from './database/connection'
 import { handleError } from './middlewares/handleError'
 import { config } from './config/env'
-import db from './database/connection'
 
 class Server {
     readonly app: Application
@@ -26,18 +26,17 @@ class Server {
         this.app = express()
         this.port = config.PORT
 
-        this.dbConnection()
-
         this.middlewares()
         this.routes()
     }
 
     async dbConnection(): Promise<void> {
         try {
-            await db.authenticate()
-            await db.sync({ force: false })
+            await sequelize.authenticate()
+            await sequelize.sync({ force: false })
             await getGenres()
-            console.log('Database connected')
+
+            console.info('Database connected')
         } catch (error) {
             console.error(error)
         }
@@ -47,7 +46,8 @@ class Server {
         // CORS
         this.app.use(
             cors({
-                origin: 'https://henrygames.lucianopinol.com',
+                origin: '*',
+                // origin: 'https://henrygames.lucianopinol.com',
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
@@ -90,7 +90,7 @@ class Server {
 
     listen(): void {
         this.app.listen(this.port, () => {
-            console.log(`Server listening on port ${this.port}`)
+            console.info(`Server listening on port ${this.port}`)
         })
     }
 }

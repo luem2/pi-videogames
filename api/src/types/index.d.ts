@@ -1,4 +1,4 @@
-export interface IGenre {
+export interface IGenreAPI {
     id: number
     name: string
     slug: string
@@ -12,22 +12,51 @@ export interface IGenre {
     }>
 }
 
-export interface IVideogame {
+export interface IGenre {
     id: number
-    description?: string
-    released?: string
     name: string
-    genres: Array<{
-        name: string
-    }>
-    background_image: string
+}
+
+export interface IVideogame {
+    id?: number
+    name: string
+    description: string
+    background_image?: string | undefined
+    genres?: Genres[]
     rating: number
-    platforms: Array<{
-        platform: {
-            id: number
-            name: string
-        }
-    }>
+    platforms: Platform[]
+    released: Date
+}
+
+export type PlatformName =
+    | 'Android'
+    | 'Dreamcast'
+    | 'iOS'
+    | 'Linux'
+    | 'macOS'
+    | 'Nintendo 3DS'
+    | 'Nintendo Switch'
+    | 'PC'
+    | 'PS Vita'
+    | 'PlayStation 2'
+    | 'PlayStation 3'
+    | 'PlayStation 4'
+    | 'PlayStation 5'
+    | 'Web'
+    | 'Wii U'
+    | 'Xbox'
+    | 'Xbox 360'
+    | 'Xbox One'
+    | 'Xbox Series S/X'
+export interface Platform {
+    platform: {
+        id: number
+        name: PlatformName
+    }
+}
+
+export interface Genres {
+    name: PlatformName
 }
 
 export interface IError {

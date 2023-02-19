@@ -25,11 +25,19 @@
     },
     "rules": {
         "@typescript-eslint/no-floating-promises": "off",
+        // Only for this project
         "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/naming-convention": "off",
+        // --------------------------------------------
         "import/no-unresolved": 0,
         "no-unused-vars": "error",
         "semi": "error",
+        "no-console": [
+            "warn",
+            {
+                "allow": ["warn", "error", "info"]
+            }
+        ],
         "eqeqeq": "warn",
         "no-var": "warn",
         "quotes": "error",

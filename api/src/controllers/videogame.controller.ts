@@ -3,7 +3,8 @@ import type { IVideogame } from '../types'
 
 import axios from 'axios'
 
-import { Genre, Videogame } from '../database/models'
+import { Videogame } from '../database/models/Videogame'
+import { Genre } from '../database/models/Genre'
 import { config, API_GAMES_ID_EP } from '../config/env'
 
 export const getVideogameById = async (
@@ -42,10 +43,7 @@ export const getVideogameById = async (
                 description,
                 released,
                 rating,
-                platforms: platforms?.map((p) => ({
-                    id: p.platform.id,
-                    name: p.platform.name,
-                })),
+                platforms: platforms?.map((p) => p.platform.name),
                 background_image,
                 genres: genres?.map((g) => g.name),
             }
@@ -96,7 +94,6 @@ export const updateVideogame = async (
         if (genres !== undefined && genres !== null) {
             const videogame = await Videogame.findByPk(id)
 
-            console.log(videogame)
             const genresMatched = await Genre.findAll({
                 where: {
                     name: genres,
@@ -104,7 +101,7 @@ export const updateVideogame = async (
             })
 
             if (videogame !== null) {
-                await videogame.setGenres(genresMatched)
+                await videogame.$set('genres', genresMatched)
             }
         }
 
@@ -121,6 +118,10 @@ export const deleteVideogame = async (
 ): Promise<void> => {
     try {
         const id = req.params.idVideogame
+
+        const videogame = await Videogame.findByPk(id)
+
+        videogame?.destroy()
 
         await Videogame.destroy({
             where: {
@@ -153,31 +154,16 @@ export const postVideogame = async (
         const defaultImage =
             'https://i.blogs.es/f00b44/screenshot_699/840_560.jpeg'
 
-        function checkNullOrUndefined(
-            prop: unknown,
-            msg: string
-        ): Response<unknown, Record<string, unknown>> | undefined {
-            if (prop === null ?? prop === undefined) {
-                return res.status(401).send({ msg })
-            }
-        }
-
-        checkNullOrUndefined(name, ' The prop name is missing')
-        checkNullOrUndefined(description, ' The prop description is missing')
-        checkNullOrUndefined(platforms, ' The prop platforms is missing')
-
-        // if (!name ?? !description ?? !platforms) {
-        //     res.status(401).send({ msg: 'Required data is missing' })
-        // }
-
-        const videogameCreated = await Videogame.create({
+        const newVideogame: IVideogame = {
             name,
             description,
             background_image: background_image ?? defaultImage,
             released,
             rating,
             platforms,
-        })
+        }
+
+        const videogameCreated = await Videogame.create(newVideogame)
 
         const genreMatched = await Genre.findAll({
             where: {
@@ -185,7 +171,7 @@ export const postVideogame = async (
             },
         })
 
-        videogameCreated.addGenre(genreMatched)
+        videogameCreated.$set('genres', genreMatched)
 
         res.send({
             msg: 'The Videogame was created successfully!',

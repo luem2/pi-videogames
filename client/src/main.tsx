@@ -4,7 +4,8 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 
 import App from './App'
-import store from './redux/store'
+import { store } from './store'
+
 import './index.css'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API ?? 'http://localhost:3000'

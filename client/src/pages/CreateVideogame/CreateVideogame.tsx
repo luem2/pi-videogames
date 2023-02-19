@@ -1,18 +1,18 @@
+import type { IErrors, IVideogame, PlatformName } from 'src/types'
+import type { AppDispatch, RootState } from 'src/store'
+
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+
 import {
-    videogameCreatedFunction,
-    closeModalVideogameCreated,
-    createVideogame,
-    getGenres,
-    getAllVideogames,
-    videogameAlreadyExists,
-    closeModalVideogameAlreadyExists,
+    createVideogameThunk,
     clearHome,
-} from '../../redux/actions'
+    getGenresThunk,
+    getAllVideogamesThunk,
+} from '../../store/videogame.slice'
+import { gameCreatedModal, videogameExistsModal } from '../../store/modal.slice'
 import { platforms } from '../../utility/platforms'
-import style from './CreateVideogame.module.css'
 import rana from '../../assets/rana.png'
 import leon from '../../assets/leon.png'
 import Button from '../../components/Button/Button'
@@ -22,11 +22,14 @@ import marioFeliz from '../../assets/mariofeliz.png'
 import marioFace from '../../assets/marioFace.png'
 import hongo from '../../assets/hongo.png'
 
-export const validate = (videogame) => {
-    const errors = {}
-    const year = Number(videogame.released?.split('-')[0])
-    const month = Number(videogame.released?.split('-')[1])
-    const day = Number(videogame.released?.split('-')[2])
+import style from './CreateVideogame.module.css'
+
+export const validate = (videogame: IVideogame): IErrors => {
+    const errors: IErrors = {}
+
+    const year = Number(videogame.released?.toString().split('-')[0])
+    const month = Number(videogame.released?.toString().split('-')[1])
+    const day = Number(videogame.released?.toString().split('-')[2])
 
     if (!videogame.name) {
         errors.name = 'Enter a name'
@@ -51,26 +54,28 @@ export const validate = (videogame) => {
     return errors
 }
 
-const CreateVideogame = () => {
-    const videogames = useSelector((state) => state.videogames)
-    const genres = useSelector((state) => state.genres.data)
-    const { gameCreated, videogameExists } = useSelector((state) => state.modal)
+const CreateVideogame = (): JSX.Element => {
+    const videogameState = useSelector((state: RootState) => state.videogames)
+    const genres = useSelector((state: RootState) => state.videogames.genres)
+    const { gameCreated, videogameExists } = useSelector(
+        (state: RootState) => state.modal
+    )
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
 
-    const [videogame, setVideogame] = useState({
+    const [videogame, setVideogame] = useState<IVideogame>({
         name: '',
         description: '',
-        background_image: '',
+        background_image: undefined,
         released: '',
-        rating: '',
+        rating: 0,
         genres: [],
         platforms: [],
     })
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState<IErrors>({})
 
-    const onInputChange = (e) => {
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         e.preventDefault()
         setVideogame({
             ...videogame,
@@ -84,13 +89,17 @@ const CreateVideogame = () => {
         )
     }
 
-    const onSelectPlatformChange = (e) => {
+    const onSelectPlatformChange = (
+        e: React.ChangeEvent<HTMLSelectElement>
+    ): void => {
         e.preventDefault()
 
-        if (!videogame.platforms.includes(e.target.value)) {
+        const target = e.target.value as PlatformName
+
+        if (!videogame.platforms?.includes(target)) {
             setVideogame({
                 ...videogame,
-                platforms: [...videogame.platforms, e.target.value],
+                platforms: [...videogame.platforms, target],
             })
         } else {
             setVideogame({
@@ -99,10 +108,12 @@ const CreateVideogame = () => {
         }
     }
 
-    const onSelectGenreChange = (e) => {
+    const onSelectGenreChange = (
+        e: React.ChangeEvent<HTMLSelectElement>
+    ): void => {
         e.preventDefault()
 
-        if (!videogame.genres.includes(e.target.value)) {
+        if (!videogame.genres.includes(e.target.value as PlatformName)) {
             setVideogame({
                 ...videogame,
                 genres: [...videogame.genres, e.target.value],
@@ -114,104 +125,71 @@ const CreateVideogame = () => {
         }
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.FormEvent): void => {
         e.preventDefault()
 
-        const videogameExists = videogames.filter(
+        const videogameExists = videogameState.videogames.filter(
             (g) => g.name.toLowerCase() === videogame.name.toLowerCase()
         )
 
         if (videogameExists.length) {
-            return dispatch(videogameAlreadyExists())
+            dispatch(videogameExistsModal(true))
+
+            return
         }
 
-        dispatch(createVideogame(videogame))
+        dispatch(createVideogameThunk(videogame))
         dispatch(clearHome())
-        dispatch(videogameCreatedFunction())
+        dispatch(gameCreatedModal(true))
 
         clearInputs()
     }
 
-    const clearInputs = () => {
+    const clearInputs = (): void => {
         setVideogame({
             name: '',
             description: '',
-            background_image: '',
+            background_image: undefined,
             released: '',
-            rating: '',
+            rating: 0,
             genres: [],
             platforms: [],
         })
     }
 
     useEffect(() => {
-        if (!videogames.length) {
-            dispatch(getAllVideogames())
+        if (!videogameState.filteredVideogames.length) {
+            dispatch(getAllVideogamesThunk())
         }
 
-        if (!genres.length) {
-            dispatch(getGenres())
+        if (!videogameState.genres.length) {
+            dispatch(getGenresThunk())
         } // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch])
 
     return (
         <form className={style.form} onSubmit={onSubmit}>
-            {videogameExists && (
-                <Modal functionModal={closeModalVideogameAlreadyExists}>
-                    <div className={style.gameAlreadyExists}>
-                        <h2>The game already Exists!⚠️</h2>
-                        <img src={hongo} alt='already-exists-img' />
-                        <h3>Please, Choose another name</h3>
-                        <Button
-                            content='Ok 😳'
-                            onClick={() => {
-                                dispatch(closeModalVideogameAlreadyExists())
-                            }}
-                        />
-                    </div>
-                </Modal>
-            )}
-            {gameCreated && (
-                <Modal functionModal={closeModalVideogameCreated}>
-                    <div className={style.modalContainer}>
-                        <h2>Game created successfully! ✅</h2>
-                    </div>
-                    <div className={style.imageCreated}>
-                        <img src={marioFeliz} alt='mario-feliz' />
-                    </div>
-                    <div className={style.buttonCreated}>
-                        <Button
-                            type='button'
-                            content='🏠 Go Home'
-                            onClick={() => {
-                                dispatch(closeModalVideogameCreated())
-                                navigate('/home')
-                            }}
-                        />
-                    </div>
-                </Modal>
-            )}
             <div className={style.createVideogameSection}>
-                <img src={rana} alt='rana-gaming' />
+                <img alt='rana-gaming' src={rana} />
                 <h1>Create Videogame!</h1>
-                <img src={leon} alt='leon-gaming' />
+                <img alt='leon-gaming' src={leon} />
             </div>
             <div className={style.button}>
-                <Link to='/home' style={{ textDecoration: 'none' }}>
-                    <Button type='button' content='🏠 Go Home' />
+                <Link style={{ textDecoration: 'none' }} to='/home'>
+                    <Button content='🏠 Go Home' type='button' />
                 </Link>
             </div>
             <div className={style.containerForm}>
                 <label>Name:</label>
                 <div className={style.nameInput}>
                     <input
-                        name='name'
-                        className={errors.name && style.danger}
-                        type='text'
-                        onChange={onInputChange}
-                        value={videogame.name}
-                        placeholder='Example: League of Henrys'
                         required
+                        className={errors.name && style.danger}
+                        name='name'
+                        placeholder='Example: League of Henrys'
+                        type='text'
+                        value={videogame.name}
+                        onChange={onInputChange}
                     />
                     {errors.name && <p>{errors.name}</p>}
                 </div>
@@ -219,13 +197,13 @@ const CreateVideogame = () => {
                 <label>Description:</label>
                 <div className={style.descriptionInput}>
                     <input
-                        name='description'
-                        className={errors.description && style.danger}
-                        type='text'
-                        onChange={onInputChange}
-                        value={videogame.description}
-                        placeholder='Example: The best game of the world'
                         required
+                        className={errors.description && style.danger}
+                        name='description'
+                        placeholder='Example: The best game of the world'
+                        type='text'
+                        value={videogame.description}
+                        onChange={onInputChange}
                     />
                     {errors.description && <p>{errors.description}</p>}
                 </div>
@@ -235,10 +213,10 @@ const CreateVideogame = () => {
                     <input
                         className={errors.rating && style.danger}
                         name='rating'
-                        onChange={onInputChange}
-                        type='text'
                         placeholder='Example: 5'
+                        type='text'
                         value={videogame.rating}
+                        onChange={onInputChange}
                     />
                     {errors.rating && <p>{errors.rating}</p>}
                 </div>
@@ -246,11 +224,11 @@ const CreateVideogame = () => {
                 <label>Release date:</label>
                 <div className={style.releasedInput}>
                     <input
-                        name='released'
-                        onChange={onInputChange}
-                        type='date'
                         className={errors.released && style.danger}
-                        value={videogame.released}
+                        name='released'
+                        type='date'
+                        value={videogame?.released?.toString()}
+                        onChange={onInputChange}
                     />
                     {errors.released && <p>{errors.released}</p>}
                 </div>
@@ -258,57 +236,66 @@ const CreateVideogame = () => {
                 <label>Plataformas:</label>
                 <div className={style.platformsInput}>
                     <select
-                        name='platforms'
                         multiple
-                        onChange={onSelectPlatformChange}
                         required
+                        name='platforms'
+                        onChange={onSelectPlatformChange}
                     >
-                        {platforms.map((p, i) => (
-                            <option key={i} value={p}>
-                                {p}
-                            </option>
-                        ))}
+                        {platforms.map((p, i) => {
+                            return (
+                                <option key={`${p}-${i}`} value={p}>
+                                    {p}
+                                </option>
+                            )
+                        })}
                     </select>
                     {errors.platforms && <p>{errors.platforms}</p>}
                 </div>
                 <div className={style.platformsContainer}>
-                    {videogame.platforms?.map((p, i) => (
-                        <div key={i}>
-                            <span
-                                key={i}
-                                onClick={() => {
-                                    setVideogame({
-                                        ...videogame,
-                                        ...videogame.platforms.splice(i, 1),
-                                    })
-                                }}
-                            >
-                                {p}
-                            </span>
-                        </div>
-                    ))}
+                    {videogame.platforms?.map((p, i) => {
+                        return (
+                            <div key={`${p}-${i}`}>
+                                <span
+                                    key={`${p}-${i}`}
+                                    onClick={() => {
+                                        setVideogame({
+                                            ...videogame,
+                                            ...videogame.platforms?.splice(
+                                                i,
+                                                1
+                                            ),
+                                        })
+                                    }}
+                                >
+                                    {p}
+                                </span>
+                            </div>
+                        )
+                    })}
                 </div>
                 <label>Genres</label>
                 <div className={style.genresInput}>
                     <select
-                        name='genres'
                         multiple
-                        onChange={onSelectGenreChange}
                         required
+                        name='genres'
+                        onChange={onSelectGenreChange}
                     >
-                        {genres?.map((g) => (
-                            <option key={g.id} value={g.name}>
-                                {g.name}
-                            </option>
-                        ))}
+                        {genres?.map((genre, i) => {
+                            return (
+                                <option key={`${genre}-${i}`} value={genre}>
+                                    {genre}
+                                </option>
+                            )
+                        })}
                     </select>
                     {errors.genres && <p>{errors.genres}</p>}
                 </div>
                 <div className={style.genresContainer}>
                     {videogame.genres?.map((p, i) => (
-                        <div key={i}>
+                        <div key={`${p}-${i}`}>
                             <span
-                                key={i}
+                                key={`${p}-${i}`}
                                 onClick={() => {
                                     setVideogame({
                                         ...videogame,
@@ -324,18 +311,18 @@ const CreateVideogame = () => {
 
                 <label>Imagen:</label>
                 <input
-                    name='background_image'
-                    type='text'
-                    onChange={onInputChange}
                     className={style.image}
-                    value={videogame.background_image}
+                    name='background_image'
                     placeholder='Example: http://henry-game.com/image.png'
+                    type='text'
+                    value={videogame.background_image}
+                    onChange={onInputChange}
                 />
                 <div className={style.imagePreview}>
                     {videogame.background_image ? (
                         <img
-                            src={videogame.background_image}
                             alt={`${videogame.name}-img`}
+                            src={videogame.background_image}
                         />
                     ) : (
                         <p>Image Preview</p>
@@ -347,26 +334,62 @@ const CreateVideogame = () => {
                     {Object.keys(errors).length > 0 ? (
                         <div>
                             <ButtonDisabled
-                                type='button'
                                 content='There are mistakes ⚠️'
+                                type='button'
                             />
                         </div>
                     ) : (
                         <Button
-                            type='submit'
-                            image={marioFace}
                             content='Create Game!'
+                            image={marioFace}
+                            type='submit'
                         />
                     )}
                 </div>
                 <div className={style.clearInput}>
                     <Button
-                        onClick={clearInputs}
                         content='📖 Clear Inputs'
                         type='button'
+                        onClick={clearInputs}
                     />
                 </div>
             </div>
+            {videogameExists && (
+                <Modal functionModal={() => videogameExistsModal(false)}>
+                    <div className={style.gameAlreadyExists}>
+                        <h2>The game already Exists!⚠️</h2>
+                        <img alt='already-exists-img' src={hongo} />
+                        <h3>Please, Choose another name</h3>
+                        <Button
+                            content='Ok 😳'
+                            type='button'
+                            onClick={() => {
+                                dispatch(videogameExistsModal(false))
+                            }}
+                        />
+                    </div>
+                </Modal>
+            )}
+            {gameCreated && (
+                <Modal functionModal={() => gameCreatedModal(false)}>
+                    <div className={style.modalContainer}>
+                        <h2>Game created successfully! ✅</h2>
+                    </div>
+                    <div className={style.imageCreated}>
+                        <img alt='mario-feliz' src={marioFeliz} />
+                    </div>
+                    <div className={style.buttonCreated}>
+                        <Button
+                            content='🏠 Go Home'
+                            type='button'
+                            onClick={() => {
+                                dispatch(gameCreatedModal(false))
+                                navigate('/home')
+                            }}
+                        />
+                    </div>
+                </Modal>
+            )}
         </form>
     )
 }

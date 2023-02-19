@@ -1,27 +1,46 @@
-import React from 'react'
+import type { AnyAction } from '@reduxjs/toolkit'
+
 import { useDispatch } from 'react-redux'
+
 import style from './Modal.module.css'
 
-const Modal = ({ children, functionModal, syncFunction }) => {
-    const dispatch = useDispatch()
-    const handleModalContainerClick = (e) => e.stopPropagation()
+interface ModalProps {
+    children: React.ReactNode
+    functionModal?: () => AnyAction
+    syncFunction?: () => void
+}
 
-    const closeModalFunction = () => {
-        dispatch(functionModal())
+const Modal = ({
+    children,
+    functionModal,
+    syncFunction,
+}: ModalProps): JSX.Element => {
+    const dispatch = useDispatch()
+
+    const handleModalContainerClick = (e: React.MouseEvent): void => {
+        e.stopPropagation()
+    }
+
+    const closeModalFunction = (): void => {
+        // REVIEW: LE AGREGUE UN RETURN ACA PORQUE AGREGUE QUE DEVUELVA AnyAction
+        // REVIEW: LE AGREGUE TAMBIEN DENTRO DEL IF
+        if (functionModal) {
+            dispatch(functionModal())
+        }
     }
 
     return (
         <article
-            onClick={syncFunction || closeModalFunction}
             className={style.modal}
+            onClick={syncFunction ?? closeModalFunction}
         >
             <div
                 className={style.container}
                 onClick={handleModalContainerClick}
             >
                 <button
-                    onClick={syncFunction || closeModalFunction}
                     className={style.modalClose}
+                    onClick={syncFunction ?? closeModalFunction}
                 >
                     x
                 </button>

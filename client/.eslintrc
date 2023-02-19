@@ -27,12 +27,23 @@
         }
     },
     "rules": {
-        "@typescript-eslint/space-before-function-paren": "off",
         "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/space-before-function-paren": "off",
+        //Only for this project
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/naming-convention": "off",
+        //----------------------------------------------------
         "react/self-closing-comp": "warn",
         "no-unused-vars": "error",
         "semi": "error",
-        "no-console": "warn",
+        "no-console": [
+            "warn",
+            {
+                "allow": ["warn", "error", "info"]
+            }
+        ],
         "eqeqeq": "warn",
         "no-var": "warn",
         "quotes": "error",

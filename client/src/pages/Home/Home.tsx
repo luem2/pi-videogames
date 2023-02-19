@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import Videogames from '../../components/Videogames/Videogames'
+import type { IVideogame } from 'src/types'
+import type { AppDispatch, RootState } from 'src/store'
+
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import Header from '../../components/Header/Header'
 import Pagination from '../../components/Pagination/Pagination'
 import SectionBar from '../../components/SectionBar/SectionBar'
-import { useDispatch, useSelector } from 'react-redux'
+import Videogames from '../../components/Videogames/Videogames'
 import {
-    getAllVideogames,
-    getGenres,
-    closeModalNotFound,
-    closeModalEmptyInput,
-    closeModalVideogameDelete,
-    closeModalVideogameUpdate,
-} from '../../redux/actions'
-import style from './Home.module.css'
+    getAllVideogamesThunk,
+    getGenresThunk,
+} from '../../store/videogame.slice'
+import {
+    gameNotFoundModal,
+    emptyInputModal,
+    deletedGameModal,
+    editGameModal,
+} from '../../store/modal.slice'
 import Modal from '../../components/Modal/Modal'
 import Button from '../../components/Button/Button'
 import marioBros from '../../assets/mariotriste.png'
@@ -20,15 +25,23 @@ import marioFace from '../../assets/marioFace.png'
 import luigi from '../../assets/Luigi.webp'
 import pinguino from '../../assets/pinguino.png'
 
-const Home = () => {
-    const dispatch = useDispatch()
-    const allVideogames = useSelector((state) => state.filteredVideogames)
-    const modal = useSelector((state) => state.modal)
-    const genres = useSelector((state) => state.genres)
+import style from './Home.module.css'
+
+const Home = (): JSX.Element => {
+    const dispatch: AppDispatch = useDispatch()
+
+    const allVideogames: IVideogame[] = useSelector(
+        (state: RootState) => state.videogames.filteredVideogames
+    )
+
+    const modal = useSelector((state: RootState) => state.modal)
+    const genres = useSelector((state: RootState) => state.videogames.genres)
+
     const editGame = modal.editGame
     const gameNotFound = modal.gameNotFound
     const emptyInput = modal.emptyInput
-    const deleteGameModal = modal.deleteGame
+    const deleteGameModal = modal.deletedGame
+
     const [currentPage, setCurrentPage] = useState(1)
     const [videogamesPerPage] = useState(15)
     const indexOfLastVideogame = currentPage * videogamesPerPage
@@ -38,20 +51,20 @@ const Home = () => {
         indexOfLastVideogame
     )
 
-    const closeModalNotFoundFunction = () => {
-        dispatch(closeModalNotFound())
+    const closeModalNotFoundFunction = (): void => {
+        dispatch(gameNotFoundModal(false))
     }
 
-    const paginate = (pageNumber) => {
+    const paginate = (pageNumber: number): void => {
         setCurrentPage(pageNumber)
     }
 
     useEffect(() => {
         if (!allVideogames.length) {
-            dispatch(getAllVideogames())
+            dispatch(getAllVideogamesThunk())
         }
-        if (!genres.data?.length) {
-            dispatch(getGenres())
+        if (!genres?.length) {
+            dispatch(getGenresThunk())
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch])
@@ -59,30 +72,31 @@ const Home = () => {
     return (
         <div className={style.homeContainer}>
             {emptyInput && (
-                <Modal functionModal={closeModalEmptyInput}>
+                <Modal functionModal={() => emptyInputModal(false)}>
                     <div className={style.modalContainer}>
                         <h2>Enter a name please ⚠️</h2>
                     </div>
                     <div className={style.marioFace}>
-                        <img src={marioFace} alt='enter-game-name' />
+                        <img alt='enter-game-name' src={marioFace} />
                     </div>
                     <div className={style.buttonEmpty}>
                         <Button
                             content='Return'
+                            type='button'
                             onClick={() => {
-                                dispatch(closeModalEmptyInput())
+                                dispatch(emptyInputModal(false))
                             }}
                         />
                     </div>
                 </Modal>
             )}
             {gameNotFound && (
-                <Modal functionModal={closeModalNotFound}>
+                <Modal functionModal={() => gameNotFoundModal(false)}>
                     <div className={style.modalContainer}>
                         <h2>Error 404 ❌</h2>
                     </div>
                     <div className={style.image}>
-                        <img src={marioBros} alt='mario-bros-crying' />
+                        <img alt='mario-bros-crying' src={marioBros} />
                     </div>
                     <div className={style.modalContainerP}>
                         <p>Game not Found 😭</p>
@@ -90,34 +104,37 @@ const Home = () => {
                     <div className={style.button}>
                         <Button
                             content='Return'
+                            type='button'
                             onClick={closeModalNotFoundFunction}
                         />
                     </div>
                 </Modal>
             )}
             {deleteGameModal && (
-                <Modal functionModal={closeModalVideogameDelete}>
+                <Modal functionModal={() => deletedGameModal(false)}>
                     <div className={style.gameDeletedModal}>
                         <h2>Game deleted successfully!✅</h2>
-                        <img src={luigi} alt={`${luigi}-img`} />
+                        <img alt={`${luigi}-img`} src={luigi} />
                         <Button
                             content='Ok👌'
+                            type='button'
                             onClick={() => {
-                                dispatch(closeModalVideogameDelete())
+                                dispatch(deletedGameModal(false))
                             }}
                         />
                     </div>
                 </Modal>
             )}
             {editGame && (
-                <Modal functionModal={closeModalVideogameUpdate}>
+                <Modal functionModal={() => editGameModal(false)}>
                     <div className={style.editedSuccessfully}>
                         <h2>Game Edited Successfully! ✅</h2>
-                        <img src={pinguino} alt='pinguino-png' />
+                        <img alt='pinguino-png' src={pinguino} />
                         <Button
                             content='Ok 😄'
+                            type='button'
                             onClick={() => {
-                                dispatch(closeModalVideogameUpdate())
+                                dispatch(editGameModal(false))
                             }}
                         />
                     </div>
@@ -126,10 +143,10 @@ const Home = () => {
             <Header />
             <SectionBar />
             <Pagination
-                videogamesPerPage={videogamesPerPage}
-                allVideogames={allVideogames.length}
+                allVideogames={allVideogames}
                 currentPage={currentPage}
                 paginate={paginate}
+                videogamesPerPage={videogamesPerPage}
             />
             <Videogames currentVideogames={currentVideogames} />
         </div>

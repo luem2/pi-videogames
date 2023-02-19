@@ -1,16 +1,25 @@
-import type { IGenre } from '../types'
+import type { IGenre, IGenreAPI } from '../types'
 
 import axios from 'axios'
 
-import Genre from '../database/models/Genre'
+import { sequelize } from '../database/connection'
 import { API_GENRES_EP, config } from '../config/env'
 
-const getGenres = async (): Promise<Genre[] | undefined> => {
+const { Genre } = sequelize.models
+
+const getGenres = async (): Promise<IGenre[] | undefined> => {
     try {
         const result = await axios.get(`${API_GENRES_EP}?key=${config.API_KEY}`)
 
-        result.data.results.forEach(
-            async (g: IGenre) =>
+        const response: {
+            count: number
+            next: null
+            previous: null
+            results: IGenreAPI[]
+        } = result.data
+
+        response.results.forEach(
+            async (g: IGenreAPI) =>
                 await Genre.findOrCreate({
                     where: {
                         name: g.name,
@@ -20,9 +29,9 @@ const getGenres = async (): Promise<Genre[] | undefined> => {
 
         const allGenres = await Genre.findAll()
 
-        return allGenres
+        return allGenres as unknown as IGenre[]
     } catch (e) {
-        console.log(e)
+        console.error(e)
     }
 }
 

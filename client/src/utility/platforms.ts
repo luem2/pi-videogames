@@ -1,3 +1,5 @@
+import type { PlatformName } from 'src/types'
+
 export const platforms = [
     'Linux',
     'MacOS',
@@ -18,4 +20,4 @@ export const platforms = [
     'Android',
     'Web',
     'DreamCast',
-]
+] as PlatformName[]

@@ -1,53 +1,59 @@
-import React, { useState, useEffect } from 'react'
+import type { AppDispatch, RootState } from 'src/store'
+import type { IErrors, IVideogame } from 'src/types'
+
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+
 import {
-    videogameUpdateFunction,
-    videogameAlreadyExists,
-    closeModalVideogameAlreadyExists,
-    getGenres,
+    updateVideogameThunk,
     clearHome,
-    getAllVideogames,
-    updateVideogame,
-} from '../../redux/actions'
+    getGenresThunk,
+    getAllVideogamesThunk,
+} from '../../store/videogame.slice'
+import { editGameModal, videogameExistsModal } from '../../store/modal.slice'
 import { validate } from '../CreateVideogame/CreateVideogame'
 import Button from '../../components/Button/Button'
 import ButtonDisabled from '../../components/ButtonDisabled/ButtonDisabled'
 import Modal from '../../components/Modal/Modal'
 import { platforms } from '../../utility/platforms'
-import style from './UpdateVideogame.module.css'
 import hongo from '../../assets/hongo.png'
 import marioFace from '../../assets/marioFace.png'
 import unicornio from '../../assets/unicornio.png'
 import panda from '../../assets/panda.png'
 import pinguino from '../../assets/pinguino.png'
 
-const UpdateVideogame = () => {
+import style from './UpdateVideogame.module.css'
+
+const UpdateVideogame = (): JSX.Element => {
     const { id } = useParams()
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate()
-    const videogames = useSelector((state) => state.videogames)
-    const genres = useSelector((state) => state.genres.data)
-    const videogameExists = useSelector((state) => state.modal.videogameExists)
-    const videogame = videogames?.find((g) => g.id === id)
+
+    const videogameState = useSelector((state: RootState) => state.videogames)
+    const genres = useSelector((state: RootState) => state.videogames.genres)
+    const videogameExists = useSelector(
+        (state: RootState) => state.modal.videogameExists
+    )
+    const videogame = videogameState.videogames?.find((g) => g.id === id)
 
     const [gameNotChangedModal, setGameNotChangedModal] = useState(false)
     const platformsVideogameMatched = videogame?.platforms?.map((p) => p)
-    const genresVideogameMatched = videogame?.Genres?.map((g) => g.name)
+    const genresVideogameMatched = videogame?.genres?.map((g) => g)
 
-    const [input, setInput] = useState({
+    const [input, setInput] = useState<IVideogame>({
         name: videogame?.name,
         description: videogame?.description,
         background_image: videogame?.background_image,
         released: videogame?.released,
         rating: videogame?.rating,
-        genres: genresVideogameMatched || [],
-        platforms: platformsVideogameMatched || [],
+        genres: genresVideogameMatched ?? [],
+        platforms: platformsVideogameMatched ?? [],
     })
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState<IErrors>({})
 
-    const onInputChange = (e) => {
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         e.preventDefault()
         setInput({
             ...input,
@@ -61,7 +67,9 @@ const UpdateVideogame = () => {
         )
     }
 
-    const onSelectPlatformChange = (e) => {
+    const onSelectPlatformChange = (
+        e: React.ChangeEvent<HTMLSelectElement>
+    ): void => {
         e.preventDefault()
 
         if (!input.platforms.includes(e.target.value)) {
@@ -76,7 +84,9 @@ const UpdateVideogame = () => {
         }
     }
 
-    const onSelectGenreChange = (e) => {
+    const onSelectGenreChange = (
+        e: React.ChangeEvent<HTMLSelectElement>
+    ): void => {
         e.preventDefault()
 
         if (!input.genres.includes(e.target.value)) {
@@ -91,12 +101,12 @@ const UpdateVideogame = () => {
         }
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.FormEvent): void => {
         e.preventDefault()
-        const videogame = videogames.find((g) => g.id === id)
+        const videogame = videogameState.videogames.find((g) => g.id === id)
 
-        const videogameGenres = videogame.Genres?.map((g) => g.name)
-        const videogamePlatforms = videogame.platforms
+        const videogameGenres = videogame?.genres?.map((g) => g)
+        const videogamePlatforms = videogame?.platforms
 
         const areSameGenres =
             videogameGenres?.length === input.genres?.length &&
@@ -104,58 +114,64 @@ const UpdateVideogame = () => {
 
         const areSamePlatforms =
             videogamePlatforms?.length === input.platforms?.length &&
-            videogamePlatforms.every((e, i) => e === input.platforms[i])
+            videogamePlatforms?.every((e, i) => e === input.platforms[i])
 
         if (
-            videogame.name === input.name &&
-            videogame.description === input.description &&
-            videogame.background_image === input.background_image &&
-            videogame.released === input.released &&
-            videogame.rating === input.rating &&
+            videogame?.name === input.name &&
+            videogame?.description === input.description &&
+            videogame?.background_image === input.background_image &&
+            videogame?.released === input.released &&
+            videogame?.rating === input.rating &&
             areSameGenres &&
             areSamePlatforms
         ) {
             setGameNotChangedModal(true)
+
             return
         }
 
-        let videogameExists = videogames.filter(
-            (g) => g.name.toLowerCase() === input.name.toLowerCase()
+        let videogameExists = videogameState.videogames.filter(
+            (g) => g.name?.toLowerCase() === input.name?.toLowerCase()
         )
 
         if (videogameExists[0]?.name === videogame?.name) videogameExists = []
 
         if (videogameExists.length) {
-            return dispatch(videogameAlreadyExists())
+            dispatch(videogameExistsModal(true))
+
+            return
         }
 
-        dispatch(updateVideogame(id, input))
+        const idString = id as string
+
+        dispatch(updateVideogameThunk(idString, input))
         dispatch(clearHome())
         navigate('/home')
-        dispatch(videogameUpdateFunction())
+        dispatch(editGameModal(true))
     }
 
     useEffect(() => {
-        if (!videogames.length) {
-            dispatch(getAllVideogames())
+        if (!videogameState.videogames.length) {
+            dispatch(getAllVideogamesThunk())
         }
         if (!genres?.length) {
-            dispatch(getGenres())
+            dispatch(getGenresThunk())
         } // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch])
 
     return (
         <form className={style.form} onSubmit={onSubmit}>
             {videogameExists && (
-                <Modal functionModal={closeModalVideogameAlreadyExists}>
+                <Modal functionModal={() => videogameExistsModal(false)}>
                     <div className={style.gameAlreadyExists}>
                         <h2>The game already Exists!⚠️</h2>
-                        <img src={hongo} alt='already-exists-img' />
+                        <img alt='already-exists-img' src={hongo} />
                         <h3>Please, Choose another name</h3>
                         <Button
                             content='Ok 😳'
+                            type='button'
                             onClick={() => {
-                                dispatch(closeModalVideogameAlreadyExists())
+                                dispatch(videogameExistsModal(false))
                             }}
                         />
                     </div>
@@ -169,10 +185,11 @@ const UpdateVideogame = () => {
                 >
                     <div className={style.gameNotChanged}>
                         <h2>The game has not changed</h2>
-                        <img src={pinguino} alt='pinguino-gamer' />
+                        <img alt='pinguino-gamer' src={pinguino} />
                         <h3>Please, change what you want</h3>
                         <Button
                             content='Ok 😳'
+                            type='button'
                             onClick={() => {
                                 setGameNotChangedModal(false)
                             }}
@@ -181,21 +198,21 @@ const UpdateVideogame = () => {
                 </Modal>
             )}
             <div className={style.updateVideogameSection}>
-                <img src={unicornio} alt='unicornio-gaming' />
+                <img alt='unicornio-gaming' src={unicornio} />
                 <h1>Update Videogame</h1>
-                <img src={panda} alt='panda-gaming' />
+                <img alt='panda-gaming' src={panda} />
             </div>
             <div className={style.containerForm}>
                 <label>Name:</label>
                 <div className={style.nameInput}>
                     <input
-                        name='name'
-                        className={errors.name && style.danger}
-                        type='text'
-                        onChange={onInputChange}
-                        value={input.name}
-                        placeholder='Example: League of Henrys'
                         required
+                        className={errors.name && style.danger}
+                        name='name'
+                        placeholder='Example: League of Henrys'
+                        type='text'
+                        value={input.name}
+                        onChange={onInputChange}
                     />
                     {errors.name && <p>{errors.name}</p>}
                 </div>
@@ -203,13 +220,13 @@ const UpdateVideogame = () => {
                 <label>Description:</label>
                 <div className={style.descriptionInput}>
                     <input
-                        name='description'
-                        className={errors.description && style.danger}
-                        type='text'
-                        onChange={onInputChange}
-                        value={input.description}
-                        placeholder='Example: The best game of the world'
                         required
+                        className={errors.description && style.danger}
+                        name='description'
+                        placeholder='Example: The best game of the world'
+                        type='text'
+                        value={input.description}
+                        onChange={onInputChange}
                     />
                     {errors.description && <p>{errors.description}</p>}
                 </div>
@@ -219,10 +236,10 @@ const UpdateVideogame = () => {
                     <input
                         className={errors.rating && style.danger}
                         name='rating'
-                        onChange={onInputChange}
-                        type='text'
                         placeholder='Example: 5'
+                        type='text'
                         value={input.rating}
+                        onChange={onInputChange}
                     />
                     {errors.rating && <p>{errors.rating}</p>}
                 </div>
@@ -230,11 +247,11 @@ const UpdateVideogame = () => {
                 <label>Release date:</label>
                 <div className={style.releasedInput}>
                     <input
-                        name='released'
-                        onChange={onInputChange}
-                        type='date'
                         className={errors.released && style.danger}
-                        value={input.released}
+                        name='released'
+                        type='date'
+                        value={input.released?.toString()}
+                        onChange={onInputChange}
                     />
                     {errors.released && <p>{errors.released}</p>}
                 </div>
@@ -242,8 +259,8 @@ const UpdateVideogame = () => {
                 <label>Plataformas:</label>
                 <div className={style.platformsInput}>
                     <select
-                        name='platforms'
                         multiple
+                        name='platforms'
                         onChange={onSelectPlatformChange}
                     >
                         {platforms.map((p, i) => (
@@ -255,7 +272,7 @@ const UpdateVideogame = () => {
                     {errors.platforms && <p>{errors.platforms}</p>}
                 </div>
                 <div className={style.platformsContainer}>
-                    {input.platforms?.map((p, i) => (
+                    {input.platforms?.map((platform, i) => (
                         <div key={i}>
                             <span
                                 key={i}
@@ -266,7 +283,7 @@ const UpdateVideogame = () => {
                                     })
                                 }}
                             >
-                                {p}
+                                {platform}
                             </span>
                         </div>
                     ))}
@@ -274,13 +291,13 @@ const UpdateVideogame = () => {
                 <label>Genres</label>
                 <div className={style.genresInput}>
                     <select
-                        name='genres'
                         multiple
+                        name='genres'
                         onChange={onSelectGenreChange}
                     >
-                        {genres?.map((g) => (
-                            <option key={g.id} value={g.name}>
-                                {g.name}
+                        {genres?.map((genre) => (
+                            <option key={genre} value={genre}>
+                                {genre}
                             </option>
                         ))}
                     </select>
@@ -306,19 +323,16 @@ const UpdateVideogame = () => {
 
                 <label>Imagen:</label>
                 <input
-                    name='background_image'
-                    type='text'
-                    onChange={onInputChange}
                     className={style.image}
-                    value={input.background_image}
+                    name='background_image'
                     placeholder='Example: http://henry-game.com/image.png'
+                    type='text'
+                    value={input.background_image}
+                    onChange={onInputChange}
                 />
                 <div className={style.imagePreview}>
                     {input.background_image ? (
-                        <img
-                            src={input.background_image}
-                            alt={`${input.name}-img`}
-                        />
+                        <img alt={input.name} src={input.background_image} />
                     ) : (
                         <p>Image Preview</p>
                     )}
@@ -327,8 +341,8 @@ const UpdateVideogame = () => {
             <div className={style.containerButtons}>
                 <div className={style.goBack}>
                     <Button
-                        type='button'
                         content='🔙 Go back'
+                        type='button'
                         onClick={() => {
                             navigate(-1)
                         }}
@@ -338,15 +352,15 @@ const UpdateVideogame = () => {
                     {Object.keys(errors).length > 0 ? (
                         <div>
                             <ButtonDisabled
-                                type='button'
                                 content='There are mistakes ⚠️'
+                                type='button'
                             />
                         </div>
                     ) : (
                         <Button
-                            type='submit'
-                            image={marioFace}
                             content='Update Game!'
+                            image={marioFace}
+                            type='submit'
                         />
                     )}
                 </div>

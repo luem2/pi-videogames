@@ -1,11 +1,11 @@
-import React from 'react'
 import { useDispatch } from 'react-redux'
+
 import {
     alphaSort,
     gamesSort,
     genresSort,
     ratingSort,
-} from '../../redux/actions'
+} from '../../store/videogame.slice'
 import {
     ASCENDENTE,
     DESCENDENTE,
@@ -13,24 +13,25 @@ import {
     DATABASE_GAMES,
 } from '../../utility'
 import { genres } from '../../utility/genres'
+
 import style from './Order.module.css'
 
-const Order = () => {
+const Order = (): JSX.Element => {
     const dispatch = useDispatch()
 
-    const orderByAlpha = (e) => {
+    const orderByAlpha = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         dispatch(alphaSort(e.target.value))
     }
 
-    const orderByRating = (e) => {
+    const orderByRating = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         dispatch(ratingSort(e.target.value))
     }
 
-    const orderByGenres = (e) => {
+    const orderByGenres = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         dispatch(genresSort(e.target.value))
     }
 
-    const orderByGames = (e) => {
+    const orderByGames = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         dispatch(gamesSort(e.target.value))
     }
 
@@ -65,8 +66,8 @@ const Order = () => {
                     onChange={orderByGenres}
                 >
                     <option value='default'>Genre Order:</option>
-                    {genres.map((p, i) => (
-                        <option key={i + p} value={p}>
+                    {genres.map((p, index) => (
+                        <option key={index} value={p}>
                             {p}
                         </option>
                     ))}
