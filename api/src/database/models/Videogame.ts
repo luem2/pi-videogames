@@ -9,37 +9,45 @@ import {
     DataType,
     Unique,
     IsNumeric,
+    PrimaryKey,
 } from 'sequelize-typescript'
 
 import { Genre } from './Genre'
 import { VideogameGenre } from './VideogameGenre'
 
-@Table
+@Table({ timestamps: false })
 export class Videogame extends Model<IVideogame> {
+    @PrimaryKey
+    @Column({
+        type: DataType.UUID,
+        defaultValue: DataType.UUIDV4,
+    })
+    public declare id: number
+
     @Unique('The videogame already exists')
     @AllowNull(false)
     @Column
-    name: string
+    public declare name: string
 
     @AllowNull(false)
     @Column(DataType.STRING(400))
-    description: string
+    public declare description: string
 
     @Column(DataType.TEXT)
-    background_image: string
+    public declare background_image: string
 
     @AllowNull(false)
     @Column
-    released: string
+    public declare released: string
 
     @IsNumeric
     @Column(DataType.FLOAT)
-    rating: number
+    public declare rating: number
 
     @AllowNull(false)
     @Column(DataType.ARRAY(DataType.STRING))
-    platforms: PlatformName[]
+    public declare platforms: PlatformName[]
 
     @BelongsToMany(() => Genre, () => VideogameGenre)
-    genres: Genre[]
+    public declare genres: Genre[]
 }

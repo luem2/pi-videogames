@@ -3,13 +3,15 @@ import { Table, Column, ForeignKey, Model } from 'sequelize-typescript'
 import { Genre } from './Genre'
 import { Videogame } from './Videogame'
 
-@Table
-export class VideogameGenre extends Model {
+@Table({
+    timestamps: false,
+})
+export class VideogameGenre extends Model<VideogameGenre> {
     @ForeignKey(() => Genre)
     @Column
-    genreId: number
+    public declare genreId: number
 
     @ForeignKey(() => Videogame)
     @Column
-    videogameId: number
+    public declare videogameId: number
 }

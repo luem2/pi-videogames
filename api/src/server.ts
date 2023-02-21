@@ -46,8 +46,7 @@ class Server {
         // CORS
         this.app.use(
             cors({
-                origin: '*',
-                // origin: 'https://henrygames.lucianopinol.com',
+                origin: 'https://henrygames.lucianopinol.com',
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [

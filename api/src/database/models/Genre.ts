@@ -11,12 +11,12 @@ import {
 import { Videogame } from './Videogame'
 import { VideogameGenre } from './VideogameGenre'
 
-@Table
+@Table({ timestamps: false })
 export class Genre extends Model<IGenre> {
     @AllowNull(false)
     @Column
-    name: string
+    public declare name: string
 
     @BelongsToMany(() => Videogame, () => VideogameGenre)
-    videogames: Videogame[]
+    public declare videogames: Videogame[]
 }

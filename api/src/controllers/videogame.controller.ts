@@ -91,7 +91,7 @@ export const updateVideogame = async (
             }
         )
 
-        if (genres !== undefined && genres !== null) {
+        if (genres) {
             const videogame = await Videogame.findByPk(id)
 
             const genresMatched = await Genre.findAll({
@@ -100,9 +100,7 @@ export const updateVideogame = async (
                 },
             })
 
-            if (videogame !== null) {
-                await videogame.$set('genres', genresMatched)
-            }
+            videogame && (await videogame.$set('genres', genresMatched))
         }
 
         res.send({ msg: 'The game was successfully updated!' })
@@ -165,15 +163,13 @@ export const postVideogame = async (
 
         const videogameCreated = await Videogame.create(newVideogame)
 
-        const genreMatched = await Genre.findAll({
+        const genresMatched = await Genre.findAll({
             where: {
                 name: genres,
             },
         })
 
-        const genresArr = genreMatched.map((g) => g.name)
-
-        videogameCreated.$set('genres', genresArr)
+        videogameCreated.$set('genres', genresMatched)
 
         res.send({
             msg: 'The Videogame was created successfully!',
