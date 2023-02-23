@@ -14,7 +14,7 @@ export const sequelize =
               dialectModule: pg,
               dialect: 'postgres',
               host: config.PGHOST,
-              port: config.PGPORT as number,
+              port: +config.PGPORT,
               username: config.PGUSER,
               password: config.PGPASSWORD,
               pool: {
@@ -34,7 +34,7 @@ export const sequelize =
           })
         : new Sequelize(config.DB_NAME, config.DB_USER, config.DB_PASSWORD, {
               host: config.DB_HOST,
-              port: config.DB_PORT as number,
+              port: +config.DB_PORT,
               dialect: 'postgres',
               logging: false,
               models: [path.join(__dirname, '/models')],

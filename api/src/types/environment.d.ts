@@ -6,14 +6,14 @@ declare global {
             DB_USER: string
             DB_PASSWORD: string
             DB_HOST: string
-            DB_PORT: string | number
+            DB_PORT: string
             DB_NAME: string
-            PORT: string | number
+            PORT: string
             API_KEY: string
             PGUSER: string
             PGPASSWORD: string
             PGHOST: string
-            PGPORT: string | number
+            PGPORT: string
             PGDATABASE: string
             NODE_ENV: 'development' | 'production'
         }
