@@ -30,14 +30,13 @@ const VideogameDetails: React.FC = () => {
     const areYouSure = useSelector((state: RootState) => state.modal.areYouSure)
 
     useEffect(() => {
-        if (id !== undefined) {
-            dispatch(getDetailsThunk(id))
-        }
+        dispatch(getDetailsThunk(id as string))
 
         return () => {
             dispatch(clearDetails())
         }
-    }, [dispatch, id])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div className={style.container}>

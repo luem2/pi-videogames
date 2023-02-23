@@ -1,19 +1,15 @@
 import type { AppThunk } from './index'
-import type { IInitialState, IVideogame } from '../types'
+import type { IGenre, IInitialState, IVideogame } from '../types'
 
 import axios from 'axios'
 import { createSlice } from '@reduxjs/toolkit'
 
-import {
-    alphabeticVideogamesSort,
-    genresVideogamesSort,
-    ratingVideogamesSort,
-} from './utils'
-import { gamesSourceSort } from './utils/sortFunctions'
+import { alphabeticVideogamesSort, ratingVideogamesSort } from './utils'
 import { gameNotFoundModal } from './modal.slice'
 
 const initialState: IInitialState = {
     videogames: [],
+    currentPage: 1,
     filteredVideogames: [],
     videogameDetails: {},
     genres: [],
@@ -23,6 +19,9 @@ const videogameSlice = createSlice({
     name: 'videogame',
     initialState,
     reducers: {
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload
+        },
         getAllGames: (state, action) => {
             state.videogames = action.payload
             state.filteredVideogames = action.payload
@@ -69,12 +68,7 @@ const videogameSlice = createSlice({
                 return
             }
 
-            const genresVideogames = genresVideogamesSort(
-                state.filteredVideogames,
-                action
-            )
-
-            state.filteredVideogames = genresVideogames
+            state.filteredVideogames = action.payload
         },
 
         gamesSort: (state, action) => {
@@ -84,9 +78,7 @@ const videogameSlice = createSlice({
                 return
             }
 
-            const gamesSource = gamesSourceSort(state.videogames, action)
-
-            state.filteredVideogames = gamesSource
+            state.filteredVideogames = action.payload
         },
 
         getDetails: (state, action) => {
@@ -118,9 +110,23 @@ const videogameSlice = createSlice({
 export function getAllVideogamesThunk(): AppThunk {
     return async (dispatch) => {
         try {
-            const result = await axios.get('/api/videogames')
+            const response = await axios.get('/api/videogames')
 
-            dispatch(getAllGames(result.data))
+            const result = response.data.map((game: IVideogame) => {
+                if (game.id.toString().length === 36) {
+                    const genres = game.genres as IGenre[]
+                    const genresMap = genres.map((g) => g.name)
+
+                    return {
+                        ...game,
+                        genres: genresMap,
+                    }
+                } else {
+                    return game
+                }
+            })
+
+            dispatch(getAllGames(result))
         } catch (e) {
             console.error(e)
         }
@@ -144,19 +150,27 @@ export function searchVideogamesThunk(search: string): AppThunk {
 export function getDetailsThunk(id: string): AppThunk {
     return async (dispatch) => {
         try {
-            const result = await axios.get(`/api/videogame/${id}`)
+            const response = await axios.get(`/api/videogame/${id}`)
 
-            dispatch(getDetails(result.data))
-        } catch (e) {
-            console.error(e)
-        }
-    }
-}
+            if (response.data.id.toString().length === 36) {
+                const result = {
+                    ...response.data,
+                    genres: response.data.genres.map((g: IGenre) => g.name),
+                }
 
-export const createVideogameThunk = (videogame: IVideogame) => {
-    return async () => {
-        try {
-            await axios.post('/api/videogame', videogame)
+                dispatch(getDetails(result))
+                window.localStorage.setItem(
+                    'videogameDetails',
+                    JSON.stringify(result)
+                )
+            } else {
+                dispatch(getDetails(response.data))
+
+                window.localStorage.setItem(
+                    'videogameDetails',
+                    JSON.stringify(response.data)
+                )
+            }
         } catch (e) {
             console.error(e)
         }
@@ -179,7 +193,20 @@ export const getGenresThunk = (): AppThunk => {
     }
 }
 
-export const updateVideogameThunk = (id: string, videogame: IVideogame) => {
+export const createVideogameThunk = (videogame: Omit<IVideogame, 'id'>) => {
+    return async () => {
+        try {
+            await axios.post('/api/videogame', videogame)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+}
+
+export const updateVideogameThunk = (
+    id: string,
+    videogame: Omit<IVideogame, 'id'>
+) => {
     return async () => {
         try {
             await axios.put(`/api/videogame/${id}`, videogame)
@@ -214,6 +241,7 @@ export const {
     getGenres,
     getQueryGames,
     ratingSort,
+    setCurrentPage,
 } = videogameSlice.actions
 
 export default videogameSlice.reducer

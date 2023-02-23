@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import Button from '../Button/Button'
-import { clearFilters } from '../../store/videogame.slice'
+import { clearFilters, setCurrentPage } from '../../store/videogame.slice'
 import reset from '../../assets/resetButton3.png'
 import create from '../../assets/mando3.png'
 
@@ -15,6 +15,7 @@ const Sidebar = (): JSX.Element => {
     const handleReset = (e: React.FormEvent): void => {
         e.preventDefault()
         dispatch(clearFilters())
+        dispatch(setCurrentPage(1))
     }
 
     return (

@@ -43,7 +43,6 @@ class Server {
     }
 
     middlewares(): void {
-        // CORS
         this.app.use(
             cors({
                 origin: 'https://henrygames.lucianopinol.com',
@@ -58,26 +57,16 @@ class Server {
             })
         )
 
-        // MORGAN
         this.app.use(morgan('dev'))
-
-        // COOKIE PARSER
         this.app.use(cookieParser())
-
-        // Lectura del body
         this.app.use(
             express.json({
                 limit: '50mb',
             })
         )
 
-        // URLEncoded
         this.app.use(express.urlencoded({ extended: true, limit: '50mb' }))
-
-        // Carpeta publica
         this.app.use(express.static('public'))
-
-        // Handle Error
         this.app.use(handleError)
     }
 

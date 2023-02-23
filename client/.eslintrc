@@ -34,6 +34,9 @@
         "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/restrict-plus-operands": "off",
+        "@typescript-eslint/no-base-to-string": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
         //----------------------------------------------------
         "react/self-closing-comp": "warn",
         "no-unused-vars": "error",

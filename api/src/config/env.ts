@@ -18,7 +18,6 @@ export const config = {
     NODE_ENV: process.env.NODE_ENV ?? 'development',
 }
 
-// Enabled endpoints-flags API
 export const API_GAMES_EP = 'https://api.rawg.io/api/games'
 export const API_GAMES_ID_EP = 'https://api.rawg.io/api/games'
 export const API_GAMES_QUERY_EP = 'https://api.rawg.io/api/games?search='

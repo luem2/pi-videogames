@@ -16,25 +16,32 @@ export interface IErrors {
 
 export interface IAction {
     type: string
-    payload: string | PlatformName
+    payload: Record
 }
 
 export interface IInitialState {
     videogames: IVideogame[]
+    currentPage: number
     filteredVideogames: IVideogame[]
     videogameDetails: IVideogame | Record<string>
     genres: string[]
 }
 
+export interface IGenre {
+    id: number
+    name: GenresName
+    videogameId: number
+}
+
 export interface IVideogame {
-    id?: number
+    id: number
     name: string | undefined
     description?: string
-    released?: Date | string
+    released: Date | string
     background_image: string | undefined
-    genres: string[]
-    rating: number | undefined
-    platforms: string[]
+    genres: GenresName[] | IGenre[]
+    rating: number
+    platforms: string[] | PlatformsName[]
 }
 
 export interface Platform {
@@ -42,7 +49,28 @@ export interface Platform {
     name: PlatformName
 }
 
-export type PlatformName =
+export type GenresName =
+    | 'Action'
+    | 'Indie'
+    | 'Adventure'
+    | 'RPG'
+    | 'Strategy'
+    | 'Shooter'
+    | 'Casual'
+    | 'Simulation'
+    | 'Puzzle'
+    | 'Arcade'
+    | 'Platformer'
+    | 'Racing'
+    | 'Massively Multiplayer'
+    | 'Sports'
+    | 'Fighting'
+    | 'Family'
+    | 'Board Games'
+    | 'Educational'
+    | 'Card'
+
+export type PlatformsName =
     | 'Android'
     | 'Dreamcast'
     | 'iOS'

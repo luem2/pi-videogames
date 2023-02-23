@@ -1,4 +1,4 @@
-import type { IVideogame } from 'src/types'
+import type { IGenre, IVideogame } from 'src/types'
 
 import Videogame from '../Videogame/Videogame'
 import Loader from '../Loader/Loader'
@@ -18,10 +18,12 @@ const Videogames = ({ currentVideogames }: Props): JSX.Element => {
                         <Videogame
                             key={g.id}
                             background_image={g.background_image}
-                            genres={g.genres.map((g) => g + ' ')}
+                            genres={(g.genres + '') as unknown as IGenre[]}
                             id={g.id}
                             name={g.name}
+                            platforms={['']}
                             rating={g.rating}
+                            released=''
                         />
                     ))}
                 </div>

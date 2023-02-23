@@ -1,10 +1,14 @@
-import { useDispatch } from 'react-redux'
+import type { GenresName } from 'src/types'
+import type { AppDispatch, RootState } from 'src/store'
+
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
     alphaSort,
     gamesSort,
     genresSort,
     ratingSort,
+    setCurrentPage,
 } from '../../store/videogame.slice'
 import {
     ASCENDENTE,
@@ -13,11 +17,13 @@ import {
     DATABASE_GAMES,
 } from '../../utility'
 import { genres } from '../../utility/genres'
+import { gameNotFoundModal } from '../../store/modal.slice'
 
 import style from './Order.module.css'
 
 const Order = (): JSX.Element => {
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
+    const { videogames } = useSelector((state: RootState) => state.videogames)
 
     const orderByAlpha = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         dispatch(alphaSort(e.target.value))
@@ -28,11 +34,45 @@ const Order = (): JSX.Element => {
     }
 
     const orderByGenres = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-        dispatch(genresSort(e.target.value))
+        const payload = e.target.value as GenresName
+
+        if (e.target.value === 'default') {
+            dispatch(genresSort(e.target.value))
+        } else {
+            const videogamesGenresFiltered = videogames.filter((g) => {
+                const genres = g.genres as GenresName[]
+
+                return genres.includes(payload)
+            })
+
+            if (videogamesGenresFiltered.length) {
+                dispatch(setCurrentPage(1))
+                dispatch(genresSort(videogamesGenresFiltered))
+            } else {
+                dispatch(gameNotFoundModal(true))
+            }
+        }
     }
 
     const orderByGames = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-        dispatch(gamesSort(e.target.value))
+        if (e.target.value === 'default') {
+            dispatch(genresSort(e.target.value))
+        } else {
+            const videogamesSourceFiltered = videogames.filter((game) => {
+                if (e.target.value === EXTERNAL_API) {
+                    return game.id?.toString().length !== 36
+                } else {
+                    return game.id?.toString().length === 36
+                }
+            })
+
+            if (videogamesSourceFiltered.length) {
+                dispatch(setCurrentPage(1))
+                dispatch(gamesSort(videogamesSourceFiltered))
+            } else {
+                dispatch(gameNotFoundModal(true))
+            }
+        }
     }
 
     return (

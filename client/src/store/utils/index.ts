@@ -1,5 +1,1 @@
-export {
-    alphabeticVideogamesSort,
-    genresVideogamesSort,
-    ratingVideogamesSort,
-} from './sortFunctions'
+export { alphabeticVideogamesSort, ratingVideogamesSort } from './sortFunctions'

@@ -22,8 +22,6 @@ const Modal = ({
     }
 
     const closeModalFunction = (): void => {
-        // REVIEW: LE AGREGUE UN RETURN ACA PORQUE AGREGUE QUE DEVUELVA AnyAction
-        // REVIEW: LE AGREGUE TAMBIEN DENTRO DEL IF
         if (functionModal) {
             dispatch(functionModal())
         }

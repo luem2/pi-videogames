@@ -1,4 +1,9 @@
-import type { IErrors, IVideogame, PlatformName } from 'src/types'
+import type {
+    GenresName,
+    IErrors,
+    IVideogame,
+    PlatformsName,
+} from '../../types'
 import type { AppDispatch, RootState } from 'src/store'
 
 import { useState, useEffect } from 'react'
@@ -24,7 +29,7 @@ import hongo from '../../assets/hongo.png'
 
 import style from './CreateVideogame.module.css'
 
-export const validate = (videogame: IVideogame): IErrors => {
+export const validate = (videogame: Omit<IVideogame, 'id'>): IErrors => {
     const errors: IErrors = {}
 
     const year = Number(videogame.released?.toString().split('-')[0])
@@ -63,7 +68,7 @@ const CreateVideogame = (): JSX.Element => {
     const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch()
 
-    const [videogame, setVideogame] = useState<IVideogame>({
+    const [videogame, setVideogame] = useState<Omit<IVideogame, 'id'>>({
         name: '',
         description: '',
         background_image: undefined,
@@ -94,7 +99,7 @@ const CreateVideogame = (): JSX.Element => {
     ): void => {
         e.preventDefault()
 
-        const target = e.target.value as PlatformName
+        const target = e.target.value as PlatformsName
 
         if (!videogame.platforms?.includes(target)) {
             setVideogame({
@@ -112,11 +117,13 @@ const CreateVideogame = (): JSX.Element => {
         e: React.ChangeEvent<HTMLSelectElement>
     ): void => {
         e.preventDefault()
+        const genres = videogame.genres as GenresName[]
+        const targetValue = e.target.value as GenresName
 
-        if (!videogame.genres.includes(e.target.value as PlatformName)) {
+        if (!genres.includes(targetValue)) {
             setVideogame({
                 ...videogame,
-                genres: [...videogame.genres, e.target.value],
+                genres: [...genres, targetValue],
             })
         } else {
             setVideogame({
@@ -129,7 +136,7 @@ const CreateVideogame = (): JSX.Element => {
         e.preventDefault()
 
         const videogameExists = videogameState.videogames.filter(
-            (g) => g.name.toLowerCase() === videogame.name.toLowerCase()
+            (g) => g.name?.toLowerCase() === videogame.name?.toLowerCase()
         )
 
         if (videogameExists.length) {
@@ -303,7 +310,7 @@ const CreateVideogame = (): JSX.Element => {
                                     })
                                 }}
                             >
-                                {p}
+                                {p as React.ReactNode}
                             </span>
                         </div>
                     ))}
@@ -321,7 +328,7 @@ const CreateVideogame = (): JSX.Element => {
                 <div className={style.imagePreview}>
                     {videogame.background_image ? (
                         <img
-                            alt={`${videogame.name}-img`}
+                            alt={videogame.name}
                             src={videogame.background_image}
                         />
                     ) : (

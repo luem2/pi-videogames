@@ -1,4 +1,3 @@
-import type { IVideogame } from 'src/types'
 import type { AppDispatch, RootState } from 'src/store'
 
 import { useState, useEffect } from 'react'
@@ -11,6 +10,7 @@ import Videogames from '../../components/Videogames/Videogames'
 import {
     getAllVideogamesThunk,
     getGenresThunk,
+    setCurrentPage,
 } from '../../store/videogame.slice'
 import {
     gameNotFoundModal,
@@ -30,23 +30,18 @@ import style from './Home.module.css'
 const Home = (): JSX.Element => {
     const dispatch: AppDispatch = useDispatch()
 
-    const allVideogames: IVideogame[] = useSelector(
-        (state: RootState) => state.videogames.filteredVideogames
+    const { filteredVideogames, currentPage, genres } = useSelector(
+        (state: RootState) => state.videogames
     )
 
-    const modal = useSelector((state: RootState) => state.modal)
-    const genres = useSelector((state: RootState) => state.videogames.genres)
+    const { editGame, gameNotFound, emptyInput, deletedGame } = useSelector(
+        (state: RootState) => state.modal
+    )
 
-    const editGame = modal.editGame
-    const gameNotFound = modal.gameNotFound
-    const emptyInput = modal.emptyInput
-    const deleteGameModal = modal.deletedGame
-
-    const [currentPage, setCurrentPage] = useState(1)
     const [videogamesPerPage] = useState(15)
     const indexOfLastVideogame = currentPage * videogamesPerPage
     const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage
-    const currentVideogames = allVideogames.slice(
+    const currentVideogames = filteredVideogames.slice(
         indexOfFirstVideogame,
         indexOfLastVideogame
     )
@@ -56,11 +51,11 @@ const Home = (): JSX.Element => {
     }
 
     const paginate = (pageNumber: number): void => {
-        setCurrentPage(pageNumber)
+        dispatch(setCurrentPage(pageNumber))
     }
 
     useEffect(() => {
-        if (!allVideogames.length) {
+        if (!filteredVideogames.length) {
             dispatch(getAllVideogamesThunk())
         }
         if (!genres?.length) {
@@ -110,7 +105,7 @@ const Home = (): JSX.Element => {
                     </div>
                 </Modal>
             )}
-            {deleteGameModal && (
+            {deletedGame && (
                 <Modal functionModal={() => deletedGameModal(false)}>
                     <div className={style.gameDeletedModal}>
                         <h2>Game deleted successfully!✅</h2>
@@ -143,7 +138,7 @@ const Home = (): JSX.Element => {
             <Header />
             <SectionBar />
             <Pagination
-                allVideogames={allVideogames}
+                allVideogames={filteredVideogames}
                 currentPage={currentPage}
                 paginate={paginate}
                 videogamesPerPage={videogamesPerPage}

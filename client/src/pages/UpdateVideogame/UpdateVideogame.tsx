@@ -1,5 +1,5 @@
 import type { AppDispatch, RootState } from 'src/store'
-import type { IErrors, IVideogame } from 'src/types'
+import type { GenresName, IErrors, IVideogame, PlatformsName } from 'src/types'
 
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -31,23 +31,29 @@ const UpdateVideogame = (): JSX.Element => {
     const navigate = useNavigate()
 
     const videogameState = useSelector((state: RootState) => state.videogames)
+    const videogameDetails = JSON.parse(
+        window.localStorage.getItem('videogameDetails') as string
+    )
     const genres = useSelector((state: RootState) => state.videogames.genres)
     const videogameExists = useSelector(
         (state: RootState) => state.modal.videogameExists
     )
-    const videogame = videogameState.videogames?.find((g) => g.id === id)
 
     const [gameNotChangedModal, setGameNotChangedModal] = useState(false)
-    const platformsVideogameMatched = videogame?.platforms?.map((p) => p)
-    const genresVideogameMatched = videogame?.genres?.map((g) => g)
+    const platformsVideogameMatched = videogameDetails?.platforms?.map(
+        (p: PlatformsName[]) => p
+    )
+    const genresVideogameMatched = videogameDetails?.genres?.map(
+        (g: GenresName[]) => g
+    )
 
-    const [input, setInput] = useState<IVideogame>({
-        name: videogame?.name,
-        description: videogame?.description,
-        background_image: videogame?.background_image,
-        released: videogame?.released,
-        rating: videogame?.rating,
-        genres: genresVideogameMatched ?? [],
+    const [input, setInput] = useState<Omit<IVideogame, 'id'>>({
+        name: videogameDetails?.name,
+        description: videogameDetails?.description,
+        background_image: videogameDetails?.background_image,
+        released: videogameDetails?.released as Date,
+        rating: videogameDetails?.rating as number,
+        genres: (genresVideogameMatched as GenresName[]) ?? [],
         platforms: platformsVideogameMatched ?? [],
     })
 
@@ -71,8 +77,9 @@ const UpdateVideogame = (): JSX.Element => {
         e: React.ChangeEvent<HTMLSelectElement>
     ): void => {
         e.preventDefault()
+        const target = e.target.value as PlatformsName
 
-        if (!input.platforms.includes(e.target.value)) {
+        if (!input.platforms.includes(target)) {
             setInput({
                 ...input,
                 platforms: [...input.platforms, e.target.value],
@@ -88,11 +95,13 @@ const UpdateVideogame = (): JSX.Element => {
         e: React.ChangeEvent<HTMLSelectElement>
     ): void => {
         e.preventDefault()
+        const genresInput = input?.genres as GenresName[]
+        const targetValue = e.target.value as GenresName
 
-        if (!input.genres.includes(e.target.value)) {
+        if (!genresInput.includes(targetValue)) {
             setInput({
                 ...input,
-                genres: [...input.genres, e.target.value],
+                genres: [...genresInput, targetValue],
             })
         } else {
             setInput({
@@ -103,7 +112,9 @@ const UpdateVideogame = (): JSX.Element => {
 
     const onSubmit = (e: React.FormEvent): void => {
         e.preventDefault()
-        const videogame = videogameState.videogames.find((g) => g.id === id)
+        const videogame = videogameState.videogames.find(
+            (g) => g.id === Number(id)
+        )
 
         const videogameGenres = videogame?.genres?.map((g) => g)
         const videogamePlatforms = videogame?.platforms
@@ -156,8 +167,10 @@ const UpdateVideogame = (): JSX.Element => {
         }
         if (!genres?.length) {
             dispatch(getGenresThunk())
-        } // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch])
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <form className={style.form} onSubmit={onSubmit}>
@@ -315,7 +328,7 @@ const UpdateVideogame = (): JSX.Element => {
                                     })
                                 }}
                             >
-                                {p}
+                                {p as React.ReactNode}
                             </span>
                         </div>
                     ))}
