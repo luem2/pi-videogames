@@ -1,4 +1,4 @@
-import type { IVideogame } from 'src/types'
+import type { IVideogame } from '../../types'
 
 import { Link } from 'react-router-dom'
 

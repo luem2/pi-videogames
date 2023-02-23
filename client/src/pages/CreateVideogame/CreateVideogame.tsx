@@ -4,7 +4,7 @@ import type {
     IVideogame,
     PlatformsName,
 } from '../../types'
-import type { AppDispatch, RootState } from 'src/store'
+import type { AppDispatch, RootState } from '../../store'
 
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

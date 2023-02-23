@@ -1,5 +1,5 @@
-import type { GenresName } from 'src/types'
-import type { AppDispatch, RootState } from 'src/store'
+import type { GenresName } from '../../types'
+import type { AppDispatch, RootState } from '../../store'
 
 import { useDispatch, useSelector } from 'react-redux'
 

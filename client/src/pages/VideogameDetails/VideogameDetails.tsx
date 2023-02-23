@@ -1,5 +1,5 @@
-import type { IVideogame } from 'src/types'
-import type { AppDispatch, RootState } from 'src/store'
+import type { IVideogame } from '../../types'
+import type { AppDispatch, RootState } from '../../store'
 
 import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'

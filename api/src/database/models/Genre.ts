@@ -1,4 +1,4 @@
-import type { IGenre } from 'src/types'
+import type { IGenre } from '../../types'
 
 import {
     Model,

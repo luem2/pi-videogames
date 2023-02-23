@@ -1,5 +1,10 @@
-import type { AppDispatch, RootState } from 'src/store'
-import type { GenresName, IErrors, IVideogame, PlatformsName } from 'src/types'
+import type { AppDispatch, RootState } from '../../store'
+import type {
+    GenresName,
+    IErrors,
+    IVideogame,
+    PlatformsName,
+} from '../../types'
 
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'

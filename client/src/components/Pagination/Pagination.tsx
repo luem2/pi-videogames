@@ -1,4 +1,4 @@
-import type { IVideogame } from 'src/types'
+import type { IVideogame } from '../../types'
 
 import Loader from '../Loader/Loader'
 

@@ -1,4 +1,4 @@
-import type { ButtonProps } from 'src/types'
+import type { ButtonProps } from '../../types'
 
 import style from './Button.module.css'
 

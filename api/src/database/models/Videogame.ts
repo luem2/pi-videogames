@@ -1,4 +1,4 @@
-import type { IVideogame, PlatformName } from 'src/types'
+import type { IVideogame, PlatformName } from '../../types'
 
 import {
     Model,
