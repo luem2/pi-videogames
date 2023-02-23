@@ -1,10 +1,11 @@
 {
     "name": "henry-games-api",
     "version": 2,
+    "builds": [{ "src": "./dist/app.js", "use": "@vercel/node" }],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "/dist/app.js"
         }
     ]
 }
