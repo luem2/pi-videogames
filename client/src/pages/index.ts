@@ -1,0 +1,5 @@
+export { default as CreateVideogame } from './CreateVideogame/CreateVideogame'
+export { default as Home } from './Home/Home'
+export { default as Landing } from './Landing/Landing'
+export { default as UpdateVideogame } from './UpdateVideogame/UpdateVideogame'
+export { default as VideogameDetails } from './VideogameDetails/VideogameDetails'
