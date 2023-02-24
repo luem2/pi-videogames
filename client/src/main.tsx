@@ -8,7 +8,8 @@ import { store } from './store'
 
 import './index.css'
 
-axios.defaults.baseURL = import.meta.env.VITE_APP_API ?? 'http://localhost:3000'
+axios.defaults.baseURL =
+    import.meta.env.VITE_VERCEL_API ?? 'http://localhost:3000'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>

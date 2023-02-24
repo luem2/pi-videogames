@@ -1,8 +1,6 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "baseUrl": ".",
-        "rootDir": "./",
         "useDefineForClassFields": true,
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": false,
@@ -18,6 +16,11 @@
         "noEmit": true,
         "jsx": "react-jsx"
     },
-    "include": ["src/**/*", "./vite.config.ts"],
+    "include": ["src"],
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ],
     "exclude": ["node_modules"]
 }
