@@ -5,8 +5,6 @@ import { Sequelize } from 'sequelize-typescript'
 
 import { config } from '../config/env'
 
-path.join(__dirname, '/models')
-
 export const sequelize =
     process.env.NODE_ENV === 'production'
         ? new Sequelize({

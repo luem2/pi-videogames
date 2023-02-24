@@ -17,7 +17,7 @@ const Pagination = ({
     paginate,
     currentPage,
 }: Props): JSX.Element => {
-    const pageNumbers = []
+    const pageNumbers: number[] = []
 
     for (
         let i = 1;
