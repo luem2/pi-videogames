@@ -7,6 +7,7 @@ services:
         restart: always
         image: postgres:latest
         environment:
+            - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=password123
             - POSTGRES_DB=videogames
         ports:
@@ -21,6 +22,8 @@ services:
         restart: unless-stopped
         image: api-henry-games:1.0.0
         env_file: ./api/.env
+        environment:
+            - DB_HOST=db
         build:
             context: api
             target: API-HenryGames
