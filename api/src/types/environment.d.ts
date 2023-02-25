@@ -15,6 +15,7 @@ declare global {
             PGHOST: string
             PGPORT: string
             PGDATABASE: string
+            URL_CLIENT: string
             NODE_ENV: 'development' | 'production'
         }
     }

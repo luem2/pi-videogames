@@ -45,7 +45,7 @@ class Server {
     middlewares(): void {
         this.app.use(
             cors({
-                origin: 'https://henrygames.lucianopinol.com',
+                origin: config.URL_CLIENT,
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [

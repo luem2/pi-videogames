@@ -5,7 +5,7 @@
     "author": "Luciano Piñol <dev@lucianopinol.com>",
     "scripts": {
         "build": "tsc",
-        "start": "tsc && node dist/app.js",
+        "start": "node dist/app.js",
         "dev": "ts-node-dev -r tsconfig-paths --respawn src/app.ts",
         "lint": "eslint --fix . --ext .ts"
     },
