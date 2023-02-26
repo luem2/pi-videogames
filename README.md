@@ -1,207 +1,357 @@
-![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+
+<a name="readme-top"></a>
+
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+
+<div align="center">
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+</div>
+
+<!-- PROJECT LOGO -->
+
+<br />
+
+<div align="center">
+  <a href="https://github.com/luem2/pi-videogames">
+    <img src="./client/public/favicon.ico" alt="Logo" width="150" height="150">
+  </a>
 
-# Individual Project - Henry Videogames
+<h1 align="center">Henry Games</h1>
+
+  <p align="center">
+    Individual project done at Henry's Bootcamp, is an application to search and create game information, filter by name, rating, genre and origin.
+    <br />
+    <a href="https://github.com/Luem2/pi-videogames/blob/main/SPANISH-README.md"><strong>Explore the docs in spanish »</strong></a>
+    <br />
+    <br />
+    <a href="https://henrygames.lucianopinol.com">View Demo</a>
+    ·
+    <a href="https://github.com/luem2/pi-videogames/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/luem2/pi-videogames/issues">Request Feature</a>
+    .
+    <a href='#deploy-with-docker'>Try it with Docker!</a>
+  </p>
+</div>
 
-<p align="right">
-  <div>
-    <img height="200" src="./client/public/videogame.png" />
-  </div>
-</p>
+<!-- TABLE OF CONTENTS -->
 
-## Info introduction Project:
+# Table of Contents
 
-Español: Pequeña aplicación para buscar y crear información sobre juegos, filtrar por nombre, valoración, género y origen.
+-   [Table of Contents](#table-of-contents)
+-   [About The Project](#about-the-project)
+    -   [Introduction](#introduction)
+    -   [Project goals:](#project-goals)
+    -   [Built With](#built-with)
+-   [Getting Started](#getting-started)
+    -   [Prerequisites](#prerequisites)
+    -   [Installation](#installation)
+-   [Usage](#usage)
+    -   [API:](#api)
+        -   [Swagger Docs:](#swagger-docs)
+    -   [Client:](#client)
+-   [Deploy with Docker](#deploy-with-docker)
+    -   [Prerequisites](#prerequisites-1)
+    -   [Installation](#installation-1)
+-   [Usage the project running with Docker](#usage-the-project-running-with-docker)
+-   [License](#license)
+-   [Contact](#contact)
 
-English: Small application to search and create game information, filter by name, rating, genre and origin.
+<!-- ABOUT THE PROJECT -->
 
-## Link del Deploy
+<br />
 
-[Click Aquí - Henry Videogames](https://henrygames.lucianopinol.com/)
+# About The Project
 
-## Objetivos del Proyecto
+[![Henry Games Screenshot][product-screenshot]](https://henrygames.lucianopinol.com)
 
--   Construir una App utlizando React, Redux, Node y Sequelize.
--   Afirmar y conectar los conceptos aprendidos en la carrera.
--   Aprender mejores prácticas.
--   Aprender y practicar el workflow de GIT.
--   Usar y practicar testing.
+### Introduction
 
-## Horarios y Fechas
+Henry Games its a Individual project done at Henry's Bootcamp, is an application to search and create game information, filter by name, rating, genre and origin.
 
-El proyecto tendrá una duración máxima de tres semanas. En el caso de que completan todas las tareas antes de dicho lapso podrán avisar a su Instructor para coordinar una fecha de presentación del trabajo (DEMO).
+> Check the `live demo`: [https://henrygames.lucianopinol.com/](https://henrygames.lucianopinol.com)
 
-## Comenzando
+The general idea is to create an application in which you can see the different videogames available along with relevant information about them using the [RAWG](https://rawg.io/apidocs) external api and from it, among other things:
 
-1.  Forkear el repositorio para tener una copia del mismo en sus cuentas
-2.  Clonar el repositorio en sus computadoras para comenzar a trabajar
+-   Search video games
+-   Filter / Sort them
+-   Add new video games
+-   Modify the created games
+-   Delete the created games
 
-Tendrán un `boilerplate` con la estructura general tanto del servidor como de cliente.
+### Project goals:
 
-**IMPORTANTE:** Es necesario contar minimamente con la última versión estable de Node y NPM. Asegurarse de contar con ella para poder instalar correctamente las dependecias necesarias para correr el proyecto.
+-   Build an app using: `HTML`, `CSS`, `Typescript`, `React`, `Redux`, `Node`, `Express`, `Postgres`, `Sequelize`, `Docker` y `Swagger` for api documentation.
+-   Affirm and connect the concepts learned in the degree, and implement new technologies.
+-   Learn best practices
+-   Learn and practice the `GIT` workflow.
 
-Actualmente las versiónes necesarias son:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
--   **Node**: 12.18.3 o mayor
--   **NPM**: 6.14.16 o mayor
+## Built With
 
-Para verificar que versión tienen instalada:
+-   [![Html][html]][html-url]
+-   [![Css][css]][css-url]
+-   [![Typescript][typescript]][typescript-url]
+-   [![React][react]][react-url]
+-   [![Redux][redux]][redux-url]
+-   [![Node][node]][node-url]
+-   [![Express][express]][express-url]
+-   [![Postgres][postgres]][postgres-url]
+-   [![Sequelize][sequelize]][sequelize-url]
+-   [![Docker][docker]][docker-url]
+-   [![Swagger][swagger]][swagger-url]
 
-```bash
-node -v
-npm -v
-```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-**ACLARACIÓN:** Las dependencias actuales se encuentran en las versiones que venimos trabajando durante el bootcamp.
+<!-- GETTING STARTED -->
 
-Versiones:
+# Getting Started
 
--   **react**: 17.0.1
--   **react-dom**: 17.0.1
--   **react-router-dom**: 5.2.0
--   **redux**: 4.0.5
--   **react-redux**: 7.2.3
+To get a local copy up and running follow these simple example steps.
 
-Está permitido, **bajo su responsabilidad**, actualizar las dependencias a versiones más actuales.
+## Prerequisites
 
-> **IMPORTANTE:** Versiones mas actuales podrían presentar configuraciones diferentes respecto a las versiones en las que venimos trabajando durante el bootcamp.
+It is necessary to have at least the latest stable version of [Node](https://nodejs.org/es/) and the [PNPM](https://pnpm.io/es/) package manager. Make sure you have it in order to correctly install the dependencies needed to run the project. Follow the guides of the links for its installation.
 
-## BoilerPlate
+-   Check if they are _installed_, run the following commands to see their version:
+    <br />
+    `node --version`
+    <br />
+    `pnpm --version`
 
-El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
+    Output example:
 
-En `api` crear un archivo llamado: `.env` que tenga la siguiente forma:
+    ```sh
+    node --version
+    V18.14.2
 
-```env
-DB_USER=usuariodepostgres
-DB_PASSWORD=passwordDePostgres
-DB_HOST=localhost
-```
+    pnpm --version
+    V7.21.1
+    ```
 
-Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).
+## Installation
 
-Adicionalmente será necesario que creen desde psql una base de datos llamada `videogames`
+1. **Clone the repo**
 
-El contenido de `client` fue creado usando: Create React App.
+    ```sh
+    git clone https://github.com/luem2/pi-videogames.git
+    ```
 
-## Enunciado
+2. **Get a free API Key** at [https://rawg.io/apidocs](https://rawg.io/apidocs)
 
-La idea general es crear una aplicación en la cual se puedan ver los distintos videojuegos disponibles junto con información relevante de los mismos utilizando la api externa [rawg](https://rawg.io/apidocs) y a partir de ella poder, entre otras cosas:
+3. **Create an `.env` file** in the root of `api` folder. The file will look like this (an example file `.env.example` is in the api folder):
 
--   Buscar videjuegos
--   Filtrarlos / Ordenarlos
--   Agregar nuevos videojuegos
+    ```js
+    API_KEY=*YOU_API_KEY*
+    PORT=3000
+    NODE_ENV=development
 
-**IMPORTANTE**: Para poder utilizar esta API externa es necesario crearse una cuenta para obtener una API Key que luego debera ser incluida en todos los request que hagamos a rawg simplemente agregando `?key={YOUR_API_KEY}` al final de cada endpoint. Agregar la clave en el archivo `.env` para que la misma no se suba al repositorio por cuestiones de seguridad y utilizarla desde allí.
+    DB_NAME=videogames
+    DB_USER=postgres
+    DB_PASSWORD=password123
+    DB_HOST=localhost
+    DB_PORT=5432
+    ```
 
-**IMPORTANTE**: Para las funcionalidades de filtrado y ordenamiento NO pueden utilizar los endpoints de la API externa que ya devuelven los resultados filtrados u ordenados sino que deben realizarlo ustedes mismos. En particular alguno de los ordenamientos o filtrados debe si o si realizarse desde el frontend.
+4. **Enter to the root directory** `pi-videogames` and install the backend (`api` folder) and frontend (`client` folder) dependencies:
 
-### Únicos Endpoints/Flags que pueden utilizar
+    ```sh
+    pnpm install
+    ```
 
--   GET <https://api.rawg.io/api/games>
--   GET <https://api.rawg.io/api/games?search={game}>
--   GET <https://api.rawg.io/api/genres>
--   GET <https://api.rawg.io/api/games/{id}>
+5. **Run the project**:
 
-### Requerimientos mínimos
+    > **Option 1** (`Dev Mode`):
+    > <br />
+    > In the `Dev Mode` enter the respective frontend and backend folders and run the following command:
 
-A continuación se detallaran los requerimientos mínimos para la aprobación del proyecto individial. Aquellos que deseen agregar más funcionalidades podrán hacerlo. En cuanto al diseño visual no va a haber wireframes ni prototipos prefijados sino que tendrán libertad de hacerlo a su gusto pero tienen que aplicar los conocimientos de estilos vistos en el curso para que quede agradable a la vista.
+    ```sh
+    pnpm dev
+    ```
 
-**IMPORTANTE**: No se permitirá utilizar librerías externas para aplicar estilos a la aplicación. Tendrán que utilizar CSS con algunas de las opciones que vimos en dicha clase (CSS puro, CSS Modules o Styled Components)
+    > **Option 2** (`Preview or Production Mode`):
+    > <br />
+    > In the `Preview or Production Mode` compile first and then run the server
 
-#### Tecnologías necesarias
+    In the `API` folder:
 
--   [ ] React
--   [ ] Redux
--   [ ] Express
--   [ ] Sequelize - Postgres
+    ```sh
+    pnpm build
+    pnpm start
+    ```
 
-## Frontend
+    In `CLIENT` folder:
 
-Se debe desarrollar una aplicación de React/Redux que contenga las siguientes pantallas/rutas.
+    ```sh
+    pnpm build
+    pnpm preview
+    ```
 
-**Pagina inicial**: deben armar una landing page con
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
--   [ ] Alguna imagen de fondo representativa al proyecto
--   [ ] Botón para ingresar al home (`Ruta principal`)
+<!-- USAGE EXAMPLES -->
 
-**Ruta principal**: debe contener
+# Usage
 
--   [ ] Input de búsqueda para encontrar videojuegos por nombre
--   [ ] Área donde se verá el listado de videojuegos. Deberá mostrar su:
-    -   Imagen
-    -   Nombre
-    -   Géneros
--   [ ] Botones/Opciones para filtrar por género y por videojuego existente o agregado por nosotros
--   [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente los videojuegos por orden alfabético y por rating
--   [ ] Paginado para ir buscando y mostrando los siguientes videojuegos, 15 juegos por pagina, mostrando los primeros 15 en la primer pagina.
+## API:
 
-**IMPORTANTE**: Dentro de la Ruta Principal se deben mostrar tanto los videjuegos traidos desde la API como así también los de la base de datos. Debido a que en la API existen alrededor de 500 mil juegos, por cuestiones de performance pueden tomar la simplificación de obtener y paginar los primeras 100.
+### Swagger Docs:
 
-**Ruta de detalle de videojuego**: debe contener
+-   You will find all the endpoints, what they do, what they return and all the information related to the backend and the database:
 
--   [ ] Los campos mostrados en la ruta principal para cada videojuegos (imagen, nombre, y géneros)
--   [ ] Descripción
--   [ ] Fecha de lanzamiento
--   [ ] Rating
--   [ ] Plataformas
+See the docs in development:
 
-**Ruta de creación de videojuegos**: debe contener
+> `DEVELOPMENT`: http://localhost:3000/
 
--   [ ] Un formulario **controlado con JavaScript** con los siguientes campos:
-    -   Nombre
-    -   Descripción
-    -   Fecha de lanzamiento
-    -   Rating
--   [ ] Posibilidad de seleccionar/agregar varios géneros
--   [ ] Posibilidad de seleccionar/agregar varias plataformas
--   [ ] Botón/Opción para crear un nuevo videojuego
+See the docs in production:
 
-> Es requisito que el formulario de creación esté validado con JavaScript y no sólo con validaciones HTML. Pueden agregar las validaciones que consideren. Por ejemplo: Que el nombre del juego no pueda contener algunos símbolos, que el rating no pueda exceder determinado valor, etc.
+> `PRODUCTION`: https://api-pi-videogames.pinol.site/
 
-## Base de datos
+## Client:
 
-El modelo de la base de datos deberá tener las siguientes entidades (Aquellas propiedades marcadas con asterísco deben ser obligatorias):
+-   You can interact with the functionalities of the project, in the following links:
 
--   [ ] Videojuego con las siguientes propiedades:
-    -   ID: \* No puede ser un ID de un videojuego ya existente en la API rawg
-    -   Nombre \*
-    -   Descripción \*
-    -   Fecha de lanzamiento
-    -   Rating
-    -   Plataformas \*
--   [ ] Genero con las siguientes propiedades:
-    -   ID
-    -   Nombre
+Running the project in development:
 
-La relación entre ambas entidades debe ser de muchos a muchos ya que un videojuego puede pertenecer a varios géneros en simultaneo y, a su vez, un género puede contener múltiples videojuegos distintos. Un ejemplo sería el juego `Counter Strike` pertenece a los géneros Shooter y Action al mismo tiempo. Pero a su vez existen otros videojuegos considerados como Shooter o como Action.
+> `DEVELOPMENT`: http://localhost:8080/
 
-**IMPORTANTE**: Pensar como modelar los IDs de los videojuegos en la base de datos. Existen distintas formas correctas de hacerlo pero tener en cuenta que cuando hagamos click en algun videojuego, este puede provenir de la API o de la Base de Datos por lo que cuando muestre su detalle no debería haber ambigüedad en cual se debería mostrar. Por ejemplo si en la API el videojuego `Age of Empires II: Age of Kings` tiene id = 1 y en nuestra base de datos creamos un nuevo videojuego `Age of Henry` con id = 1, ver la forma de diferenciarlos cuando querramos acceder al detalle del mismo.
+Running the project in development, with docker:
 
-## Backend
+> `DEVELOPMENT WITH DOCKER`: http://localhost:4173/
 
-Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
+See the project in production:
 
-**IMPORTANTE**: No está permitido utilizar los filtrados, ordenamientos y paginados brindados por la API externa, todas estas funcionalidades tienen que implementarlas ustedes.
+> `PRODUCTION`: https://henrygames.lucianopinol.com/
 
--   [ ] **GET /videogames**:
-    -   Obtener un listado de los videojuegos
-    -   Debe devolver solo los datos necesarios para la ruta principal
--   [ ] **GET /videogames?name="..."**:
-    -   Obtener un listado de las primeros 15 videojuegos que contengan la palabra ingresada como query parameter
-    -   Si no existe ningún videojuego mostrar un mensaje adecuado
--   [ ] **GET /videogame/{idVideogame}**:
-    -   Obtener el detalle de un videojuego en particular
-    -   Debe traer solo los datos pedidos en la ruta de detalle de videojuego
-    -   Incluir los géneros asociados
--   [ ] **POST /videogames**:
-    -   Recibe los datos recolectados desde el formulario controlado de la ruta de creación de videojuego por body
-    -   Crea un videojuego en la base de datos, relacionado a sus géneros.
--   [ ] **GET /genres**:
-    -   Obtener todos los tipos de géneros de videojuegos posibles
-    -   En una primera instancia deberán traerlos desde rawg y guardarlos en su propia base de datos y luego ya utilizarlos desde allí
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Testing
+<!-- DEPLOY WITH DOCKER -->
 
--   [ ] Al menos tener un componente del frontend con sus tests respectivos
--   [ ] Al menos tener una ruta del backend con sus tests respectivos
--   [ ] Al menos tener un modelo de la base de datos con sus tests respectivos
+# Deploy with Docker
+
+To run this application in Docker, follow the below steps:
+
+## Prerequisites
+
+It is necessary to have [docker](https://docs.docker.com/engine/install/) and [docker compose](https://docs.docker.com/compose/) installed. Make sure you have them installed, follow the installation guide on the official page.
+
+-   Check if they are _installed_, run the following commands to see their version:
+    <br />
+    `docker --version`
+    <br />
+    `docker compose version`
+
+    Output example:
+
+    ```sh
+    - docker --version
+    Docker version 23.0.1, build a5ee5b1
+
+    - docker compose version
+    Docker Compose version v2.16.0
+    ```
+
+## Installation
+
+1. **In the root of the project folder `pi-videogames`** run the following command, and wait for the installation to finish:
+
+    ```sh
+    docker compose build
+    ```
+
+2. **Run the following command** to pull up all the services described in the docker-compose.yml file.
+
+    ```sh
+    docker compose up -d
+    ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- USAGE EXAMPLES -->
+
+# Usage the project running with Docker
+
+The client running inside a docker container will run on host `http://localhost:4173/` while the other way around it will run on host `http://localhost:8080/`. The backend and database configuration is the same.
+
+<!-- LICENSE -->
+
+<br />
+
+# License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTACT -->
+
+# Contact
+
+-   Linkedin: [https://linkedin.com/in/lucianopinol](https://linkedin.com/in/lucianopinol)
+-   Telegram: [@Luem02](https://t.me/luem02)
+-   Email: dev@lucianopinol.com
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/luem2/pi-videogames.svg?style=for-the-badge
+[contributors-url]: https://github.com/luem2/pi-videogames/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/luem2/pi-videogames.svg?style=for-the-badge
+[forks-url]: https://github.com/luem2/pi-videogames/network/members
+[stars-shield]: https://img.shields.io/github/stars/luem2/pi-videogames.svg?style=for-the-badge
+[stars-url]: https://github.com/luem2/pi-videogames/stargazers
+[issues-shield]: https://img.shields.io/github/issues/luem2/pi-videogames.svg?style=for-the-badge
+[issues-url]: https://github.com/luem2/pi-videogames/issues
+[license-shield]: https://img.shields.io/github/license/luem2/pi-videogames.svg?style=for-the-badge
+[license-url]: https://github.com/luem2/pi-videogames/blob/main/LICENSE
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/lucianopinol
+[product-screenshot]: ./client/src/assets/henrygames.png
+[html]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
+[html-url]: https://https://developer.mozilla.org/es/docs/Web/HTML
+[css]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
+[css-url]: https://developer.mozilla.org/es/docs/Web/CSS
+[typescript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+[typescript-url]: https://www.typescriptlang.org/
+[react]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://reactjs.org/
+[redux]: https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white
+[redux-url]: https://redux-toolkit.js.org/
+[node]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
+[node-url]: https://nodejs.org/es/
+[express]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
+[express-url]: https://expressjs.com/es/
+[postgres]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[postgres-url]: https://www.postgresql.org/
+[sequelize]: https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white
+[sequelize-url]: https://sequelize.org/
+[docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
+[docker-url]: https://docker.com
+[swagger]: https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white
+[swagger-url]: https://swagger.io/tools/swagger-ui/
