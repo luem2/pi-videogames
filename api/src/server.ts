@@ -4,11 +4,13 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
+import swaggerUi from 'swagger-ui-express'
 
 import getGenres from './controllers/genres.controller'
 import genresRoutes from './routes/genres.route'
 import videogameRoutes from './routes/videogame.route'
 import videogamesRoutes from './routes/videogames.route'
+import swaggerSetup from './docs/swagger'
 import { sequelize } from './database/connection'
 import { handleError } from './middlewares/handleError'
 import { config } from './config/env'
@@ -17,6 +19,7 @@ class Server {
     readonly app: Application
     readonly port: string | number
     readonly apiPaths = {
+        docs: '/docs',
         genres: '/api/genres',
         videogame: '/api/videogame',
         videogames: '/api/videogames',
@@ -74,6 +77,12 @@ class Server {
         this.app.use(this.apiPaths.genres, genresRoutes)
         this.app.use(this.apiPaths.videogame, videogameRoutes)
         this.app.use(this.apiPaths.videogames, videogamesRoutes)
+
+        this.app.use(
+            this.apiPaths.docs,
+            swaggerUi.serve,
+            swaggerUi.setup(swaggerSetup)
+        )
     }
 
     listen(): void {
