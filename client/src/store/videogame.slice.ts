@@ -4,6 +4,8 @@ import type { IGenre, IInitialState, IVideogame } from '../types'
 import axios from 'axios'
 import { createSlice } from '@reduxjs/toolkit'
 
+import { DEFAULT } from '../utility/'
+
 import { alphabeticVideogamesSort, ratingVideogamesSort } from './utils'
 import { gameNotFoundModal } from './modal.slice'
 
@@ -13,6 +15,12 @@ const initialState: IInitialState = {
     filteredVideogames: [],
     videogameDetails: {},
     genres: [],
+    select: {
+        alpha: DEFAULT,
+        rating: DEFAULT,
+        genre: DEFAULT,
+        source: DEFAULT,
+    },
 }
 
 const videogameSlice = createSlice({
@@ -32,8 +40,9 @@ const videogameSlice = createSlice({
         },
 
         alphaSort: (state, action) => {
-            if (action.payload === 'default') {
+            if (action.payload === DEFAULT) {
                 state.filteredVideogames = state.videogames
+                state.select.alpha = action.payload
 
                 return
             }
@@ -44,11 +53,13 @@ const videogameSlice = createSlice({
             )
 
             state.filteredVideogames = alphabeticVideogames
+            state.select.alpha = action.payload
         },
 
         ratingSort: (state, action) => {
-            if (action.payload === 'default') {
+            if (action.payload === DEFAULT) {
                 state.filteredVideogames = state.videogames
+                state.select.rating = action.payload
 
                 return
             }
@@ -59,10 +70,11 @@ const videogameSlice = createSlice({
             )
 
             state.filteredVideogames = ratingVideogames
+            state.select.rating = action.payload
         },
 
         genresSort: (state, action) => {
-            if (action.payload === 'default') {
+            if (action.payload === DEFAULT) {
                 state.filteredVideogames = state.videogames
 
                 return
@@ -72,13 +84,29 @@ const videogameSlice = createSlice({
         },
 
         gamesSort: (state, action) => {
-            if (action.payload === 'default') {
+            if (action.payload === DEFAULT) {
                 state.filteredVideogames = state.videogames
 
                 return
             }
 
             state.filteredVideogames = action.payload
+        },
+
+        setSelectAlpha: (state, action) => {
+            state.select.alpha = action.payload
+        },
+
+        setSelectRating: (state, action) => {
+            state.select.rating = action.payload
+        },
+
+        setSelectGenre: (state, action) => {
+            state.select.genre = action.payload
+        },
+
+        setSelectSource: (state, action) => {
+            state.select.source = action.payload
         },
 
         getDetails: (state, action) => {
@@ -237,6 +265,10 @@ export const {
     clearHome,
     gamesSort,
     genresSort,
+    setSelectAlpha,
+    setSelectGenre,
+    setSelectRating,
+    setSelectSource,
     getDetails,
     getGenres,
     getQueryGames,
