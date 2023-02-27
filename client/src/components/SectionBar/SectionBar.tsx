@@ -2,9 +2,17 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import Button from '../Button/Button'
-import { clearFilters, setCurrentPage } from '../../store/videogame.slice'
+import {
+    setSelectAlpha,
+    setSelectGenre,
+    setSelectRating,
+    setSelectSource,
+    clearFilters,
+    setCurrentPage,
+} from '../../store/videogame.slice'
 import reset from '../../assets/resetButton3.png'
 import create from '../../assets/mando3.png'
+import { DEFAULT } from '../../utility'
 
 import style from './SectionBar.module.css'
 import Order from './Order'
@@ -15,6 +23,12 @@ const Sidebar = (): JSX.Element => {
     const handleReset = (e: React.FormEvent): void => {
         e.preventDefault()
         dispatch(clearFilters())
+        // Clear all the filters
+        dispatch(setSelectAlpha(DEFAULT))
+        dispatch(setSelectGenre(DEFAULT))
+        dispatch(setSelectRating(DEFAULT))
+        dispatch(setSelectSource(DEFAULT))
+        // --------------------
         dispatch(setCurrentPage(1))
     }
 

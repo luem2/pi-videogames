@@ -25,6 +25,12 @@ export interface IInitialState {
     filteredVideogames: IVideogame[]
     videogameDetails: IVideogame | Record<string>
     genres: string[]
+    select: {
+        alpha: string
+        rating: string
+        genre: string
+        source: string
+    }
 }
 
 export interface IGenre {

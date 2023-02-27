@@ -9,12 +9,15 @@ import {
     genresSort,
     ratingSort,
     setCurrentPage,
+    setSelectGenre,
+    setSelectSource,
 } from '../../store/videogame.slice'
 import {
     ASCENDENTE,
     DESCENDENTE,
     EXTERNAL_API,
     DATABASE_GAMES,
+    DEFAULT,
 } from '../../utility'
 import { genres } from '../../utility/genres'
 import { gameNotFoundModal } from '../../store/modal.slice'
@@ -23,7 +26,9 @@ import style from './Order.module.css'
 
 const Order = (): JSX.Element => {
     const dispatch: AppDispatch = useDispatch()
-    const { videogames } = useSelector((state: RootState) => state.videogames)
+    const { videogames, select } = useSelector(
+        (state: RootState) => state.videogames
+    )
 
     const orderByAlpha = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         dispatch(alphaSort(e.target.value))
@@ -36,8 +41,9 @@ const Order = (): JSX.Element => {
     const orderByGenres = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const payload = e.target.value as GenresName
 
-        if (e.target.value === 'default') {
+        if (e.target.value === DEFAULT) {
             dispatch(genresSort(e.target.value))
+            dispatch(setSelectGenre(e.target.value))
         } else {
             const videogamesGenresFiltered = videogames.filter((g) => {
                 const genres = g.genres as GenresName[]
@@ -48,6 +54,7 @@ const Order = (): JSX.Element => {
             if (videogamesGenresFiltered.length) {
                 dispatch(setCurrentPage(1))
                 dispatch(genresSort(videogamesGenresFiltered))
+                dispatch(setSelectGenre(e.target.value))
             } else {
                 dispatch(gameNotFoundModal(true))
             }
@@ -55,8 +62,9 @@ const Order = (): JSX.Element => {
     }
 
     const orderByGames = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-        if (e.target.value === 'default') {
+        if (e.target.value === DEFAULT) {
             dispatch(genresSort(e.target.value))
+            dispatch(setSelectSource(e.target.value))
         } else {
             const videogamesSourceFiltered = videogames.filter((game) => {
                 if (e.target.value === EXTERNAL_API) {
@@ -69,6 +77,7 @@ const Order = (): JSX.Element => {
             if (videogamesSourceFiltered.length) {
                 dispatch(setCurrentPage(1))
                 dispatch(gamesSort(videogamesSourceFiltered))
+                dispatch(setSelectSource(e.target.value))
             } else {
                 dispatch(gameNotFoundModal(true))
             }
@@ -81,9 +90,10 @@ const Order = (): JSX.Element => {
                 <select
                     className={style.order}
                     name='select'
+                    value={select.alpha}
                     onChange={orderByAlpha}
                 >
-                    <option value='default'>Alpha Order:</option>
+                    <option value={DEFAULT}>Alpha Order:</option>
                     <option value={ASCENDENTE}>Sort: A - Z</option>
                     <option value={DESCENDENTE}>Sort: Z - A</option>
                 </select>
@@ -91,9 +101,10 @@ const Order = (): JSX.Element => {
                 <select
                     className={style.order}
                     name='select'
+                    value={select.rating}
                     onChange={orderByRating}
                 >
-                    <option value='default'>Rating Order:</option>
+                    <option value={DEFAULT}>Rating Order:</option>
                     <option value={DESCENDENTE}>High Rating</option>
                     <option value={ASCENDENTE}>Low Rating</option>
                 </select>
@@ -103,9 +114,10 @@ const Order = (): JSX.Element => {
                 <select
                     className={style.order}
                     name='select'
+                    value={select.genre}
                     onChange={orderByGenres}
                 >
-                    <option value='default'>Genre Order:</option>
+                    <option value={DEFAULT}>Genre Order:</option>
                     {genres.map((p, index) => (
                         <option key={index} value={p}>
                             {p}
@@ -116,9 +128,10 @@ const Order = (): JSX.Element => {
                 <select
                     className={style.order}
                     name='select'
+                    value={select.source}
                     onChange={orderByGames}
                 >
-                    <option value='default'>Order Games by:</option>
+                    <option value={DEFAULT}>Order Games by:</option>
                     <option value={EXTERNAL_API}>External API</option>
                     <option value={DATABASE_GAMES}>
                         Database Created Games
