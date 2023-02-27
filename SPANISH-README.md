@@ -225,11 +225,11 @@ Es necesario tener al menos la última versión estable de [Node](https://nodejs
 
 Ver la documentación en desarrollo:
 
-> `DESARROLLO`: http://localhost:3000/
+> `DESARROLLO`: http://localhost:3000/docs
 
 Ver la documentación en producción:
 
-> `PRODUCCIÓN`: https://api-pi-videogames.pinol.site/
+> `PRODUCCIÓN`: https://api-pi-videogames.pinol.site/docs
 
 ## Cliente:
 

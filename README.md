@@ -225,11 +225,11 @@ It is necessary to have at least the latest stable version of [Node](https://nod
 
 See the docs in development:
 
-> `DEVELOPMENT`: http://localhost:3000/
+> `DEVELOPMENT`: http://localhost:3000/docs
 
 See the docs in production:
 
-> `PRODUCTION`: https://api-pi-videogames.pinol.site/
+> `PRODUCTION`: https://api-pi-videogames.pinol.site/docs
 
 ## Client:
 
