@@ -320,6 +320,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
+<!-- Github Shields/Badges -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/luem2/pi-videogames.svg?style=for-the-badge
 [contributors-url]: https://github.com/luem2/pi-videogames/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/luem2/pi-videogames.svg?style=for-the-badge
@@ -332,7 +334,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [license-url]: https://github.com/luem2/pi-videogames/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/lucianopinol
+
+<!-- Product Screenshot -->
+
 [product-screenshot]: ./client/src/assets/henrygames.png
+
+<!-- Technologies Shields/Badges and their documentation URL -->
+
 [html]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
 [html-url]: https://https://developer.mozilla.org/es/docs/Web/HTML
 [css]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
