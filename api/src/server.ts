@@ -39,7 +39,7 @@ class Server {
             await sequelize.sync({ force: false })
             await getGenres()
 
-            console.info('Database connected')
+            console.info('🟢 Database connected')
         } catch (error) {
             console.error(error)
         }
@@ -48,7 +48,11 @@ class Server {
     middlewares(): void {
         this.app.use(
             cors({
-                origin: config.ORIGIN_CORS,
+                origin:
+                    config.NODE_ENV === 'production' &&
+                    typeof config.ORIGIN_CORS !== 'undefined'
+                        ? JSON.parse(config.ORIGIN_CORS)
+                        : config.ORIGIN_CORS,
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
@@ -87,7 +91,7 @@ class Server {
 
     listen(): void {
         this.app.listen(this.port, () => {
-            console.info(`Server listening on port ${this.port}`)
+            console.info(`🟢 Server listening on port ${this.port}`)
         })
     }
 }
