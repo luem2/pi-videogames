@@ -6,14 +6,15 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import swaggerUi from 'swagger-ui-express'
 
-import getGenres from './controllers/genres.controller'
-import genresRoutes from './routes/genres.route'
-import videogameRoutes from './routes/videogame.route'
-import videogamesRoutes from './routes/videogames.route'
-import swaggerSetup from './docs/swagger'
-import { sequelize } from './database/connection'
-import { handleError } from './middlewares/handleError'
-import { config } from './config/env'
+import getGenres from '../controllers/genres.controller'
+import genresRoutes from '../routes/genres.route'
+import videogameRoutes from '../routes/videogame.route'
+import videogamesRoutes from '../routes/videogames.route'
+import swaggerSetup from '../docs/swagger'
+import { sequelize } from '../database/connection'
+import { handleError } from '../middlewares/handleError'
+
+import { config } from './env'
 
 class Server {
     readonly app: Application

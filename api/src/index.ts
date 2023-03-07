@@ -18,7 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import Server from './server'
+import Server from './config/server'
 
 async function bootstrap(): Promise<void> {
     try {
