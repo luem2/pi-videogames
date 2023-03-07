@@ -166,9 +166,8 @@ Es necesario tener al menos la última versión estable de [Node](https://nodejs
 3. **Crear un archivo `.env`** en la raiz de la carpeta `api`. El archivo se verá así (un archivo de ejemplo `.env.example` está en la carpeta api):
 
     ```js
-    API_KEY=*YOU_API_KEY*
+    API_KEY=*YOUR_API_KEY*
     PORT=3000
-    NODE_ENV=development
 
     DB_NAME=videogames
     DB_USER=postgres

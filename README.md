@@ -166,9 +166,8 @@ It is necessary to have at least the latest stable version of [Node](https://nod
 3. **Create an `.env` file** in the root of `api` folder. The file will look like this (an example file `.env.example` is in the api folder):
 
     ```js
-    API_KEY=*YOU_API_KEY*
+    API_KEY=*YOUR_API_KEY*
     PORT=3000
-    NODE_ENV=development
 
     DB_NAME=videogames
     DB_USER=postgres
