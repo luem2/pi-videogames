@@ -229,7 +229,7 @@ Ver la documentación en desarrollo:
 
 Ver la documentación en producción:
 
-> `PRODUCCIÓN`: https://api-pi-videogames.pinol.site/docs
+> `PRODUCCIÓN`: https://api-henrygames.pinol.site/docs
 
 ## Cliente:
 

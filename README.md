@@ -229,7 +229,7 @@ See the docs in development:
 
 See the docs in production:
 
-> `PRODUCTION`: https://api-pi-videogames.pinol.site/docs
+> `PRODUCTION`: https://api-henrygames.pinol.site/docs
 
 ## Client:
 
