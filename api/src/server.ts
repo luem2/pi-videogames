@@ -48,7 +48,7 @@ class Server {
     middlewares(): void {
         this.app.use(
             cors({
-                origin: config.URL_CLIENT,
+                origin: config.ORIGIN_CORS,
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [

@@ -16,8 +16,8 @@ export const config = {
     PGPORT: process.env.PGPORT ?? 5432,
     PGDATABASE: process.env.PGDATABASE ?? 'db-postgres',
     NODE_ENV: process.env.NODE_ENV ?? 'development',
-    URL_CLIENT:
-        process.env.NODE_ENV === 'production' ? process.env.URL_CLIENT : '*',
+    ORIGIN_CORS:
+        process.env.NODE_ENV === 'production' ? process.env.ORIGIN_CORS : '*',
 }
 
 export const API_GAMES_EP = 'https://api.rawg.io/api/games'
