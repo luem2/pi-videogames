@@ -18,7 +18,7 @@ import { config } from './env'
 
 class Server {
     readonly app: Application
-    readonly port: string | number
+    readonly port: number
     readonly apiPaths = {
         docs: '/docs',
         genres: '/api/genres',
@@ -28,7 +28,7 @@ class Server {
 
     constructor() {
         this.app = express()
-        this.port = config.PORT
+        this.port = Number(config.PORT)
 
         this.middlewares()
         this.routes()
@@ -49,11 +49,7 @@ class Server {
     middlewares(): void {
         this.app.use(
             cors({
-                origin:
-                    config.NODE_ENV === 'production' &&
-                    typeof config.ORIGIN_CORS !== 'undefined'
-                        ? JSON.parse(config.ORIGIN_CORS)
-                        : config.ORIGIN_CORS,
+                origin: config.ORIGIN_CORS,
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [

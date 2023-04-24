@@ -97,9 +97,6 @@ dist
 # FuseBox cache
 .fusebox/
 
-# Docker compose
-docker-compose.yml
-
 # DynamoDB Local files
 .dynamodb/
 

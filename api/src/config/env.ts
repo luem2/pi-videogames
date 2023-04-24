@@ -9,15 +9,11 @@ export const config = {
     DB_PORT: process.env.DB_PORT ?? 5432,
     DB_NAME: process.env.DB_NAME ?? 'videogames',
     PORT: process.env.PORT ?? 3000,
-    API_KEY: process.env.API_KEY ?? '9b01d9sa0620458599ca079cegfa92e4',
-    PGUSER: process.env.PGUSER ?? 'postgres',
-    PGPASSWORD: process.env.PGPASSWORD ?? 'password-megapoderosa-123',
-    PGHOST: process.env.PGHOST ?? 'https://urldatabase.com/',
-    PGPORT: process.env.PGPORT ?? 5432,
-    PGDATABASE: process.env.PGDATABASE ?? 'db-postgres',
-    NODE_ENV: process.env.NODE_ENV ?? 'development',
+    API_KEY: process.env.API_KEY ?? 'YOUR_API_KEY_HERE',
     ORIGIN_CORS:
-        process.env.NODE_ENV === 'production' ? process.env.ORIGIN_CORS : '*',
+        typeof process.env.ORIGIN_CORS !== 'undefined'
+            ? JSON.parse(process.env.ORIGIN_CORS)
+            : '*',
 }
 
 export const API_GAMES_EP = 'https://api.rawg.io/api/games'
