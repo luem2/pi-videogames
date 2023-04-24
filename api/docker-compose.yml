@@ -5,11 +5,7 @@ services:
     api:
         container_name: api-henrygames
         restart: unless-stopped
-        image: api-henrygames:1.0.0
-        build:
-            context: .
-            target: API-HenryGames
-            dockerfile: Dockerfile
+        image: api-henrygames
         ports:
             - '3000:3000'
         networks:
