@@ -5,7 +5,7 @@ services:
         container_name: henrygames
         restart: unless-stopped
         image: api-henrygames
-        env_file: .stack.env
+        env_file: stack.env
         ports:
             - '3000:3000'
         networks:
