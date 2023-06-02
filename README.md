@@ -47,7 +47,7 @@
     <a href="https://github.com/Luem2/pi-videogames/blob/main/SPANISH-README.md"><strong>Explore the docs in spanish »</strong></a>
     <br />
     <br />
-    <a href="https://henrygames.lucianopinol.com">View Demo</a>
+    <a href="https://henrygames.pinol.lat">View Demo</a>
     ·
     <a href="https://github.com/luem2/pi-videogames/issues">Report Bug</a>
     ·
@@ -86,13 +86,13 @@
 
 # About The Project
 
-[![Henry Games Screenshot][product-screenshot]](https://henrygames.lucianopinol.com)
+[![Henry Games Screenshot][product-screenshot]](https://henrygames.pinol.lat)
 
 ### Introduction
 
 Henry Games its a Individual project done at Henry's Bootcamp, is an application to search and create game information, filter by name, rating, genre and origin.
 
-> Check the `live demo`: [https://henrygames.lucianopinol.com/](https://henrygames.lucianopinol.com)
+> Check the `live demo`: [https://henrygames.pinol.lat/](https://henrygames.pinol.lat)
 
 The general idea is to create an application in which you can see the different videogames available along with relevant information about them using the [RAWG](https://rawg.io/apidocs) external api and from it, among other things:
 
@@ -228,7 +228,7 @@ See the docs in development:
 
 See the docs in production:
 
-> `PRODUCTION`: https://api-henrygames.pinol.site/docs
+> `PRODUCTION`: https://henrygames.pinol.site/docs
 
 ## Client:
 
@@ -244,7 +244,7 @@ Running the project in development, with docker:
 
 See the project in production:
 
-> `PRODUCTION`: https://henrygames.lucianopinol.com/
+> `PRODUCTION`: https://henrygames.pinol.lat/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -312,7 +312,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 -   Linkedin: [https://linkedin.com/in/lucianopinol](https://linkedin.com/in/lucianopinol)
 -   Telegram: [@Luem02](https://t.me/luem02)
--   Email: dev@lucianopinol.com
+-   Email: lucianoepinol@gmail.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

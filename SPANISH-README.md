@@ -47,7 +47,7 @@
     <a href="https://github.com/Luem2/pi-videogames/blob/main/README.md"><strong>Explore los documentos en inglés »</strong></a>
     <br />
     <br />
-    <a href="https://henrygames.lucianopinol.com">Ver Demo</a>
+    <a href="https://henrygames.pinol.lat">Ver Demo</a>
     ·
     <a href="https://github.com/luem2/pi-videogames/issues">Reportar fallo</a>
     ·
@@ -86,13 +86,13 @@
 
 # Acerca del Proyecto
 
-[![Henry Games Screenshot][product-screenshot]](https://henrygames.lucianopinol.com)
+[![Henry Games Screenshot][product-screenshot]](https://henrygames.pinol.lat)
 
 ### Introducción
 
 Henry games es un proyecto individual hecho en el Bootcamp de Henry, es una aplicación para buscar y crear información de juegos, filtrar por nombre, puntuación, género y origen.
 
-> Visitar la `demo en vivo`: [https://henrygames.lucianopinol.com/](https://henrygames.lucianopinol.com)
+> Visitar la `demo en vivo`: [https://henrygames.pinol.lat/](https://henrygames.pinol.lat)
 
 La idea general es crear una aplicación en la que se puedan ver los diferentes videojuegos disponibles junto con información relevante sobre los mismos utilizando la api externa [RAWG](https://rawg.io/apidocs) y desde ella, entre otras cosas:
 
@@ -228,7 +228,7 @@ Ver la documentación en desarrollo:
 
 Ver la documentación en producción:
 
-> `PRODUCCIÓN`: https://api-henrygames.pinol.site/docs
+> `PRODUCCIÓN`: https://henrygames.pinol.site/docs
 
 ## Cliente:
 
@@ -244,7 +244,7 @@ Ejecutando el proyecto en desarrollo, con docker:
 
 Ver el proyecto en producción:
 
-> `PRODUCCIÓN`: https://henrygames.lucianopinol.com/
+> `PRODUCCIÓN`: https://henrygames.pinol.lat/
 
 <p align="right">(<a href="#readme-top">volver al principio</a>)</p>
 
@@ -312,7 +312,7 @@ Distribuido bajo la licencia MIT. Consulte `LICENSE` para obtener más informaci
 
 -   Linkedin: [https://linkedin.com/in/lucianopinol](https://linkedin.com/in/lucianopinol)
 -   Telegram: [@Luem02](https://t.me/luem02)
--   Email: dev@lucianopinol.com
+-   Email: lucianoepinol@gmail.com
 
 <p align="right">(<a href="#readme-top">volver al principio</a>)</p>
 

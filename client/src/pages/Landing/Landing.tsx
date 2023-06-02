@@ -46,7 +46,7 @@ const Landing = (): JSX.Element => {
             <span className={style.createdBy}>
                 Created By:
                 <a
-                    href='https://lucianopinol.com/'
+                    href={import.meta.env.VITE_PORTFOLIO}
                     rel='noopener noreferrer'
                     target='_blank'
                 >
