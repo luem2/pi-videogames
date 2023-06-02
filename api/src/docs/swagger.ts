@@ -14,7 +14,7 @@ const swaggerDefinition: OAS3Definition = {
             description: 'Development Environment API',
         },
         {
-            url: 'https://api-henrygames.pinol.site',
+            url: 'https://henrygames.pinol.site',
             description: 'Production Environment API',
         },
     ],
