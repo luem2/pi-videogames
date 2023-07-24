@@ -276,17 +276,11 @@ Es necesario tener [docker](https://docs.docker.com/engine/install/) y [docker c
 
 ## Instalación
 
-1. **En la raíz de la carpeta del proyecto `pi-videogames`** ejecute el siguiente comando y espere a que finalice la instalación:
+**En la raíz de la carpeta del proyecto `pi-videogames`** ejecute el siguiente comando, para construir y correr los servicios:
 
-    ```sh
-    docker compose build
-    ```
-
-2. **Ejecute el siguiente comando** para ejecutar todos los servicios descritos en el archivo docker-compose.yml.
-
-    ```sh
-     docker compose up -d
-    ```
+```sh
+docker compose up -d --build
+```
 
 <p align="right">(<a href="#readme-top">volver al principio</a>)</p>
 

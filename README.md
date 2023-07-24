@@ -276,17 +276,11 @@ It is necessary to have [docker](https://docs.docker.com/engine/install/) and [d
 
 ## Installation
 
-1. **In the root of the project folder `pi-videogames`** run the following command, and wait for the installation to finish:
+**In the root of the project folder `pi-videogames`** run the following command to build and run the services:
 
-    ```sh
-    docker compose build
-    ```
-
-2. **Run the following command** to pull up all the services described in the docker-compose.yml file.
-
-    ```sh
-    docker compose up -d
-    ```
+```sh
+docker compose up -d --build
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
