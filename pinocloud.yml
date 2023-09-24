@@ -6,14 +6,14 @@ services:
         container_name: api-henry-games
         restart: unless-stopped
         image: api-henry-games:1.0.0
-        environment:
-            - DB_HOST=postgres-db
         build:
             context: api
             target: API-HenryGames
             dockerfile: Dockerfile
         ports:
             - '3000:3000'
+        env_file:
+            - stack.env
         networks:
             - default
 
@@ -25,10 +25,11 @@ services:
             context: client
             target: CLIENT-HenryGames
             dockerfile: Dockerfile
-        env_file:
-            - stack.env
         ports:
             - '4173:4173'
+        environment:
+            - VITE_API=https://henrygames.pinol.site
+            - VITE_PORTFOLIO=https://pinol.lat
         depends_on:
             - api
         networks:
