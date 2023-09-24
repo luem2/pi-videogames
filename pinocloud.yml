@@ -25,6 +25,8 @@ services:
             context: client
             target: CLIENT-HenryGames
             dockerfile: Dockerfile
+        env_file:
+            - stack.env
         ports:
             - '4173:4173'
         depends_on:
