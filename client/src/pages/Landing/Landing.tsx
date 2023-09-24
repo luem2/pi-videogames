@@ -8,6 +8,7 @@ import logoAlternative from '../../assets/logo2.png'
 import logoLuem from '../../assets/CircleLogo.png'
 
 import style from './Landing.module.css'
+import { PORTFOLIO_URL } from '../../utility'
 
 const Landing = (): JSX.Element => {
     return (
@@ -46,7 +47,7 @@ const Landing = (): JSX.Element => {
             <span className={style.createdBy}>
                 Created By:
                 <a
-                    href={import.meta.env.VITE_PORTFOLIO}
+                    href={PORTFOLIO_URL}
                     rel='noopener noreferrer'
                     target='_blank'
                 >
