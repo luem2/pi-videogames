@@ -15,7 +15,7 @@ services:
         env_file:
             - stack.env
         networks:
-            - default
+            - proxy_network
 
     client:
         container_name: client-henry-games
@@ -33,9 +33,8 @@ services:
         depends_on:
             - api
         networks:
-            - default
+            - proxy_network
 
 networks:
-    default:
-        name: traefik_network
+    proxy_network:
         external: true
