@@ -21,7 +21,7 @@
         "pg-hstore": "^2.3.4",
         "reflect-metadata": "^0.1.13",
         "sequelize": "^6.28.0",
-        "sequelize-typescript": "^2.1.5",
+        "sequelize-typescript": "^2.1.6",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^4.6.1"
     },
